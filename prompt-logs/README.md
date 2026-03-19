@@ -1,1 +1,1 @@
-## This folder will contain all of the AI prompt logs used for this CA. Please use the prompt log templates whenever you use AI and upload them to this folder, the templates are found in the Prompt Log.docx document. 
+#### This folder will contain all of the AI prompt logs used for this CA. Please use the prompt log templates whenever you use AI and upload them to this folder, the templates are found in the Prompt Log.docx document. 
