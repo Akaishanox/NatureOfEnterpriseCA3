@@ -1,0 +1,14 @@
+[
+  {
+    "id": 1,
+    "name": "Alex",
+    "interest": "Technology",
+    "preferred_category": "Technology"
+  },
+  {
+    "id": 2,
+    "name": "Maya",
+    "interest": "Sports",
+    "preferred_category": "Sports"
+  }
+]
