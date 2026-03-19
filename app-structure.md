@@ -1,6 +1,6 @@
 Pages:
 - Home Page
-- Events Page
+- Campus Events Page
 - Helpdesk Tickets Page
 - Canteen Page
 - Settings Page (Accessibility)
