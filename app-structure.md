@@ -7,4 +7,4 @@ Pages:
 
 Each page should:
 - have the navbar
-- display data from the dataset
+- display data from the dataset (Dataset will be created shortly)
