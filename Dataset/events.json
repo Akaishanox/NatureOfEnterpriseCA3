@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "title": "Tech Workshop",
+    "category": "Technology",
+    "date": "2026-04-10",
+    "location": "TM-206",
+    "popularity": "High",
+    "description": "Hands-on workshop for students interested in coding and AI."
+  },
+  {
+    "id": 2,
+    "title": "Sports Competition",
+    "category": "Sports",
+    "date": "2026-04-15",
+    "location": "Sports Hall",
+    "popularity": "Medium",
+    "description": "Friendly campus sports competition open to all students."
+  }
+]
