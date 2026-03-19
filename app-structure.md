@@ -5,6 +5,6 @@ Pages:
 - Canteen Page
 - Settings Page (Accessibility)
 
-  Each page should:
-  - have the navbar
-  - display data from the dataset
+Each page should:
+- have the navbar
+- display data from the dataset
