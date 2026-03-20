@@ -2,13 +2,26 @@
   {
     "id": 1,
     "name": "Alex",
-    "interest": "Technology",
     "preferred_category": "Technology"
   },
   {
     "id": 2,
     "name": "Maya",
-    "interest": "Sports",
     "preferred_category": "Sports"
+  },
+  {
+    "id": 3,
+    "name": "Daniel",
+    "preferred_category": "Careers"
+  },
+  {
+    "id": 4,
+    "name": "Sophie",
+    "preferred_category": "Social"
+  },
+  {
+    "id": 5,
+    "name": "Liam",
+    "preferred_category": "Academic"
   }
 ]
