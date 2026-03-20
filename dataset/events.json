@@ -16,5 +16,77 @@
     "location": "Sports Hall",
     "popularity": "Medium",
     "description": "Friendly campus sports competition open to all students."
+  },
+  {
+    "id": 3,
+    "title": "AI Career Talk",
+    "category": "Careers",
+    "date": "2026-04-18",
+    "location": "Lecture Theatre 3",
+    "popularity": "High",
+    "description": "Industry speakers discuss careers in AI."
+  },
+  {
+    "id": 4,
+    "title": "Football Trials",
+    "category": "Sports",
+    "date": "2026-04-20",
+    "location": "Main Pitch",
+    "popularity": "High",
+    "description": "Trials for the college football team."
+  },
+  {
+    "id": 5,
+    "title": "Hackathon",
+    "category": "Technology",
+    "date": "2026-04-25",
+    "location": "Innovation Hub",
+    "popularity": "High",
+    "description": "24-hour coding challenge for students."
+  },
+  {
+    "id": 6,
+    "title": "Movie Night",
+    "category": "Social",
+    "date": "2026-04-22",
+    "location": "Student Lounge",
+    "popularity": "Low",
+    "description": "Relax and watch movies with friends."
+  },
+  {
+    "id": 7,
+    "title": "CV Workshop",
+    "category": "Careers",
+    "date": "2026-04-28",
+    "location": "Room B101",
+    "popularity": "Medium",
+    "description": "Improve your CV with career advisors."
+  },
+  {
+    "id": 8,
+    "title": "Study Skills Seminar",
+    "category": "Academic",
+    "date": "2026-04-30",
+    "location": "Library Hall",
+    "popularity": "Low",
+    "description": "Tips to improve studying and time management."
+  },
+  {
+    "id": 9,
+    "title": "Basketball Tournament",
+    "category": "Sports",
+    "date": "2026-05-02",
+    "location": "Sports Hall",
+    "popularity": "Medium",
+    "description": "Inter-class basketball competition."
+  },
+  {
+    "id": 10,
+    "title": "Networking Event",
+    "category": "Careers",
+    "date": "2026-05-05",
+    "location": "Conference Room",
+    "popularity": "High",
+    "description": "Meet professionals and expand your network."
   }
 ]
