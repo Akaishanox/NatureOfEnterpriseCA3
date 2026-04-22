@@ -1,0 +1,6 @@
+[
+  { "id": 1, "name": "Grilled Salmon",       "category": "Main",  "price": 12.50, "diet": "Gluten-Free"   },
+  { "id": 2, "name": "Margherita Pizza",     "category": "Main",  "price": 8.25,  "diet": "Vegetarian"    },
+  { "id": 3, "name": "Coffee",               "category": "Drink", "price": 2.50,  "diet": "Vegetarian"    },
+  { "id": 4, "name": "Chicken Caesar Salad", "category": "Main",  "price": 9.50,  "diet": "Contains Meat" }
+]
