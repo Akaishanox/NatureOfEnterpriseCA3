@@ -1,0 +1,5 @@
+[
+  { "id": 1, "name": "John Doe",  "student_id": "TUD12345", "email": "john@example.com",  "subject": "WiFi not working", "status": "Open",        "priority": "High"   },
+  { "id": 2, "name": "Sarah Lee", "student_id": "TUD67890", "email": "sarah@example.com", "subject": "Login issue",      "status": "In Progress", "priority": "Medium" },
+  { "id": 3, "name": "Alex Kim",  "student_id": "TUD54321", "email": "alex@example.com",  "subject": "App bug",          "status": "Closed",      "priority": "Low"    }
+]
