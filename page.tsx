@@ -1,108 +1,90 @@
 "use client";
 import { useState } from "react";
-import ticketsData from "@/data/tickets.json";
+import menuData from "@/data/menu.json";
 
-type Status   = "Open" | "In Progress" | "Closed";
-type Priority = "High" | "Medium" | "Low";
-interface Ticket { id: number; name: string; student_id: string; email: string; subject: string; status: Status; priority: Priority; }
-interface FormState { name: string; studentId: string; email: string; phone: string; subject: string; description: string; }
+interface MenuItem { id: number; name: string; category: string; price: number; diet: string; }
 
-const EMPTY: FormState = { name: "", studentId: "", email: "", phone: "", subject: "", description: "" };
-const STATUS_COL:   Record<Status,   string> = { Open: "badge-blue", "In Progress": "badge-amber", Closed: "badge-green" };
-const PRIORITY_COL: Record<Priority, string> = { High: "badge-red",  Medium: "badge-amber",        Low: "badge-grey"     };
+const menu = menuData as MenuItem[];
 
-export default function HelpdeskPage() {
-  const [form, setForm]           = useState<FormState>(EMPTY);
-  const [errors, setErrors]       = useState<Partial<FormState>>({});
-  const [submitted, setSubmitted] = useState(false);
+const ICONS: Record<string, string> = {
+  "Grilled Salmon": "🐟", "Margherita Pizza": "🍕",
+  "Coffee": "☕", "Chicken Caesar Salad": "🥗",
+};
+const DESCRIPTIONS: Record<string, string> = {
+  "Grilled Salmon":       "Delicious grilled salmon prepared with fresh herbs and lemon butter",
+  "Margherita Pizza":     "Traditional Margherita pizza prepared with fresh mozzarella and basil",
+  "Coffee":               "Freshly brewed coffee prepared with premium Arabica beans",
+  "Chicken Caesar Salad": "Classic Caesar salad prepared with grilled chicken, romaine lettuce and parmesan",
+};
+const DIET_BADGE: Record<string, string> = {
+  "Gluten-Free": "badge-blue", "Vegetarian": "badge-green",
+  "Vegan": "badge-green", "Contains Meat": "badge-amber",
+};
 
-  function set(key: keyof FormState, val: string) {
-    setForm((f) => ({ ...f, [key]: val }));
-    setErrors((e) => ({ ...e, [key]: undefined }));
-  }
+export default function CanteenPage() {
+  const [cart, setCart] = useState<number[]>([]);
 
-  function validate() {
-    const e: Partial<FormState> = {};
-    if (!form.name.trim())        e.name        = "Name is required.";
-    if (!form.studentId.trim())   e.studentId   = "Student ID is required.";
-    if (!form.email.trim())       e.email       = "Email is required.";
-    if (!form.subject.trim())     e.subject     = "Subject is required.";
-    if (!form.description.trim()) e.description = "Description is required.";
-    return e;
-  }
-
-  function handleSubmit() {
-    const e = validate();
-    if (Object.keys(e).length) { setErrors(e); return; }
-    setSubmitted(true);
-    setForm(EMPTY);
-    setErrors({});
-    setTimeout(() => setSubmitted(false), 4000);
-  }
-
-  const tickets = ticketsData as Ticket[];
+  const addToOrder = (id: number) => setCart((prev) => [...prev, id]);
+  const total = menu
+    .filter((m) => cart.includes(m.id))
+    .reduce((sum, m) => sum + m.price * cart.filter((id) => id === m.id).length, 0);
 
   return (
     <div className="page">
-      <section style={{ marginBottom: "2rem" }} aria-label="Existing tickets">
-        <p style={{ fontSize: "0.78rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.05em", color: "var(--text-muted)", marginBottom: "0.75rem" }}>Current Tickets</p>
-        <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: "0.6rem" }}>
-          {tickets.map((t) => (
-            <li key={t.id} className="card" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0.85rem 1.1rem" }}>
-              <div>
-                <div style={{ fontWeight: 600, fontSize: "0.9rem" }}>{t.subject}</div>
-                <div style={{ fontSize: "0.78rem", color: "var(--text-muted)" }}>{t.name} · {t.student_id}</div>
-              </div>
-              <div style={{ display: "flex", gap: "0.4rem" }}>
-                <span className={`badge ${PRIORITY_COL[t.priority]}`}>{t.priority}</span>
-                <span className={`badge ${STATUS_COL[t.status]}`}>{t.status}</span>
+      <h1 style={{ fontSize: "1.8rem", fontWeight: 700, color: "var(--primary)", marginBottom: "0.2rem" }}>
+        Campus Canteen
+      </h1>
+      <div style={{ width: "2.5rem", height: "3px", background: "var(--primary)", borderRadius: "2px", marginBottom: "1.25rem" }} aria-hidden="true" />
+      <h2 style={{ fontSize: "1.05rem", fontWeight: 600, marginBottom: "0.2rem" }}>Today's Menu</h2>
+      <p style={{ color: "var(--text-muted)", fontSize: "0.875rem", marginBottom: "1.5rem" }}>Choose from our menu</p>
+
+      <ul className="menu-grid" role="list" aria-label="Today's menu items">
+        {menu.map((item) => {
+          const count = cart.filter((id) => id === item.id).length;
+          return (
+            <li key={item.id} className="menu-card card">
+              <div style={{ fontSize: "2rem", textAlign: "center" }} aria-hidden="true">{ICONS[item.name] ?? "🍽️"}</div>
+              <div style={{ fontWeight: 700, fontSize: "0.95rem" }}>{item.name}</div>
+              <div><span className={`badge ${DIET_BADGE[item.diet] ?? "badge-grey"}`}>{item.diet}</span></div>
+              <p style={{ fontSize: "0.8rem", color: "var(--text-muted)", flex: 1 }}>{DESCRIPTIONS[item.name]}</p>
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: "auto" }}>
+                <span style={{ fontWeight: 700, fontSize: "1rem" }}>€{item.price.toFixed(2)}</span>
+                <button className="add-btn" onClick={() => addToOrder(item.id)}
+                  aria-label={`Add ${item.name} to order`}>
+                  {count > 0 ? `Add to Order (${count})` : "Add to Order"}
+                </button>
               </div>
             </li>
-          ))}
-        </ul>
-      </section>
+          );
+        })}
+      </ul>
 
-      <div style={{ maxWidth: 540 }}>
-        <h1 style={{ fontSize: "1.6rem", fontWeight: 700, marginBottom: "0.3rem" }}>Helpdesk</h1>
-        <p style={{ color: "var(--text-muted)", fontSize: "0.875rem", marginBottom: "1.5rem" }}>
-          Submit your questions and concerns. Our team will respond within 24 hours.
-        </p>
-
-        {submitted && (
-          <div role="alert" style={{ background: "#d1fae5", color: "#065f46", borderRadius: "6px", padding: "0.75rem 1rem", marginBottom: "1rem", fontWeight: 600, fontSize: "0.875rem" }}>
-            ✅ Request submitted! We'll get back to you within 24 hours.
-          </div>
-        )}
-
-        <div className="card" style={{ padding: "1.5rem" }}>
-          {([
-            { id: "name",      label: "Name",              placeholder: "Enter your name",         type: "text"  },
-            { id: "studentId", label: "Student ID Number", placeholder: "Enter your student ID",   type: "text"  },
-            { id: "email",     label: "Email",             placeholder: "Enter your email",        type: "email" },
-            { id: "phone",     label: "Phone Number",      placeholder: "Enter your phone number", type: "tel"   },
-            { id: "subject",   label: "Subject",           placeholder: "Enter subject",           type: "text"  },
-          ] as { id: keyof FormState; label: string; placeholder: string; type: string }[]).map(({ id, label, placeholder, type }) => (
-            <div key={id} className="form-group">
-              <label className="form-label" htmlFor={id}>{label}</label>
-              <input id={id} className="form-input" type={type} placeholder={placeholder}
-                value={form[id]} onChange={(e) => set(id, e.target.value)} />
-              {(errors as Record<string,string>)[id] && (
-                <span role="alert" style={{ color: "#ef4444", fontSize: "0.78rem" }}>{(errors as Record<string,string>)[id]}</span>
-              )}
-            </div>
-          ))}
-
-          <div className="form-group">
-            <label className="form-label" htmlFor="description">Description</label>
-            <textarea id="description" className="form-textarea" placeholder="Enter description"
-              value={form.description} onChange={(e) => set("description", e.target.value)} />
-            {errors.description && <span role="alert" style={{ color: "#ef4444", fontSize: "0.78rem" }}>{errors.description}</span>}
-          </div>
-
-          <p style={{ fontSize: "0.75rem", color: "var(--text-muted)", marginBottom: "1rem" }}>Please provide as much detail as possible.</p>
-          <button className="btn-primary" onClick={handleSubmit}>Submit Request</button>
+      {cart.length > 0 && (
+        <div className="cart-bar" role="status" aria-live="polite">
+          🛒 {cart.length} item{cart.length !== 1 ? "s" : ""} — <strong>€{total.toFixed(2)}</strong>
+          <button onClick={() => setCart([])} style={{ marginLeft: "1rem", background: "none", border: "none", color: "#fff", cursor: "pointer", textDecoration: "underline" }}>
+            Clear
+          </button>
         </div>
-      </div>
+      )}
+
+      <style>{`
+        .menu-grid { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+        .menu-card { display: flex; flex-direction: column; gap: 0.5rem; padding: 1.25rem; }
+        .add-btn {
+          background: var(--primary); color: #fff; border: none; border-radius: 6px;
+          padding: 0.45rem 0.85rem; font-family: var(--font); font-size: 0.82rem;
+          font-weight: 600; cursor: pointer; white-space: nowrap; transition: background 0.15s;
+        }
+        .add-btn:hover { background: var(--primary-dark); }
+        .add-btn:focus-visible { outline: 3px solid var(--primary); outline-offset: 2px; }
+        .cart-bar {
+          position: fixed; bottom: 1.5rem; left: 50%; transform: translateX(-50%);
+          background: var(--primary); color: #fff; padding: 0.75rem 1.5rem;
+          border-radius: 999px; font-size: 0.9rem; box-shadow: 0 4px 20px rgba(0,0,0,0.2); white-space: nowrap;
+        }
+        @media (max-width: 520px) { .menu-grid { grid-template-columns: 1fr; } }
+      `}</style>
     </div>
   );
 }
