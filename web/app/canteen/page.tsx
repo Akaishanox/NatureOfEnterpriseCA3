@@ -30,7 +30,7 @@ export default function CanteenPage() {
     .reduce((sum, m) => sum + m.price * cart.filter((id) => id === m.id).length, 0);
 
   return (
-    <div className="page">
+    <main className="events-page">
       <h1 style={{ fontSize: "1.8rem", fontWeight: 700, color: "var(--primary)", marginBottom: "0.2rem" }}>
         Campus Canteen
       </h1>
