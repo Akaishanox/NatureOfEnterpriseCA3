@@ -85,6 +85,6 @@ export default function CanteenPage() {
         }
         @media (max-width: 520px) { .menu-grid { grid-template-columns: 1fr; } }
       `}</style>
-    </div>
+    </main>
   );
 }
