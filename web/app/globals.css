@@ -183,3 +183,31 @@ body {
   max-width: 1340px;
   margin: 0 auto;
 }
+
+.page-title {
+  color: var(--primary);
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.page-line {
+  width: 65px;
+  height: 7px;
+  background: var(--primary);
+  border-radius: 10px;
+  margin-bottom: 35px;
+}
+
+.section-title {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.section-subtitle {
+  color: var(--text-muted);
+  font-size: 16px;
+  margin-bottom: 35px;
+}
