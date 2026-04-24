@@ -3,11 +3,11 @@ import events from "@/data/events.json";
 export default function EventsPage() {
   return (
     <main className="events-page">
-      <h1>Campus Events</h1>
-      <div className="blue-line"></div>
+     <h1 className="page-title">Campus Events</h1>
+<div className="page-line"></div>
 
-      <h2>Upcoming Events</h2>
-      <p className="events-subtitle">
+<h2 className="section-title">Upcoming Events</h2>
+<p className="section-subtitle">Browse and register for campus events</p>
         Browse and register for campus events
       </p>
 
