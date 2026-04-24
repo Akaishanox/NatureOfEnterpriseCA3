@@ -211,3 +211,19 @@ body {
   font-size: 16px;
   margin-bottom: 35px;
 }
+
+/* ===== ADDED CANTEEN MATCH ===== */
+
+.menu-grid {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 38px 95px;
+  max-width: 1340px;
+  margin: 0 auto;
+}
+
+.menu-card {
+  min-height: 310px;
+  padding: 28px 26px 32px;
+}
