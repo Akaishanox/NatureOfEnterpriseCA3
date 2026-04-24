@@ -90,3 +90,88 @@ body {
   .page { padding-left: 1rem; padding-right: 1rem; }
   .nav-link { font-size: 0.75rem; padding: 0.3rem 0.4rem; }
 }
+
+.events-page {
+  padding: 45px 50px;
+}
+
+.events-page h1 {
+  color: #1746a2;
+  font-size: 32px;
+  margin-bottom: 8px;
+}
+
+.blue-line {
+  width: 65px;
+  height: 7px;
+  background-color: #3b82f6;
+  border-radius: 10px;
+  margin-bottom: 45px;
+}
+
+.events-page h2 {
+  font-size: 26px;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.events-subtitle {
+  color: #666;
+  margin-bottom: 35px;
+}
+
+.events-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 38px 95px;
+  max-width: 1340px;
+  margin: 0 auto;
+}
+
+.event-card {
+  background: white;
+  border: 1px solid #d7d7d7;
+  border-radius: 8px;
+  padding: 28px 26px 32px;
+  min-height: 310px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+.event-icon {
+  text-align: center;
+  font-size: 35px;
+  margin-bottom: 16px;
+}
+
+.event-card h3 {
+  text-align: center;
+  font-size: 22px;
+  margin-bottom: 22px;
+  color: #111;
+}
+
+.event-card p {
+  font-size: 15px;
+  color: #555;
+  margin-bottom: 9px;
+}
+
+.event-description {
+  margin-top: 18px;
+  margin-bottom: 22px !important;
+}
+
+.register-btn {
+  width: 100%;
+  background: #3b82f6;
+  color: white;
+  border: none;
+  padding: 13px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.register-btn:hover {
+  background: #2563eb;
+}
