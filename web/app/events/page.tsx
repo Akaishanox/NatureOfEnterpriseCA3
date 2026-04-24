@@ -2,20 +2,33 @@ import events from "@/data/events.json";
 
 export default function EventsPage() {
   return (
-    <main className="page">
+    <main className="events-page">
       <h1>Campus Events</h1>
-      <p>Browse upcoming events on campus</p>
+      <div className="blue-line"></div>
 
-      <div className="grid">
+      <h2>Upcoming Events</h2>
+      <p className="events-subtitle">
+        Browse and register for campus events
+      </p>
+
+      <div className="events-grid">
         {events.map((event: any) => (
-          <div key={event.id} className="card">
+          <div className="event-card" key={event.id}>
+            <div className="event-icon">📅</div>
+
             <h3>{event.title}</h3>
-            <p>{event.description}</p>
 
-            <p><strong>Date:</strong> {event.date}</p>
-            <p><strong>Location:</strong> {event.location}</p>
+            <p>🗓️ Date: {event.date}</p>
+            <p>🕘 Time: {event.time}</p>
+            <p>📍 Location: {event.location}</p>
 
-            <button className="btn">View Details</button>
+            <p className="event-description">
+              {event.description}
+            </p>
+
+            <button className="register-btn">
+              Register Now
+            </button>
           </div>
         ))}
       </div>
