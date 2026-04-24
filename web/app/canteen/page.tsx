@@ -31,13 +31,11 @@ export default function CanteenPage() {
 
   return (
     <main className="events-page">
-      <h1 style={{ fontSize: "1.8rem", fontWeight: 700, color: "var(--primary)", marginBottom: "0.2rem" }}>
-        Campus Canteen
-      </h1>
-      <div style={{ width: "2.5rem", height: "3px", background: "var(--primary)", borderRadius: "2px", marginBottom: "1.25rem" }} aria-hidden="true" />
-      <h2 style={{ fontSize: "1.05rem", fontWeight: 600, marginBottom: "0.2rem" }}>Today's Menu</h2>
-      <p style={{ color: "var(--text-muted)", fontSize: "0.875rem", marginBottom: "1.5rem" }}>Choose from our menu</p>
+      <h1 className="page-title">Campus Canteen</h1>
+<div className="page-line"></div>
 
+<h2 className="section-title">Today&apos;s Menu</h2>
+<p className="section-subtitle">Choose from our menu</p>
       <ul className="menu-grid" role="list" aria-label="Today's menu items">
         {menu.map((item) => {
           const count = cart.filter((id) => id === item.id).length;
