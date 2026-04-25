@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import events from "@/data/events.json";
 import { translations } from "@/app/lib/translations";
 import { useLang } from "@/app/lib/useLang";
@@ -14,8 +15,8 @@ function getText(value: any, lang: string) {
 export default function EventsPage() {
   const lang = useLang();
   const t = translations[lang];
+  const [popup, setPopup] = useState("");
 
-  // ✅ CATEGORY ICONS (matches wireframe style)
   const ICONS: Record<string, string> = {
     Technology: "💻",
     Sports: "🏅",
@@ -23,6 +24,11 @@ export default function EventsPage() {
     Social: "👥",
     Academic: "📘",
   };
+
+  function handleRegister(title: string) {
+    setPopup(`You have now been registered for ${title}.`);
+    setTimeout(() => setPopup(""), 3000);
+  }
 
   return (
     <main className="events-page-fixed">
@@ -33,32 +39,47 @@ export default function EventsPage() {
       <p className="events-description">{t.browseEvents}</p>
 
       <div className="events-grid-fixed">
-        {events.map((event: any) => (
-          <div className="event-card-fixed" key={event.id}>
-            
-            {/* ✅ ICON PER CATEGORY */}
-            <div className="event-icon-fixed">
-              {ICONS[event.category] || "📅"}
+        {events.map((event: any) => {
+          const eventTitle = getText(event.title, lang);
+
+          return (
+            <div className="event-card-fixed" key={event.id}>
+              <div className="event-icon-fixed">
+                {ICONS[event.category] || "📅"}
+              </div>
+
+              <h3>{eventTitle}</h3>
+
+              <div className="event-info">
+                <p>🗓️ {t.date}: {event.date}</p>
+                <p>🕘 {t.time}: {event.time}</p>
+                <p>📍 {t.location}: {getText(event.location, lang)}</p>
+              </div>
+
+              <p className="event-description-text">
+                {getText(event.description, lang)}
+              </p>
+
+              <button
+                className="register-btn-fixed"
+                onClick={() => handleRegister(eventTitle)}
+              >
+                {t.registerNow}
+              </button>
             </div>
-
-            <h3>{getText(event.title, lang)}</h3>
-
-            <div className="event-info">
-              <p>🗓️ {t.date}: {event.date}</p>
-              <p>🕘 {t.time}: {event.time}</p>
-              <p>📍 {t.location}: {getText(event.location, lang)}</p>
-            </div>
-
-            <p className="event-description-text">
-              {getText(event.description, lang)}
-            </p>
-
-            <button className="register-btn-fixed">
-              {t.registerNow}
-            </button>
-          </div>
-        ))}
+          );
+        })}
       </div>
+
+      {popup && (
+        <div className="popup-overlay">
+          <div className="popup-box">
+            <h2>Registered</h2>
+            <p>{popup}</p>
+            <button onClick={() => setPopup("")}>OK</button>
+          </div>
+        </div>
+      )}
 
       <style>{`
         .events-page-fixed {
@@ -118,7 +139,6 @@ export default function EventsPage() {
           font-size: 2.5rem;
           text-align: center;
           margin-bottom: 1rem;
-          color: var(--primary);
         }
 
         .event-card-fixed h3 {
@@ -160,6 +180,47 @@ export default function EventsPage() {
 
         .register-btn-fixed:hover {
           background: var(--primary-dark);
+        }
+
+        .popup-overlay {
+          position: fixed;
+          inset: 0;
+          background: rgba(0, 0, 0, 0.35);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          z-index: 9999;
+        }
+
+        .popup-box {
+          background: var(--surface);
+          color: var(--text);
+          width: 360px;
+          max-width: 90%;
+          padding: 2rem;
+          border-radius: 14px;
+          box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+          text-align: center;
+          border: 1px solid var(--border);
+        }
+
+        .popup-box h2 {
+          margin-bottom: 0.8rem;
+          color: var(--primary);
+        }
+
+        .popup-box p {
+          margin-bottom: 1.4rem;
+          color: var(--text);
+        }
+
+        .popup-box button {
+          background: var(--primary);
+          color: white;
+          border: none;
+          border-radius: 6px;
+          padding: 0.7rem 1.5rem;
+          cursor: pointer;
         }
 
         @media (max-width: 900px) {
