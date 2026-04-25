@@ -35,7 +35,7 @@ const handleSave = () => {
   localStorage.setItem("theme", theme);
   localStorage.setItem("language", language);
 
-  window.location.reload(); // 🔥 THIS FIXES EVERYTHING
+  window.location.reload();
 };
 
   return (
