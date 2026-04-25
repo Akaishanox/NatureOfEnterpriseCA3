@@ -1,64 +1,99 @@
 "use client";
+
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import usersData from "@/data/users.json";
 import eventsData from "@/data/events.json";
 import menuData from "@/data/menu.json";
+import { translations } from "../lib/translations";
 
 const currentUser = (usersData as { id: number; name: string; preferred_category: string }[])[0];
 const nextEvent = (eventsData as { id: number; title: string; date: string; location: string }[])[0];
 const todaysSpecial = (menuData as { id: number; name: string; price: number; diet: string }[])[0];
 
 const navCards = [
-  { href: "/events",   icon: "📅", label: "Events"   },
-  { href: "/helpdesk", icon: "🎫", label: "Helpdesk"  },
-  { href: "/canteen",  icon: "🍽️", label: "Canteen"   },
-  { href: "/settings", icon: "⚙️", label: "Settings"  },
+  { href: "/events",   icon: "📅", key: "events"   },
+  { href: "/helpdesk", icon: "🎫", key: "helpdesk" },
+  { href: "/canteen",  icon: "🍽️", key: "canteen"  },
+  { href: "/settings", icon: "⚙️", key: "settings" },
 ];
 
-function getGreeting() {
+function getGreeting(lang: any) {
   const hour = new Date().getHours();
+
+  if (lang === "ga") {
+    if (hour < 12) return "Maidin mhaith";
+    if (hour < 18) return "Tráthnóna maith";
+    return "Oíche mhaith";
+  }
+
   if (hour < 12) return "Good Morning";
   if (hour < 18) return "Good Afternoon";
   return "Good Evening";
 }
 
 export default function HomePage() {
+  const [lang, setLang] = useState("en");
+
+  useEffect(() => {
+    const savedLang = localStorage.getItem("language") || "en";
+    setLang(savedLang);
+  }, []);
+
+  const t = translations[lang];
+
   return (
     <div className="page">
 
       {/* Banner */}
       <div className="banner">
         <div>
-          <h1 className="banner-title">{getGreeting()}, {currentUser.name} 👋</h1>
-          <p className="banner-sub">Here's what's on today</p>
+          <h1 className="banner-title">
+            {getGreeting(lang)}, {currentUser.name} 👋
+          </h1>
+          <p className="banner-sub">
+            {lang === "ga" ? "Seo atá ar siúl inniu" : "Here's what's on today"}
+          </p>
         </div>
       </div>
 
       {/* Quick info */}
       <div className="info-row">
         <div className="info-box card">
-          <span className="info-icon" aria-hidden="true">📅</span>
+          <span className="info-icon">📅</span>
           <div>
-            <div className="info-label">Next Event</div>
+            <div className="info-label">
+              {t.events}
+            </div>
             <div className="info-val">{nextEvent.title}</div>
           </div>
         </div>
+
         <div className="info-box card">
-          <span className="info-icon" aria-hidden="true">🍽️</span>
+          <span className="info-icon">🍽️</span>
           <div>
-            <div className="info-label">Today's Special</div>
-            <div className="info-val">{todaysSpecial.name} — €{todaysSpecial.price.toFixed(2)}</div>
+            <div className="info-label">
+              {lang === "ga" ? "Speisialta Inniu" : "Today's Special"}
+            </div>
+            <div className="info-val">
+              {todaysSpecial.name} — €{todaysSpecial.price.toFixed(2)}
+            </div>
           </div>
         </div>
       </div>
 
       {/* Nav grid */}
-      <h2 className="section-label">All Options</h2>
-      <div className="nav-grid" role="list">
+      <h2 className="section-label">
+        {lang === "ga" ? "Gach Rogha" : "All Options"}
+      </h2>
+
+      <div className="nav-grid">
         {navCards.map((card) => (
-          <Link key={card.href} href={card.href} className="nav-card" role="listitem" aria-label={card.label}>
-            <span className="nav-icon" aria-hidden="true">{card.icon}</span>
-            <span className="nav-label">{card.label}</span>
+          <Link key={card.href} href={card.href} className="nav-card">
+            <span className="nav-icon">{card.icon}</span>
+            <span className="nav-label">
+              {t[card.key]}
+            </span>
           </Link>
         ))}
       </div>
@@ -91,6 +126,7 @@ export default function HomePage() {
           grid-template-columns: 1fr 1fr;
           gap: 1rem;
         }
+
         .nav-card {
           display: flex; flex-direction: column;
           align-items: center; justify-content: center;
@@ -98,14 +134,8 @@ export default function HomePage() {
           background: var(--surface); border: 1px solid var(--border);
           border-radius: var(--radius); box-shadow: var(--shadow);
           text-decoration: none; color: var(--text);
-          transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
         }
-        .nav-card:hover {
-          transform: translateY(-3px);
-          box-shadow: 0 6px 20px rgba(0,0,0,0.1);
-          border-color: var(--primary);
-        }
-        .nav-card:focus-visible { outline: 3px solid var(--primary); outline-offset: 2px; }
+
         .nav-icon  { font-size: 2rem; }
         .nav-label { font-size: 0.95rem; font-weight: 700; }
 
