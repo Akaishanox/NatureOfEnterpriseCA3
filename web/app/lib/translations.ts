@@ -6,7 +6,6 @@ export const translations = {
     upcomingEvents: "Upcoming Events",
     browseEvents: "Browse and register for campus events",
 
-    // 🔥 NEW (events page)
     date: "Date",
     time: "Time",
     location: "Location",
@@ -37,7 +36,6 @@ export const translations = {
     upcomingEvents: "Imeachtaí le Teacht",
     browseEvents: "Brabhsáil agus cláraigh le haghaidh imeachtaí",
 
-    // 🔥 NEW
     date: "Dáta",
     time: "Am",
     location: "Suíomh",
@@ -68,7 +66,6 @@ export const translations = {
     upcomingEvents: "Próximos Eventos",
     browseEvents: "Explora y regístrate para eventos",
 
-    // 🔥 NEW
     date: "Fecha",
     time: "Hora",
     location: "Ubicación",
@@ -99,7 +96,6 @@ export const translations = {
     upcomingEvents: "Événements à Venir",
     browseEvents: "Parcourir et s'inscrire aux événements",
 
-    // 🔥 NEW
     date: "Date",
     time: "Heure",
     location: "Lieu",
