@@ -4,17 +4,22 @@
     "title": {
       "en": "Tech Meetup",
       "ga": "Cruinniú Teicneolaíochta",
-      "es": "Encuentro Tecnológico",
+      "es": "Reunión Tecnológica",
       "fr": "Rencontre Tech"
     },
     "date": "2026-05-10",
     "time": "14:00",
-    "location": "Room A1",
+    "location": {
+      "en": "Room A1",
+      "ga": "Seomra A1",
+      "es": "Sala A1",
+      "fr": "Salle A1"
+    },
     "description": {
       "en": "Join us for a tech networking session.",
       "ga": "Bí linn le haghaidh seisiún líonraithe teicneolaíochta.",
       "es": "Únete a una sesión de networking tecnológico.",
-      "fr": "Rejoignez-nous pour une session de réseautage tech."
+      "fr": "Rejoignez-nous pour une session de réseautage technologique."
     }
   },
   {
@@ -27,12 +32,63 @@
     },
     "date": "2026-05-15",
     "time": "11:00",
-    "location": "Main Hall",
+    "location": {
+      "en": "Main Hall",
+      "ga": "Príomh Halla",
+      "es": "Sala Principal",
+      "fr": "Salle Principale"
+    },
     "description": {
       "en": "Meet companies and explore opportunities.",
-      "ga": "Buail le cuideachtaí agus faigh deiseanna.",
+      "ga": "Buail le cuideachtaí agus fiosraigh deiseanna.",
       "es": "Conoce empresas y explora oportunidades.",
       "fr": "Rencontrez des entreprises et explorez des opportunités."
+    }
+  },
+  {
+    "id": 3,
+    "title": {
+      "en": "AI Workshop",
+      "ga": "Ceardlann AI",
+      "es": "Taller de IA",
+      "fr": "Atelier IA"
+    },
+    "date": "2026-05-20",
+    "time": "13:00",
+    "location": {
+      "en": "Lab 3",
+      "ga": "Saotharlann 3",
+      "es": "Laboratorio 3",
+      "fr": "Laboratoire 3"
+    },
+    "description": {
+      "en": "Hands-on workshop on machine learning basics.",
+      "ga": "Ceardlann phraiticiúil ar bhunghnéithe foghlama meaisín.",
+      "es": "Taller práctico sobre fundamentos de machine learning.",
+      "fr": "Atelier pratique sur les bases du machine learning."
+    }
+  },
+  {
+    "id": 4,
+    "title": {
+      "en": "Hackathon",
+      "ga": "Hacatón",
+      "es": "Hackathon",
+      "fr": "Hackathon"
+    },
+    "date": "2026-05-25",
+    "time": "09:00",
+    "location": {
+      "en": "Innovation Hub",
+      "ga": "Mol Nuálaíochta",
+      "es": "Centro de Innovación",
+      "fr": "Centre d'Innovation"
+    },
+    "description": {
+      "en": "24-hour coding challenge with prizes.",
+      "ga": "Dúshlán códála 24 uair le duaiseanna.",
+      "es": "Desafío de programación de 24 horas con premios.",
+      "fr": "Défi de programmation de 24 heures avec des prix."
     }
   }
 ]
