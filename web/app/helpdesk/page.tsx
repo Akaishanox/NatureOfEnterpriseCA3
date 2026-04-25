@@ -13,7 +13,7 @@ interface Ticket {
   name: string;
   student_id: string;
   email: string;
-  subject: string;
+  subject: any;
   status: Status;
   priority: Priority;
 }
@@ -95,7 +95,9 @@ export default function HelpdeskPage() {
           {tickets.map((ticket) => (
             <li key={ticket.id} className="card" style={{ display: "flex", justifyContent: "space-between", padding: "0.85rem 1.1rem" }}>
               <div>
-                <div style={{ fontWeight: 600 }}>{ticket.subject}</div>
+                <div style={{ fontWeight: 600 }}>
+                  {typeof ticket.subject === "object" ? ticket.subject[lang] : ticket.subject}
+                </div>
                 <div style={{ fontSize: "0.78rem", color: "var(--text-muted)" }}>
                   {ticket.name} · {ticket.student_id}
                 </div>
