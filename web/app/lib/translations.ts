@@ -37,6 +37,11 @@ export const translations = {
     formSubjectPlaceholder: "Enter subject",
     formDescriptionPlaceholder: "Enter description",
 
+    date: "Date",
+    time: "Time",
+    location: "Location",
+    registerNow: "Register Now",
+
     status: {
       Open: "Open",
       "In Progress": "In Progress",
@@ -87,6 +92,11 @@ export const translations = {
     formPhonePlaceholder: "Cuir isteach d’uimhir fóin",
     formSubjectPlaceholder: "Cuir isteach ábhar",
     formDescriptionPlaceholder: "Cuir isteach cur síos",
+
+    date: "Dáta",
+    time: "Am",
+    location: "Suíomh",
+    registerNow: "Cláraigh Anois",
 
     status: {
       Open: "Oscailte",
@@ -139,6 +149,11 @@ export const translations = {
     formSubjectPlaceholder: "Introduce asunto",
     formDescriptionPlaceholder: "Introduce descripción",
 
+    date: "Fecha",
+    time: "Hora",
+    location: "Ubicación",
+    registerNow: "Registrarse",
+
     status: {
       Open: "Abierto",
       "In Progress": "En Progreso",
@@ -189,6 +204,11 @@ export const translations = {
     formPhonePlaceholder: "Entrez votre téléphone",
     formSubjectPlaceholder: "Entrez le sujet",
     formDescriptionPlaceholder: "Entrez la description",
+
+    date: "Date",
+    time: "Heure",
+    location: "Lieu",
+    registerNow: "S'inscrire",
 
     status: {
       Open: "Ouvert",
