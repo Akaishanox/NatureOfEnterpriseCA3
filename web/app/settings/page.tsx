@@ -6,11 +6,11 @@ import { useLang } from "@/app/lib/useLang";
 
 export default function SettingsPage() {
   const lang = useLang();
-  const t = translations[lang];
 
   const [fontSize, setFontSize] = useState(16);
   const [theme, setTheme] = useState("light");
   const [language, setLanguage] = useState(lang);
+  const [saved, setSaved] = useState(false);
 
   const extraText: Record<string, any> = {
     en: {
@@ -26,6 +26,7 @@ export default function SettingsPage() {
       notifications: "Notifications",
       notificationsDesc: "Manage how you receive updates",
       emailNotifications: "Email Notifications",
+      saved: "Settings have been changed.",
     },
     ga: {
       appearance: "Cuma",
@@ -40,6 +41,7 @@ export default function SettingsPage() {
       notifications: "Fógraí",
       notificationsDesc: "Bainistigh conas a fhaigheann tú nuashonruithe",
       emailNotifications: "Fógraí Ríomhphoist",
+      saved: "Athraíodh na socruithe.",
     },
     es: {
       appearance: "Apariencia",
@@ -54,6 +56,7 @@ export default function SettingsPage() {
       notifications: "Notificaciones",
       notificationsDesc: "Gestiona cómo recibes actualizaciones",
       emailNotifications: "Notificaciones por Email",
+      saved: "La configuración ha sido cambiada.",
     },
     fr: {
       appearance: "Apparence",
@@ -68,6 +71,7 @@ export default function SettingsPage() {
       notifications: "Notifications",
       notificationsDesc: "Gérez la réception des mises à jour",
       emailNotifications: "Notifications par Email",
+      saved: "Les paramètres ont été modifiés.",
     },
   };
 
@@ -91,12 +95,15 @@ export default function SettingsPage() {
   }, [fontSize, theme, language]);
 
   const handleSave = () => {
-  localStorage.setItem("fontSize", fontSize.toString());
-  localStorage.setItem("theme", theme);
-  localStorage.setItem("language", language);
+    localStorage.setItem("fontSize", fontSize.toString());
+    localStorage.setItem("theme", theme);
+    localStorage.setItem("language", language);
 
-  window.dispatchEvent(new Event("languageChanged"));
-};
+    window.dispatchEvent(new Event("languageChanged"));
+
+    setSaved(true);
+    setTimeout(() => setSaved(false), 2500);
+  };
 
   return (
     <div className="settings-page">
@@ -156,7 +163,7 @@ export default function SettingsPage() {
           <h2>🌐 {liveT.language}</h2>
           <p>{x.languageDesc}</p>
 
-          <select 
+          <select
             value={language}
             onChange={(e) => {
               const newLang = e.target.value;
@@ -186,6 +193,8 @@ export default function SettingsPage() {
       <button className="submit-settings" onClick={handleSave}>
         {liveT.submitChanges}
       </button>
+
+      {saved && <p className="saved-message">{x.saved}</p>}
 
       <style>{`
         .settings-page {
@@ -315,6 +324,13 @@ export default function SettingsPage() {
 
         .submit-settings:hover {
           background: var(--primary-dark);
+        }
+
+        .saved-message {
+          text-align: center;
+          color: green;
+          font-weight: 700;
+          margin-top: 1rem;
         }
 
         @media (max-width: 700px) {
