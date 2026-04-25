@@ -11,7 +11,68 @@ export default function SettingsPage() {
   const [fontSize, setFontSize] = useState(16);
   const [theme, setTheme] = useState("light");
   const [language, setLanguage] = useState(lang);
-  const [saved, setSaved] = useState(false);
+
+  const extraText: Record<string, any> = {
+    en: {
+      appearance: "Appearance",
+      fontDesc: "Adjust text size for better readability",
+      themes: "Themes",
+      themeDesc: "Choose your preferred color scheme",
+      lightMode: "Light Mode",
+      darkMode: "Dark Mode",
+      preferences: "Preferences",
+      preferencesDesc: "Manage your app preferences",
+      languageDesc: "Select your preferred language",
+      notifications: "Notifications",
+      notificationsDesc: "Manage how you receive updates",
+      emailNotifications: "Email Notifications",
+    },
+    ga: {
+      appearance: "Cuma",
+      fontDesc: "Coigeartaigh méid an téacs le léamh níos fearr",
+      themes: "Téamaí",
+      themeDesc: "Roghnaigh do scéim dathanna",
+      lightMode: "Mód Geal",
+      darkMode: "Mód Dorcha",
+      preferences: "Sainroghanna",
+      preferencesDesc: "Bainistigh sainroghanna na haipe",
+      languageDesc: "Roghnaigh do theanga",
+      notifications: "Fógraí",
+      notificationsDesc: "Bainistigh conas a fhaigheann tú nuashonruithe",
+      emailNotifications: "Fógraí Ríomhphoist",
+    },
+    es: {
+      appearance: "Apariencia",
+      fontDesc: "Ajusta el tamaño del texto para leer mejor",
+      themes: "Temas",
+      themeDesc: "Elige tu esquema de color preferido",
+      lightMode: "Modo Claro",
+      darkMode: "Modo Oscuro",
+      preferences: "Preferencias",
+      preferencesDesc: "Gestiona tus preferencias",
+      languageDesc: "Selecciona tu idioma preferido",
+      notifications: "Notificaciones",
+      notificationsDesc: "Gestiona cómo recibes actualizaciones",
+      emailNotifications: "Notificaciones por Email",
+    },
+    fr: {
+      appearance: "Apparence",
+      fontDesc: "Ajustez la taille du texte pour une meilleure lisibilité",
+      themes: "Thèmes",
+      themeDesc: "Choisissez votre thème préféré",
+      lightMode: "Mode Clair",
+      darkMode: "Mode Sombre",
+      preferences: "Préférences",
+      preferencesDesc: "Gérez vos préférences",
+      languageDesc: "Sélectionnez votre langue préférée",
+      notifications: "Notifications",
+      notificationsDesc: "Gérez la réception des mises à jour",
+      emailNotifications: "Notifications par Email",
+    },
+  };
+
+  const x = extraText[language] || extraText.en;
+  const liveT = translations[language] || translations.en;
 
   useEffect(() => {
     const savedFont = localStorage.getItem("fontSize");
@@ -33,120 +94,230 @@ export default function SettingsPage() {
     localStorage.setItem("fontSize", fontSize.toString());
     localStorage.setItem("theme", theme);
     localStorage.setItem("language", language);
-
-    setSaved(true);
-    setTimeout(() => setSaved(false), 2000);
+    window.location.reload();
   };
 
   return (
-    <div className="page" style={{ maxWidth: 700, margin: "0 auto" }}>
-      
-      <p style={{ textAlign: "center", color: "#777", marginBottom: "0.5rem" }}>
-        {t.accessibility}
-      </p>
+    <div className="settings-page">
+      <p className="top-label">{liveT.accessibility}</p>
 
-      <h2 style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-        🎨 Appearance
-      </h2>
+      <section className="settings-section">
+        <h1 className="main-heading">🎨 {x.appearance}</h1>
 
-      {/* FONT SIZE */}
-      <div className="card">
-        <h3>🔠 {t.fontSize}</h3>
-        <p style={{ color: "#777", fontSize: "0.9rem" }}>
-          Adjust text size for better readability
-        </p>
+        <div className="settings-card">
+          <h2>↕ {liveT.fontSize}</h2>
+          <p>{x.fontDesc}</p>
 
-        <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-          <span>A</span>
-          <input
-            type="range"
-            min="14"
-            max="20"
-            value={fontSize}
-            onChange={(e) => setFontSize(Number(e.target.value))}
-            style={{ width: "100%" }}
-          />
-          <span style={{ fontSize: "1.5rem" }}>A</span>
+          <div className="font-row">
+            <span>A</span>
+            <input
+              type="range"
+              min="14"
+              max="20"
+              value={fontSize}
+              onChange={(e) => setFontSize(Number(e.target.value))}
+            />
+            <span className="big-a">A</span>
+          </div>
         </div>
-      </div>
 
-      {/* THEME */}
-      <div className="card">
-        <h3>🌗 {t.theme}</h3>
-        <p style={{ color: "#777", fontSize: "0.9rem" }}>
-          Choose your preferred color scheme
-        </p>
+        <div className="settings-card">
+          <h2>◐ {x.themes}</h2>
+          <p>{x.themeDesc}</p>
 
-        <label>
-          <input
-            type="radio"
-            value="light"
-            checked={theme === "light"}
-            onChange={() => setTheme("light")}
-          />
-          Light Mode
-        </label>
-        <br />
-        <label>
-          <input
-            type="radio"
-            value="dark"
-            checked={theme === "dark"}
-            onChange={() => setTheme("dark")}
-          />
-          Dark Mode
-        </label>
-      </div>
+          <label className="radio-row">
+            <input
+              type="radio"
+              value="light"
+              checked={theme === "light"}
+              onChange={() => setTheme("light")}
+            />
+            <span>{x.lightMode}</span>
+          </label>
 
-      {/* PREFERENCES */}
-      <h2 style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginTop: "2rem" }}>
-        ⚙️ Preferences
-      </h2>
+          <label className="radio-row">
+            <input
+              type="radio"
+              value="dark"
+              checked={theme === "dark"}
+              onChange={() => setTheme("dark")}
+            />
+            <span>{x.darkMode}</span>
+          </label>
+        </div>
+      </section>
 
-      {/* LANGUAGE */}
-      <div className="card">
-        <h3>🌍 {t.language}</h3>
-        <p style={{ color: "#777", fontSize: "0.9rem" }}>
-          Select your preferred language
-        </p>
+      <section className="settings-section">
+        <h1 className="main-heading">☷ {x.preferences}</h1>
+        <p className="section-desc">{x.preferencesDesc}</p>
 
-        <select
-          value={language}
-          onChange={(e) => setLanguage(e.target.value)}
-          style={{ width: "100%", padding: "0.5rem" }}
-        >
-          <option value="en">English</option>
-          <option value="ga">Irish</option>
-          <option value="es">Spanish</option>
-          <option value="fr">French</option>
-        </select>
-      </div>
+        <div className="settings-card">
+          <h2>🌐 {liveT.language}</h2>
+          <p>{x.languageDesc}</p>
 
-      {/* NOTIFICATIONS */}
-      <div className="card">
-        <h3>🔔 Notifications</h3>
-        <p style={{ color: "#777", fontSize: "0.9rem" }}>
-          Manage how you receive updates
-        </p>
+          <select value={language} onChange={(e) => setLanguage(e.target.value)}>
+            <option value="en">English</option>
+            <option value="ga">Irish</option>
+            <option value="es">Spanish</option>
+            <option value="fr">French</option>
+          </select>
+        </div>
 
-        <label>
-          Email Notifications
-          <input type="checkbox" style={{ marginLeft: "1rem" }} />
-        </label>
-      </div>
+        <div className="settings-card">
+          <h2>♧ {x.notifications}</h2>
+          <p>{x.notificationsDesc}</p>
 
-      {/* BUTTON */}
-      <div style={{ textAlign: "center", marginTop: "2rem" }}>
-        <button className="btn-primary" onClick={handleSave}>
-          {t.submitChanges}
-        </button>
-      </div>
+          <div className="notification-row">
+            <span>{x.emailNotifications}</span>
+            <input type="checkbox" defaultChecked />
+          </div>
+        </div>
+      </section>
 
-      {saved && (
-        <p style={{ textAlign: "center", color: "green", marginTop: "1rem" }}>
-          Saved!
-        </p>
-      )}
+      <button className="submit-settings" onClick={handleSave}>
+        {liveT.submitChanges}
+      </button>
+
+      <style>{`
+        .settings-page {
+          max-width: 760px;
+          margin: 0 auto;
+          padding: 5.5rem 1.5rem 3rem;
+        }
+
+        .top-label {
+          font-size: 0.95rem;
+          color: var(--text);
+          margin-bottom: 3rem;
+        }
+
+        .settings-section {
+          margin-bottom: 1.6rem;
+        }
+
+        .main-heading {
+          font-size: 1.65rem;
+          font-weight: 800;
+          color: var(--text);
+          margin-bottom: 0.8rem;
+        }
+
+        .section-desc {
+          color: var(--text-muted);
+          margin-bottom: 1.5rem;
+          font-size: 0.95rem;
+        }
+
+        .settings-card {
+          background: var(--surface);
+          border: 1px solid var(--border);
+          border-radius: 10px;
+          padding: 1.8rem;
+          margin-bottom: 1.4rem;
+          box-shadow: var(--shadow);
+        }
+
+        .settings-card h2 {
+          font-size: 1.2rem;
+          font-weight: 800;
+          color: var(--primary);
+          margin-bottom: 0.55rem;
+        }
+
+        .settings-card p {
+          color: var(--text-muted);
+          font-size: 0.92rem;
+          margin-bottom: 1.4rem;
+        }
+
+        .font-row {
+          display: grid;
+          grid-template-columns: auto 1fr auto;
+          align-items: center;
+          gap: 1.2rem;
+        }
+
+        .font-row span {
+          font-weight: 700;
+          color: var(--text-muted);
+        }
+
+        .big-a {
+          font-size: 1.45rem;
+          color: var(--text) !important;
+        }
+
+        .font-row input {
+          width: 100%;
+        }
+
+        .radio-row {
+          display: flex;
+          align-items: center;
+          gap: 0.65rem;
+          margin: 0.85rem 0;
+          color: var(--text);
+          font-size: 1rem;
+        }
+
+        .radio-row input {
+          margin: 0;
+        }
+
+        select {
+          width: 100%;
+          padding: 0.8rem;
+          border: 1px solid var(--border);
+          border-radius: 7px;
+          background: var(--surface);
+          color: var(--text);
+          font-size: 1rem;
+          text-align: center;
+          text-align-last: center;
+        }
+
+        .notification-row {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          color: var(--text);
+          font-size: 1rem;
+          gap: 2rem;
+        }
+
+        .notification-row input {
+          width: 20px;
+          height: 20px;
+          flex-shrink: 0;
+        }
+
+        .submit-settings {
+          display: block;
+          width: 260px;
+          margin: 1.8rem auto 0;
+          background: var(--primary);
+          color: white;
+          border: none;
+          border-radius: 9px;
+          padding: 1rem;
+          font-size: 1rem;
+          cursor: pointer;
+        }
+
+        .submit-settings:hover {
+          background: var(--primary-dark);
+        }
+
+        @media (max-width: 700px) {
+          .settings-page {
+            padding: 5rem 1rem 2rem;
+          }
+
+          .submit-settings {
+            width: 100%;
+          }
+        }
+      `}</style>
     </div>
   );
 }
