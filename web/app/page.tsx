@@ -1,30 +1,42 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Link from "next/link";
 import usersData from "@/data/users.json";
 import eventsData from "@/data/events.json";
 import menuData from "@/data/menu.json";
 import { translations } from "@/lib/translations";
 import { useLang } from "@/lib/useLang";
+
 const currentUser = (usersData as { id: number; name: string; preferred_category: string }[])[0];
 const nextEvent = (eventsData as { id: number; title: string; date: string; location: string }[])[0];
 const todaysSpecial = (menuData as { id: number; name: string; price: number; diet: string }[])[0];
 
 const navCards = [
-  { href: "/events",   icon: "📅", key: "events"   },
+  { href: "/events",   icon: "📅", key: "events" },
   { href: "/helpdesk", icon: "🎫", key: "helpdesk" },
-  { href: "/canteen",  icon: "🍽️", key: "canteen"  },
+  { href: "/canteen",  icon: "🍽️", key: "canteen" },
   { href: "/settings", icon: "⚙️", key: "settings" },
 ];
 
-function getGreeting(lang: any) {
+function getGreeting(lang: string) {
   const hour = new Date().getHours();
 
   if (lang === "ga") {
     if (hour < 12) return "Maidin mhaith";
     if (hour < 18) return "Tráthnóna maith";
     return "Oíche mhaith";
+  }
+
+  if (lang === "es") {
+    if (hour < 12) return "Buenos días";
+    if (hour < 18) return "Buenas tardes";
+    return "Buenas noches";
+  }
+
+  if (lang === "fr") {
+    if (hour < 12) return "Bonjour";
+    if (hour < 18) return "Bon après-midi";
+    return "Bonsoir";
   }
 
   if (hour < 12) return "Good Morning";
@@ -37,13 +49,6 @@ export default function HomePage() {
   const lang = useLang();
   const t = translations[lang];
 
-  useEffect(() => {
-    const savedLang = localStorage.getItem("language") || "en";
-    setLang(savedLang);
-  }, []);
-
-  const t = translations[lang];
-
   return (
     <div className="page">
 
@@ -54,7 +59,7 @@ export default function HomePage() {
             {getGreeting(lang)}, {currentUser.name} 👋
           </h1>
           <p className="banner-sub">
-            {lang === "ga" ? "Seo atá ar siúl inniu" : "Here's what's on today"}
+            {t.browseEvents}
           </p>
         </div>
       </div>
@@ -64,9 +69,7 @@ export default function HomePage() {
         <div className="info-box card">
           <span className="info-icon">📅</span>
           <div>
-            <div className="info-label">
-              {t.events}
-            </div>
+            <div className="info-label">{t.events}</div>
             <div className="info-val">{nextEvent.title}</div>
           </div>
         </div>
@@ -74,9 +77,7 @@ export default function HomePage() {
         <div className="info-box card">
           <span className="info-icon">🍽️</span>
           <div>
-            <div className="info-label">
-              {lang === "ga" ? "Speisialta Inniu" : "Today's Special"}
-            </div>
+            <div className="info-label">{t.menu}</div>
             <div className="info-val">
               {todaysSpecial.name} — €{todaysSpecial.price.toFixed(2)}
             </div>
@@ -85,16 +86,14 @@ export default function HomePage() {
       </div>
 
       {/* Nav grid */}
-      <h2 className="section-label">
-        {lang === "ga" ? "Gach Rogha" : "All Options"}
-      </h2>
+      <h2 className="section-label">{t.events}</h2>
 
       <div className="nav-grid">
         {navCards.map((card) => (
           <Link key={card.href} href={card.href} className="nav-card">
             <span className="nav-icon">{card.icon}</span>
             <span className="nav-label">
-              {t[card.key]}
+              {t[card.key as keyof typeof t]}
             </span>
           </Link>
         ))}
