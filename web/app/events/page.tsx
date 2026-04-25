@@ -1,8 +1,8 @@
 "use client";
 
 import events from "@/data/events.json";
-import { translations } from "@/app/lib/translations";
-import { useLang } from "@/app/lib/useLang";
+import { translations } from "../lib/translations";
+import { useLang } from "../lib/useLang";
 
 export default function EventsPage() {
 
@@ -31,15 +31,17 @@ export default function EventsPage() {
             </h3>
 
             <p>
-              🗓️ {t.date}: {event.date}
+              🗓️ {event.date}
             </p>
 
             <p>
-              🕘 {t.time}: {event.time}
+              🕘 {event.time}
             </p>
 
             <p>
-              📍 {t.location}: {event.location}
+              📍 {typeof event.location === "object"
+                ? event.location[lang]
+                : event.location}
             </p>
 
             <p className="event-description">
