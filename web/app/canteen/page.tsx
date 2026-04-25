@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import menuData from "@/data/menu.json";
+import { translations } from "@/app/lib/translations";
 
 interface MenuItem { id: number; name: string; category: string; price: number; diet: string; }
 
@@ -22,6 +23,12 @@ const DIET_BADGE: Record<string, string> = {
 };
 
 export default function CanteenPage() {
+  const lang =
+    typeof window !== "undefined"
+      ? localStorage.getItem("language") || "en"
+      : "en";
+
+  const t = translations[lang];
   const [cart, setCart] = useState<number[]>([]);
 
   const addToOrder = (id: number) => setCart((prev) => [...prev, id]);
@@ -31,11 +38,11 @@ export default function CanteenPage() {
 
   return (
     <main className="events-page">
-      <h1 className="page-title">Campus Canteen</h1>
+      <h1 className="page-title">{t.canteen}</h1>
 <div className="page-line"></div>
 
-<h2 className="section-title">Today&apos;s Menu</h2>
-<p className="section-subtitle">Choose from our menu</p>
+<h2 className="section-title">{t.menu}</h2>
+<p className="section-subtitle">{t.chooseMenu}</p>
       <ul className="menu-grid" role="list" aria-label="Today's menu items">
         {menu.map((item) => {
           const count = cart.filter((id) => id === item.id).length;
