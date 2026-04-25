@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import menuData from "@/data/menu.json";
-import { translations } from "@/lib/translations";
-import { useLang } from "@/lib/useLang";
+import { translations } from "@/app/lib/translations";
+import { useLang } from "@/app/lib/useLang";
 
 interface MenuItem {
   id: number;
@@ -37,8 +37,7 @@ const DIET_BADGE: Record<string, string> = {
 };
 
 export default function CanteenPage() {
-
-  const lang = useLang(); // ✅ CORRECT WAY
+  const lang = useLang();
   const t = translations[lang];
 
   const [cart, setCart] = useState<number[]>([]);
@@ -47,16 +46,13 @@ export default function CanteenPage() {
     setCart((prev) => [...prev, id]);
   };
 
-  const total = menu
-    .filter((m) => cart.includes(m.id))
-    .reduce((sum, m) => {
-      const count = cart.filter((id) => id === m.id).length;
-      return sum + m.price * count;
-    }, 0);
+  const total = menu.reduce((sum, item) => {
+    const count = cart.filter((id) => id === item.id).length;
+    return sum + item.price * count;
+  }, 0);
 
   return (
     <main className="events-page">
-
       <h1 className="page-title">{t.canteen}</h1>
       <div className="page-line"></div>
 
@@ -69,15 +65,14 @@ export default function CanteenPage() {
 
           return (
             <li key={item.id} className="menu-card card">
-
               <div style={{ fontSize: "2rem", textAlign: "center" }}>
-                {ICONS[item.name] ?? "🍽️"}
+                {ICONS[item.name] || "🍽️"}
               </div>
 
               <div style={{ fontWeight: 700 }}>{item.name}</div>
 
               <div>
-                <span className={`badge ${DIET_BADGE[item.diet] ?? "badge-grey"}`}>
+                <span className={`badge ${DIET_BADGE[item.diet] || "badge-grey"}`}>
                   {item.diet}
                 </span>
               </div>
@@ -98,7 +93,6 @@ export default function CanteenPage() {
                     : t.addToOrder}
                 </button>
               </div>
-
             </li>
           );
         })}
@@ -107,9 +101,7 @@ export default function CanteenPage() {
       {cart.length > 0 && (
         <div className="cart-bar">
           🛒 {cart.length} item{cart.length !== 1 ? "s" : ""} — €{total.toFixed(2)}
-          <button onClick={() => setCart([])}>
-            Clear
-          </button>
+          <button onClick={() => setCart([])}>Clear</button>
         </div>
       )}
 
@@ -154,7 +146,6 @@ export default function CanteenPage() {
           }
         }
       `}</style>
-
     </main>
   );
 }
