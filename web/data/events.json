@@ -1,94 +1,142 @@
 [
   {
     "id": 1,
-    "title": {
-      "en": "Tech Meetup",
-      "ga": "Cruinniú Teicneolaíochta",
-      "es": "Reunión Tecnológica",
-      "fr": "Rencontre Tech"
-    },
-    "date": "2026-05-10",
-    "time": "14:00",
-    "location": {
-      "en": "Room A1",
-      "ga": "Seomra A1",
-      "es": "Sala A1",
-      "fr": "Salle A1"
-    },
+    "title": { "en": "Tech Workshop", "ga": "Ceardlann Teicneolaíochta", "es": "Taller Tecnológico", "fr": "Atelier Tech" },
+    "category": "Technology",
+    "date": "2026-04-10",
+    "time": "15:00 - 18:00",
+    "location": { "en": "TM-206", "ga": "TM-206", "es": "TM-206", "fr": "TM-206" },
     "description": {
-      "en": "Join us for a tech networking session.",
-      "ga": "Bí linn le haghaidh seisiún líonraithe teicneolaíochta.",
-      "es": "Únete a una sesión de networking tecnológico.",
-      "fr": "Rejoignez-nous pour une session de réseautage technologique."
+      "en": "Hands-on workshop for students interested in coding and AI.",
+      "ga": "Ceardlann phraiticiúil do mhic léinn a bhfuil suim acu i gcódú agus AI.",
+      "es": "Taller práctico para estudiantes interesados en programación e IA.",
+      "fr": "Atelier pratique pour les étudiants intéressés par le codage et l'IA."
     }
   },
   {
     "id": 2,
-    "title": {
-      "en": "Career Fair",
-      "ga": "Aonach Gairme",
-      "es": "Feria de Empleo",
-      "fr": "Salon de l'emploi"
-    },
-    "date": "2026-05-15",
-    "time": "11:00",
-    "location": {
-      "en": "Main Hall",
-      "ga": "Príomh Halla",
-      "es": "Sala Principal",
-      "fr": "Salle Principale"
-    },
+    "title": { "en": "Sports Competition", "ga": "Comórtas Spóirt", "es": "Competencia Deportiva", "fr": "Compétition Sportive" },
+    "category": "Sports",
+    "date": "2026-04-15",
+    "time": "14:00 - 16:00",
+    "location": { "en": "Sports Hall", "ga": "Halla Spóirt", "es": "Sala de Deportes", "fr": "Salle de Sport" },
     "description": {
-      "en": "Meet companies and explore opportunities.",
-      "ga": "Buail le cuideachtaí agus fiosraigh deiseanna.",
-      "es": "Conoce empresas y explora oportunidades.",
-      "fr": "Rencontrez des entreprises et explorez des opportunités."
+      "en": "Friendly campus sports competition open to all students.",
+      "ga": "Comórtas spóirt cairdiúil oscailte do gach mac léinn.",
+      "es": "Competencia deportiva amistosa abierta a todos.",
+      "fr": "Compétition sportive amicale ouverte à tous."
     }
   },
   {
     "id": 3,
-    "title": {
-      "en": "AI Workshop",
-      "ga": "Ceardlann AI",
-      "es": "Taller de IA",
-      "fr": "Atelier IA"
-    },
-    "date": "2026-05-20",
-    "time": "13:00",
-    "location": {
-      "en": "Lab 3",
-      "ga": "Saotharlann 3",
-      "es": "Laboratorio 3",
-      "fr": "Laboratoire 3"
-    },
+    "title": { "en": "AI Career Talk", "ga": "Caint Gairme AI", "es": "Charla de Carrera en IA", "fr": "Conférence Carrière IA" },
+    "category": "Careers",
+    "date": "2026-04-18",
+    "time": "10:00 - 12:00",
+    "location": { "en": "Lecture Theatre 3", "ga": "Amharclann Léachta 3", "es": "Sala de Conferencias 3", "fr": "Amphithéâtre 3" },
     "description": {
-      "en": "Hands-on workshop on machine learning basics.",
-      "ga": "Ceardlann phraiticiúil ar bhunghnéithe foghlama meaisín.",
-      "es": "Taller práctico sobre fundamentos de machine learning.",
-      "fr": "Atelier pratique sur les bases du machine learning."
+      "en": "Industry speakers discuss careers in AI.",
+      "ga": "Pléann saineolaithe tionscail gairmeacha in AI.",
+      "es": "Expertos hablan sobre carreras en IA.",
+      "fr": "Des experts parlent des carrières en IA."
     }
   },
   {
     "id": 4,
-    "title": {
-      "en": "Hackathon",
-      "ga": "Hacatón",
-      "es": "Hackathon",
-      "fr": "Hackathon"
-    },
-    "date": "2026-05-25",
-    "time": "09:00",
-    "location": {
-      "en": "Innovation Hub",
-      "ga": "Mol Nuálaíochta",
-      "es": "Centro de Innovación",
-      "fr": "Centre d'Innovation"
-    },
+    "title": { "en": "Football Trials", "ga": "Trialacha Peile", "es": "Pruebas de Fútbol", "fr": "Sélections de Football" },
+    "category": "Sports",
+    "date": "2026-04-20",
+    "time": "13:00 - 16:00",
+    "location": { "en": "Main Pitch", "ga": "Príomh Pháirc", "es": "Campo Principal", "fr": "Terrain Principal" },
     "description": {
-      "en": "24-hour coding challenge with prizes.",
-      "ga": "Dúshlán códála 24 uair le duaiseanna.",
-      "es": "Desafío de programación de 24 horas con premios.",
-      "fr": "Défi de programmation de 24 heures avec des prix."
+      "en": "Trials for the college football team.",
+      "ga": "Trialacha don fhoireann peile.",
+      "es": "Pruebas para el equipo de fútbol.",
+      "fr": "Sélections pour l'équipe de football."
+    }
+  },
+  {
+    "id": 5,
+    "title": { "en": "Hackathon", "ga": "Hacatón", "es": "Hackathon", "fr": "Hackathon" },
+    "category": "Technology",
+    "date": "2026-04-25",
+    "time": "09:00 - 09:00",
+    "location": { "en": "Innovation Hub", "ga": "Mol Nuálaíochta", "es": "Centro de Innovación", "fr": "Centre d'Innovation" },
+    "description": {
+      "en": "24-hour coding challenge for students.",
+      "ga": "Dúshlán códála 24 uair do mhic léinn.",
+      "es": "Desafío de programación de 24 horas.",
+      "fr": "Défi de programmation de 24 heures."
+    }
+  },
+  {
+    "id": 6,
+    "title": { "en": "Movie Night", "ga": "Oíche Scannán", "es": "Noche de Película", "fr": "Soirée Cinéma" },
+    "category": "Social",
+    "date": "2026-04-22",
+    "time": "19:00 - 22:00",
+    "location": { "en": "Student Lounge", "ga": "Tolglann na Mac Léinn", "es": "Sala de Estudiantes", "fr": "Salon Étudiant" },
+    "description": {
+      "en": "Relax and watch movies with friends.",
+      "ga": "Scíth agus féachaint ar scannáin le cairde.",
+      "es": "Relájate viendo películas con amigos.",
+      "fr": "Regardez des films entre amis."
+    }
+  },
+  {
+    "id": 7,
+    "title": { "en": "CV Workshop", "ga": "Ceardlann CV", "es": "Taller de CV", "fr": "Atelier CV" },
+    "category": "Careers",
+    "date": "2026-04-28",
+    "time": "12:00 - 14:00",
+    "location": { "en": "Room B101", "ga": "Seomra B101", "es": "Sala B101", "fr": "Salle B101" },
+    "description": {
+      "en": "Improve your CV with career advisors.",
+      "ga": "Feabhsaigh do CV le comhairleoirí.",
+      "es": "Mejora tu CV con asesores.",
+      "fr": "Améliorez votre CV."
+    }
+  },
+  {
+    "id": 8,
+    "title": { "en": "Study Skills Seminar", "ga": "Seimineár Scileanna Staidéir", "es": "Seminario de Estudio", "fr": "Séminaire d'Étude" },
+    "category": "Academic",
+    "date": "2026-04-30",
+    "time": "11:00 - 13:00",
+    "location": { "en": "Library Hall", "ga": "Halla na Leabharlainne", "es": "Sala de Biblioteca", "fr": "Salle Bibliothèque" },
+    "description": {
+      "en": "Tips to improve studying and time management.",
+      "ga": "Leideanna chun staidéar a fheabhsú.",
+      "es": "Consejos para estudiar mejor.",
+      "fr": "Conseils pour mieux étudier."
+    }
+  },
+  {
+    "id": 9,
+    "title": { "en": "Basketball Tournament", "ga": "Comórtas Cispheile", "es": "Torneo de Baloncesto", "fr": "Tournoi de Basket" },
+    "category": "Sports",
+    "date": "2026-05-02",
+    "time": "14:00 - 18:00",
+    "location": { "en": "Sports Hall", "ga": "Halla Spóirt", "es": "Sala de Deportes", "fr": "Salle de Sport" },
+    "description": {
+      "en": "Inter-class basketball competition.",
+      "ga": "Comórtas idir ranganna.",
+      "es": "Competencia entre clases.",
+      "fr": "Compétition entre classes."
+    }
+  },
+  {
+    "id": 10,
+    "title": { "en": "Networking Event", "ga": "Imeacht Líonraithe", "es": "Evento de Networking", "fr": "Événement Réseautage" },
+    "category": "Careers",
+    "date": "2026-05-05",
+    "time": "16:00 - 18:00",
+    "location": { "en": "Conference Room", "ga": "Seomra Comhdhála", "es": "Sala de Conferencias", "fr": "Salle de Conférence" },
+    "description": {
+      "en": "Meet professionals and expand your network.",
+      "ga": "Buail le gairmithe agus leathnaigh do líonra.",
+      "es": "Conoce profesionales y expande tu red.",
+      "fr": "Rencontrez des professionnels."
     }
   }
 ]
