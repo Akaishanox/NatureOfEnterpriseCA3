@@ -109,10 +109,15 @@ export default function HelpdeskPage() {
 
               <div style={{ display: "flex", gap: "0.4rem" }}>
                 <span className={`badge ${PRIORITY_COL[ticket.priority]}`}>
-                  {ticket.priority}
+                  {ticket.priority === "High" && t.priorityHigh}
+                  {ticket.priority === "Medium" && t.priorityMedium}
+                  {ticket.priority === "Low" && t.priorityLow}
                 </span>
+
                 <span className={`badge ${STATUS_COL[ticket.status]}`}>
-                  {ticket.status}
+                  {ticket.status === "Open" && t.statusOpen}
+                  {ticket.status === "In Progress" && t.statusInProgress}
+                  {ticket.status === "Closed" && t.statusClosed}
                 </span>
               </div>
 
@@ -130,18 +135,18 @@ export default function HelpdeskPage() {
 
         {submitted && (
           <div style={{ background: "#d1fae5", color: "#065f46", padding: "0.75rem", borderRadius: "6px", marginBottom: "1rem", fontWeight: 600 }}>
-            Submitted
+            {t.formSubmit}
           </div>
         )}
 
         <div className="card" style={{ padding: "1.5rem" }}>
 
           {([
-            { id: "name", label: "Name", type: "text" },
-            { id: "studentId", label: "Student ID Number", type: "text" },
-            { id: "email", label: "Email", type: "email" },
-            { id: "phone", label: "Phone Number", type: "tel" },
-            { id: "subject", label: "Subject", type: "text" },
+            { id: "name", label: t.formName, type: "text" },
+            { id: "studentId", label: t.formStudentId, type: "text" },
+            { id: "email", label: t.formEmail, type: "email" },
+            { id: "phone", label: t.formPhone, type: "tel" },
+            { id: "subject", label: t.formSubject, type: "text" },
           ] as { id: keyof FormState; label: string; type: string }[]).map(({ id, label, type }) => (
             
             <div key={id} className="form-group">
@@ -164,7 +169,7 @@ export default function HelpdeskPage() {
           ))}
 
           <div className="form-group">
-            <label className="form-label">Description</label>
+            <label className="form-label">{t.formDescription}</label>
 
             <textarea
               className="form-textarea"
@@ -180,7 +185,7 @@ export default function HelpdeskPage() {
           </div>
 
           <button className="btn-primary" onClick={handleSubmit}>
-            {t.submitRequest}
+            {t.formSubmit}
           </button>
 
         </div>
