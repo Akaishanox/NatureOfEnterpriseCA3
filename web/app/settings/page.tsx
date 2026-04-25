@@ -6,8 +6,8 @@ export default function SettingsPage() {
   const [fontSize, setFontSize] = useState(16);
   const [theme, setTheme] = useState("light");
   const [language, setLanguage] = useState("en");
+  const [saved, setSaved] = useState(false);
 
-  // LOAD SAVED SETTINGS
   useEffect(() => {
     const savedFont = localStorage.getItem("fontSize");
     const savedTheme = localStorage.getItem("theme");
@@ -18,25 +18,20 @@ export default function SettingsPage() {
     if (savedLang) setLanguage(savedLang);
   }, []);
 
-  // APPLY SETTINGS LIVE
   useEffect(() => {
     document.documentElement.style.fontSize = fontSize + "px";
-
-    document.documentElement.classList.toggle(
-      "dark-mode",
-      theme === "dark"
-    );
-
+    document.documentElement.classList.toggle("dark-mode", theme === "dark");
     document.documentElement.setAttribute("lang", language);
   }, [fontSize, theme, language]);
 
-const handleSave = () => {
-  localStorage.setItem("fontSize", fontSize.toString());
-  localStorage.setItem("theme", theme);
-  localStorage.setItem("language", language);
+  const handleSave = () => {
+    localStorage.setItem("fontSize", fontSize.toString());
+    localStorage.setItem("theme", theme);
+    localStorage.setItem("language", language);
 
-  window.location.reload();
-};
+    setSaved(true);
+    setTimeout(() => setSaved(false), 2500);
+  };
 
   return (
     <div className="page">
@@ -94,6 +89,12 @@ const handleSave = () => {
       <button className="btn-primary" onClick={handleSave}>
         Submit Changes
       </button>
+
+      {saved && (
+        <p style={{ marginTop: "1rem", textAlign: "center", color: "green", fontWeight: 600 }}>
+          Settings saved.
+        </p>
+      )}
     </div>
   );
 }
