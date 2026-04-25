@@ -1,13 +1,14 @@
+"use client";
+
 import events from "@/data/events.json";
-import { translations } from "@/app/lib/translations";
+import { translations } from "../lib/translations";
+import { useLang } from "../lib/useLang";
 
 export default function EventsPage() {
-  const lang =
-    typeof window !== "undefined"
-      ? localStorage.getItem("language") || "en"
-      : "en";
 
+  const lang = useLang();
   const t = translations[lang];
+
   return (
     <main className="events-page">
       <h1 className="page-title">{t.events}</h1>
@@ -25,16 +26,16 @@ export default function EventsPage() {
 
             <h3>{event.title}</h3>
 
-            <p>🗓️ Date: {event.date}</p>
-            <p>🕘 Time: {event.time}</p>
-            <p>📍 Location: {event.location}</p>
+            <p>🗓️ {t.date}: {event.date}</p>
+            <p>🕘 {t.time}: {event.time}</p>
+            <p>📍 {t.location}: {event.location}</p>
 
             <p className="event-description">
               {event.description}
             </p>
 
             <button className="register-btn">
-              Register Now
+              {t.registerNow}
             </button>
           </div>
         ))}
