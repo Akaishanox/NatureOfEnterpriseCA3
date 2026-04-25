@@ -30,12 +30,13 @@ export default function SettingsPage() {
     document.documentElement.setAttribute("lang", language);
   }, [fontSize, theme, language]);
 
-  const handleSave = () => {
-    localStorage.setItem("fontSize", fontSize.toString());
-    localStorage.setItem("theme", theme);
-    localStorage.setItem("language", language);
-    alert("Settings saved");
-  };
+const handleSave = () => {
+  localStorage.setItem("fontSize", fontSize.toString());
+  localStorage.setItem("theme", theme);
+  localStorage.setItem("language", language);
+
+  window.location.reload(); // 🔥 THIS FIXES EVERYTHING
+};
 
   return (
     <div className="page">
