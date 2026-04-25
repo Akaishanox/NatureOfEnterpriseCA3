@@ -1,50 +1,101 @@
-"use client";
+export const translations = {
+  en: {
+    greeting: "Good Evening",
 
-import { translations } from "@/app/lib/translations";
-import events from "@/data/events.json";
+    events: "Campus Events",
+    upcomingEvents: "Upcoming Events",
+    browseEvents: "Browse and register for campus events",
 
-export default function EventsPage() {
+    helpdesk: "Helpdesk",
+    helpdeskDesc: "Submit your questions and concerns. Our team will respond within 24 hours.",
+    currentTickets: "Current Tickets",
+    submitRequest: "Submit Request",
 
-  const lang =
-    typeof window !== "undefined"
-      ? localStorage.getItem("language") || "en"
-      : "en";
+    canteen: "Campus Canteen",
+    menu: "Today's Menu",
+    chooseMenu: "Choose from our menu",
+    addToOrder: "Add to Order",
 
-  const t = translations[lang];
+    settings: "Settings",
+    accessibility: "Accessibility Options",
+    fontSize: "Font Size",
+    theme: "Theme",
+    language: "Language",
+    submitChanges: "Submit Changes"
+  },
 
-  return (
-    <main className="events-page">
+  ga: {
+    greeting: "Tráthnóna maith",
 
-      <h1 className="page-title">{t.events}</h1>
-      <div className="page-line"></div>
+    events: "Imeachtaí Campais",
+    upcomingEvents: "Imeachtaí le Teacht",
+    browseEvents: "Brabhsáil agus cláraigh le haghaidh imeachtaí",
 
-      <h2 className="section-title">{t.upcomingEvents}</h2>
-      <p className="section-subtitle">
-        {t.browseEvents}
-      </p>
+    helpdesk: "Deasc Chabhrach",
+    helpdeskDesc: "Cuir isteach do cheisteanna agus imní. Freagróimid laistigh de 24 uair an chloig.",
+    currentTickets: "Ticéid Reatha",
+    submitRequest: "Cuir Iarratas Isteach",
 
-      <div className="events-grid">
-        {events.map((event: any) => (
-          <div className="event-card" key={event.id}>
-            <div className="event-icon">📅</div>
+    canteen: "Ceaintín",
+    menu: "Biachlár an Lae",
+    chooseMenu: "Roghnaigh ónár mbiachlár",
+    addToOrder: "Cuir leis an Ordú",
 
-            <h3>{event.title}</h3>
+    settings: "Socruithe",
+    accessibility: "Roghanna Inrochtaineachta",
+    fontSize: "Méid Cló",
+    theme: "Téama",
+    language: "Teanga",
+    submitChanges: "Sábháil Athruithe"
+  },
 
-            <p>🗓️ Date: {event.date}</p>
-            <p>🕘 Time: {event.time}</p>
-            <p>📍 Location: {event.location}</p>
+  es: {
+    greeting: "Buenas noches",
 
-            <p className="event-description">
-              {event.description}
-            </p>
+    events: "Eventos del Campus",
+    upcomingEvents: "Próximos Eventos",
+    browseEvents: "Explora y regístrate para eventos",
 
-            <button className="register-btn">
-              {t.submitRequest}
-            </button>
-          </div>
-        ))}
-      </div>
+    helpdesk: "Soporte",
+    helpdeskDesc: "Envía tus preguntas y dudas. Respondemos en 24 horas.",
+    currentTickets: "Tickets Actuales",
+    submitRequest: "Enviar Solicitud",
 
-    </main>
-  );
-}
+    canteen: "Cafetería",
+    menu: "Menú de Hoy",
+    chooseMenu: "Elige del menú",
+    addToOrder: "Añadir al Pedido",
+
+    settings: "Configuración",
+    accessibility: "Opciones de Accesibilidad",
+    fontSize: "Tamaño de Fuente",
+    theme: "Tema",
+    language: "Idioma",
+    submitChanges: "Guardar Cambios"
+  },
+
+  fr: {
+    greeting: "Bonsoir",
+
+    events: "Événements du Campus",
+    upcomingEvents: "Événements à Venir",
+    browseEvents: "Parcourir et s'inscrire aux événements",
+
+    helpdesk: "Assistance",
+    helpdeskDesc: "Soumettez vos questions. Réponse sous 24 heures.",
+    currentTickets: "Tickets Actuels",
+    submitRequest: "Envoyer la Demande",
+
+    canteen: "Cantine",
+    menu: "Menu du Jour",
+    chooseMenu: "Choisissez du menu",
+    addToOrder: "Ajouter à la commande",
+
+    settings: "Paramètres",
+    accessibility: "Options d'accessibilité",
+    fontSize: "Taille de police",
+    theme: "Thème",
+    language: "Langue",
+    submitChanges: "Enregistrer"
+  }
+};
