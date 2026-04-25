@@ -49,7 +49,7 @@ export default function EventsPage() {
 
       <style>{`
         .events-page-fixed {
-          padding: 3rem 4rem;
+          padding: 6rem 4rem 3rem; /* FIXED TOP SPACING */
           background: var(--background);
           min-height: 100vh;
         }
@@ -150,7 +150,7 @@ export default function EventsPage() {
 
         @media (max-width: 900px) {
           .events-page-fixed {
-            padding: 2rem 1.5rem;
+            padding: 5rem 1.5rem 2rem;
           }
 
           .events-grid-fixed {
