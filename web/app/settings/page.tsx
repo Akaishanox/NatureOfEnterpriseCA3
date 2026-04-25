@@ -1,115 +1,204 @@
-"use client";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
-import { useState, useEffect } from "react";
+:root {
+  --primary: #2563eb;
+  --primary-dark: #1d4ed8;
+  --primary-light: #eff6ff;
+  --text: #111827;
+  --text-muted: #6b7280;
+  --bg: #f3f4f6;
+  --surface: #ffffff;
+  --border: #e5e7eb;
+  --navbar-h: 56px;
+  --radius: 10px;
+  --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 2px 8px rgba(0,0,0,0.06);
+  --font: 'Inter', sans-serif;
+}
 
-export default function SettingsPage() {
-  const [fontSize, setFontSize] = useState(16);
-  const [theme, setTheme] = useState("light");
-  const [language, setLanguage] = useState("English");
+.dark-mode {
+  --primary: #3b82f6;
+  --primary-dark: #2563eb;
+  --primary-light: #1e3a8a;
+  --text: #f9fafb;
+  --text-muted: #d1d5db;
+  --bg: #111827;
+  --surface: #1f2937;
+  --border: #374151;
+}
 
-  // Load saved settings
-  useEffect(() => {
-    const savedFont = localStorage.getItem("fontSize");
-    const savedTheme = localStorage.getItem("theme");
-    const savedLang = localStorage.getItem("language");
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-    if (savedFont) setFontSize(Number(savedFont));
-    if (savedTheme) setTheme(savedTheme);
-    if (savedLang) setLanguage(savedLang);
-  }, []);
+html {
+  font-size: 16px;
+}
 
-  // Apply settings live
-  useEffect(() => {
-    document.documentElement.style.fontSize = fontSize + "px";
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  line-height: 1.5;
+  transition: background 0.2s ease, color 0.2s ease;
+}
 
-    if (theme === "dark") {
-      document.body.style.background = "#111827";
-      document.body.style.color = "#f9fafb";
-    } else {
-      document.body.style.background = "#f3f4f6";
-      document.body.style.color = "#111827";
-    }
-  }, [fontSize, theme]);
+/* NAVBAR */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--navbar-h);
+  background: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  z-index: 100;
+}
 
-  const handleSave = () => {
-    localStorage.setItem("fontSize", fontSize.toString());
-    localStorage.setItem("theme", theme);
-    localStorage.setItem("language", language);
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #fff;
+  font-weight: 700;
+  font-size: 1rem;
+}
 
-    alert("Settings saved!");
-  };
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 0.25rem;
+}
 
-  return (
-    <div className="page">
-      <h1 className="page-title">Accessibility Options</h1>
-      <div className="page-line"></div>
+.nav-link {
+  display: block;
+  padding: 0.35rem 0.8rem;
+  border-radius: 6px;
+  text-decoration: none;
+  color: rgba(255,255,255,0.85);
+  font-size: 0.88rem;
+  font-weight: 500;
+}
 
-      {/* FONT SIZE */}
-      <div className="card">
-        <h3>Font Size</h3>
-        <p>Adjust text size</p>
+.nav-link:hover {
+  background: rgba(255,255,255,0.15);
+  color: #fff;
+}
 
-        <input
-          type="range"
-          min="12"
-          max="22"
-          value={fontSize}
-          onChange={(e) => setFontSize(Number(e.target.value))}
-          style={{ width: "100%", marginTop: "10px" }}
-        />
+.nav-link.active {
+  background: rgba(255,255,255,0.2);
+  color: #fff;
+  font-weight: 700;
+}
 
-        <p style={{ marginTop: "5px" }}>{fontSize}px</p>
-      </div>
+/* PAGE */
+.page {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: calc(var(--navbar-h) + 2.5rem) 1.5rem 3rem;
+}
 
-      {/* THEME */}
-      <div className="card" style={{ marginTop: "20px" }}>
-        <h3>Theme</h3>
+/* CARDS */
+.card,
+.event-card,
+.menu-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+  transition: all 0.2s ease;
+}
 
-        <label>
-          <input
-            type="radio"
-            value="light"
-            checked={theme === "light"}
-            onChange={(e) => setTheme(e.target.value)}
-          />
-          Light Mode
-        </label>
+.card:hover,
+.event-card:hover,
+.menu-card:hover {
+  transform: translateY(-2px);
+}
 
-        <br />
+/* BUTTON */
+.btn-primary {
+  display: block;
+  width: 100%;
+  padding: 0.65rem 1rem;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-family: var(--font);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+}
 
-        <label>
-          <input
-            type="radio"
-            value="dark"
-            checked={theme === "dark"}
-            onChange={(e) => setTheme(e.target.value)}
-          />
-          Dark Mode
-        </label>
-      </div>
+.btn-primary:hover {
+  background: var(--primary-dark);
+}
 
-      {/* LANGUAGE */}
-      <div className="card" style={{ marginTop: "20px" }}>
-        <h3>Language</h3>
+/* FORM */
+.form-input,
+.form-textarea,
+select {
+  width: 100%;
+  padding: 0.55rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-family: var(--font);
+  font-size: 0.9rem;
+  color: var(--text);
+  background: var(--surface);
+}
 
-        <select
-          value={language}
-          onChange={(e) => setLanguage(e.target.value)}
-          className="form-input"
-        >
-          <option>English</option>
-          <option>Irish</option>
-        </select>
-      </div>
+.form-input:focus,
+.form-textarea:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(37,99,235,0.12);
+}
 
-      {/* SAVE BUTTON */}
-      <button
-        onClick={handleSave}
-        className="btn-primary"
-        style={{ marginTop: "30px" }}
-      >
-        Submit Changes
-      </button>
-    </div>
-  );
+/* TITLES */
+.page-title {
+  color: var(--primary);
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.page-line {
+  width: 65px;
+  height: 7px;
+  background: var(--primary);
+  border-radius: 10px;
+  margin-bottom: 35px;
+}
+
+.section-title {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.section-subtitle {
+  color: var(--text-muted);
+  margin-bottom: 35px;
+}
+
+/* GRID */
+.page-grid,
+.events-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 640px) {
+  .page-grid,
+  .events-grid {
+    grid-template-columns: 1fr;
+  }
 }
