@@ -91,11 +91,12 @@ export default function SettingsPage() {
   }, [fontSize, theme, language]);
 
   const handleSave = () => {
-    localStorage.setItem("fontSize", fontSize.toString());
-    localStorage.setItem("theme", theme);
-    localStorage.setItem("language", language);
-    window.location.reload();
-  };
+  localStorage.setItem("fontSize", fontSize.toString());
+  localStorage.setItem("theme", theme);
+  localStorage.setItem("language", language);
+
+  window.dispatchEvent(new Event("languageChanged"));
+};
 
   return (
     <div className="settings-page">
