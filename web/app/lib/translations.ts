@@ -6,6 +6,12 @@ export const translations = {
     upcomingEvents: "Upcoming Events",
     browseEvents: "Browse and register for campus events",
 
+    // 🔥 NEW (events page)
+    date: "Date",
+    time: "Time",
+    location: "Location",
+    registerNow: "Register Now",
+
     helpdesk: "Helpdesk",
     helpdeskDesc: "Submit your questions and concerns. Our team will respond within 24 hours.",
     currentTickets: "Current Tickets",
@@ -30,6 +36,12 @@ export const translations = {
     events: "Imeachtaí Campais",
     upcomingEvents: "Imeachtaí le Teacht",
     browseEvents: "Brabhsáil agus cláraigh le haghaidh imeachtaí",
+
+    // 🔥 NEW
+    date: "Dáta",
+    time: "Am",
+    location: "Suíomh",
+    registerNow: "Cláraigh",
 
     helpdesk: "Deasc Chabhrach",
     helpdeskDesc: "Cuir isteach do cheisteanna agus imní. Freagróimid laistigh de 24 uair an chloig.",
@@ -56,6 +68,12 @@ export const translations = {
     upcomingEvents: "Próximos Eventos",
     browseEvents: "Explora y regístrate para eventos",
 
+    // 🔥 NEW
+    date: "Fecha",
+    time: "Hora",
+    location: "Ubicación",
+    registerNow: "Registrarse",
+
     helpdesk: "Soporte",
     helpdeskDesc: "Envía tus preguntas y dudas. Respondemos en 24 horas.",
     currentTickets: "Tickets Actuales",
@@ -80,6 +98,12 @@ export const translations = {
     events: "Événements du Campus",
     upcomingEvents: "Événements à Venir",
     browseEvents: "Parcourir et s'inscrire aux événements",
+
+    // 🔥 NEW
+    date: "Date",
+    time: "Heure",
+    location: "Lieu",
+    registerNow: "S'inscrire",
 
     helpdesk: "Assistance",
     helpdeskDesc: "Soumettez vos questions. Réponse sous 24 heures.",
