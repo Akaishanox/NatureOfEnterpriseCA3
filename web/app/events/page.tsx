@@ -15,6 +15,15 @@ export default function EventsPage() {
   const lang = useLang();
   const t = translations[lang];
 
+  // ✅ CATEGORY ICONS (matches wireframe style)
+  const ICONS: Record<string, string> = {
+    Technology: "💻",
+    Sports: "🏅",
+    Careers: "👤",
+    Social: "👥",
+    Academic: "📘",
+  };
+
   return (
     <main className="events-page-fixed">
       <h1 className="events-title">{t.events}</h1>
@@ -26,7 +35,11 @@ export default function EventsPage() {
       <div className="events-grid-fixed">
         {events.map((event: any) => (
           <div className="event-card-fixed" key={event.id}>
-            <div className="event-icon-fixed">📅</div>
+            
+            {/* ✅ ICON PER CATEGORY */}
+            <div className="event-icon-fixed">
+              {ICONS[event.category] || "📅"}
+            </div>
 
             <h3>{getText(event.title, lang)}</h3>
 
@@ -49,7 +62,7 @@ export default function EventsPage() {
 
       <style>{`
         .events-page-fixed {
-          padding: 6rem 4rem 3rem; /* FIXED TOP SPACING */
+          padding: 6rem 4rem 3rem;
           background: var(--background);
           min-height: 100vh;
         }
@@ -102,9 +115,10 @@ export default function EventsPage() {
         }
 
         .event-icon-fixed {
-          font-size: 2.3rem;
+          font-size: 2.5rem;
           text-align: center;
-          margin-bottom: 1.2rem;
+          margin-bottom: 1rem;
+          color: var(--primary);
         }
 
         .event-card-fixed h3 {
