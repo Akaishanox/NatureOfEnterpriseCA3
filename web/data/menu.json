@@ -1,6 +1,94 @@
 [
-  { "id": 1, "name": "Grilled Salmon",       "category": "Main",  "price": 12.50, "diet": "Gluten-Free"   },
-  { "id": 2, "name": "Margherita Pizza",     "category": "Main",  "price": 8.25,  "diet": "Vegetarian"    },
-  { "id": 3, "name": "Coffee",               "category": "Drink", "price": 2.50,  "diet": "Vegetarian"    },
-  { "id": 4, "name": "Chicken Caesar Salad", "category": "Main",  "price": 9.50,  "diet": "Contains Meat" }
+  {
+    "id": 1,
+    "name": {
+      "en": "Grilled Salmon",
+      "fr": "Saumon Grillé",
+      "es": "Salmón a la Parrilla",
+      "ga": "Bradán Gríoscaithe"
+    },
+    "category": "Main",
+    "price": 12.5,
+    "diet": {
+      "en": "Gluten-Free",
+      "fr": "Sans Gluten",
+      "es": "Sin Gluten",
+      "ga": "Gan Glútan"
+    },
+    "description": {
+      "en": "Delicious grilled salmon prepared with fresh herbs and lemon butter",
+      "fr": "Délicieux saumon grillé avec herbes fraîches et beurre citronné",
+      "es": "Delicioso salmón a la parrilla con hierbas frescas y mantequilla de limón",
+      "ga": "Bradán blasta le luibheanna úra agus im líomóide"
+    }
+  },
+  {
+    "id": 2,
+    "name": {
+      "en": "Margherita Pizza",
+      "fr": "Pizza Margherita",
+      "es": "Pizza Margarita",
+      "ga": "Píotsa Margherita"
+    },
+    "category": "Main",
+    "price": 8.25,
+    "diet": {
+      "en": "Vegetarian",
+      "fr": "Végétarien",
+      "es": "Vegetariano",
+      "ga": "Veigeatánach"
+    },
+    "description": {
+      "en": "Traditional Margherita pizza prepared with fresh mozzarella and basil",
+      "fr": "Pizza traditionnelle avec mozzarella fraîche et basilic",
+      "es": "Pizza tradicional con mozzarella fresca y albahaca",
+      "ga": "Píotsa traidisiúnta le mozzarella úr agus basil"
+    }
+  },
+  {
+    "id": 3,
+    "name": {
+      "en": "Coffee",
+      "fr": "Café",
+      "es": "Café",
+      "ga": "Caife"
+    },
+    "category": "Drink",
+    "price": 2.5,
+    "diet": {
+      "en": "Vegetarian",
+      "fr": "Végétarien",
+      "es": "Vegetariano",
+      "ga": "Veigeatánach"
+    },
+    "description": {
+      "en": "Freshly brewed coffee prepared with premium Arabica beans",
+      "fr": "Café fraîchement préparé avec des grains Arabica premium",
+      "es": "Café recién hecho con granos Arábica premium",
+      "ga": "Caife úr déanta le pónairí Arabica ardchaighdeáin"
+    }
+  },
+  {
+    "id": 4,
+    "name": {
+      "en": "Chicken Caesar Salad",
+      "fr": "Salade César au Poulet",
+      "es": "Ensalada César con Pollo",
+      "ga": "Sailéad Caesar le Sicín"
+    },
+    "category": "Main",
+    "price": 9.5,
+    "diet": {
+      "en": "Contains Meat",
+      "fr": "Contient de la viande",
+      "es": "Contiene carne",
+      "ga": "Tá feoil ann"
+    },
+    "description": {
+      "en": "Classic Caesar salad prepared with grilled chicken, romaine lettuce and parmesan",
+      "fr": "Salade César classique avec poulet grillé, laitue romaine et parmesan",
+      "es": "Ensalada César clásica con pollo a la parrilla, lechuga romana y parmesano",
+      "ga": "Sailéad Caesar clasaiceach le sicín, leitís agus parmesan"
+    }
+  }
 ]
