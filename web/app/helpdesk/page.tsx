@@ -13,7 +13,7 @@ interface Ticket {
   name: string;
   student_id: string;
   email: string;
-  subject: any;
+  subject: string;
   status: Status;
   priority: Priority;
 }
@@ -97,9 +97,7 @@ export default function HelpdeskPage() {
               
               <div>
                 <div style={{ fontWeight: 600 }}>
-                  {typeof ticket.subject === "object"
-                    ? ticket.subject[lang]
-                    : ticket.subject}
+                  {ticket.subject}
                 </div>
 
                 <div style={{ fontSize: "0.78rem", color: "var(--text-muted)" }}>
@@ -109,15 +107,11 @@ export default function HelpdeskPage() {
 
               <div style={{ display: "flex", gap: "0.4rem" }}>
                 <span className={`badge ${PRIORITY_COL[ticket.priority]}`}>
-                  {ticket.priority === "High" && t.priorityHigh}
-                  {ticket.priority === "Medium" && t.priorityMedium}
-                  {ticket.priority === "Low" && t.priorityLow}
+                  {t.priority?.[ticket.priority] || ticket.priority}
                 </span>
 
                 <span className={`badge ${STATUS_COL[ticket.status]}`}>
-                  {ticket.status === "Open" && t.statusOpen}
-                  {ticket.status === "In Progress" && t.statusInProgress}
-                  {ticket.status === "Closed" && t.statusClosed}
+                  {t.status?.[ticket.status] || ticket.status}
                 </span>
               </div>
 
@@ -135,26 +129,56 @@ export default function HelpdeskPage() {
 
         {submitted && (
           <div style={{ background: "#d1fae5", color: "#065f46", padding: "0.75rem", borderRadius: "6px", marginBottom: "1rem", fontWeight: 600 }}>
-            {t.formSubmit}
+            Submitted
           </div>
         )}
 
         <div className="card" style={{ padding: "1.5rem" }}>
 
           {([
-            { id: "name", label: t.formName, type: "text" },
-            { id: "studentId", label: t.formStudentId, type: "text" },
-            { id: "email", label: t.formEmail, type: "email" },
-            { id: "phone", label: t.formPhone, type: "tel" },
-            { id: "subject", label: t.formSubject, type: "text" },
-          ] as { id: keyof FormState; label: string; type: string }[]).map(({ id, label, type }) => (
-            
+            {
+              id: "name",
+              label: t.formName,
+              placeholder: t.formNamePlaceholder,
+              type: "text",
+            },
+            {
+              id: "studentId",
+              label: t.formStudentId,
+              placeholder: t.formStudentIdPlaceholder,
+              type: "text",
+            },
+            {
+              id: "email",
+              label: t.formEmail,
+              placeholder: t.formEmailPlaceholder,
+              type: "email",
+            },
+            {
+              id: "phone",
+              label: t.formPhone,
+              placeholder: t.formPhonePlaceholder,
+              type: "tel",
+            },
+            {
+              id: "subject",
+              label: t.formSubject,
+              placeholder: t.formSubjectPlaceholder,
+              type: "text",
+            },
+          ] as {
+            id: keyof FormState;
+            label: string;
+            placeholder: string;
+            type: string;
+          }[]).map(({ id, label, placeholder, type }) => (
             <div key={id} className="form-group">
               <label className="form-label">{label}</label>
 
               <input
                 className="form-input"
                 type={type}
+                placeholder={placeholder}
                 value={form[id]}
                 onChange={(e) => setField(id, e.target.value)}
               />
@@ -165,7 +189,6 @@ export default function HelpdeskPage() {
                 </span>
               )}
             </div>
-
           ))}
 
           <div className="form-group">
@@ -173,6 +196,7 @@ export default function HelpdeskPage() {
 
             <textarea
               className="form-textarea"
+              placeholder={t.formDescriptionPlaceholder}
               value={form.description}
               onChange={(e) => setField("description", e.target.value)}
             />
@@ -185,7 +209,7 @@ export default function HelpdeskPage() {
           </div>
 
           <button className="btn-primary" onClick={handleSubmit}>
-            {t.formSubmit}
+            {t.submitRequest}
           </button>
 
         </div>
