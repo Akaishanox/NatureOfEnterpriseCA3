@@ -1,158 +1,108 @@
 "use client";
+import { useState } from "react";
+import ticketsData from "@/data/tickets.json";
 
-import { useEffect, useState } from "react";
+type Status   = "Open" | "In Progress" | "Closed";
+type Priority = "High" | "Medium" | "Low";
+interface Ticket { id: number; name: string; student_id: string; email: string; subject: string; status: Status; priority: Priority; }
+interface FormState { name: string; studentId: string; email: string; phone: string; subject: string; description: string; }
 
-export default function SettingsPage() {
-  const [fontSize, setFontSize] = useState("medium");
-  const [theme, setTheme] = useState("light");
-  const [language, setLanguage] = useState("English");
-  const [emailNotifications, setEmailNotifications] = useState(true);
-  const [saved, setSaved] = useState(false);
+const EMPTY: FormState = { name: "", studentId: "", email: "", phone: "", subject: "", description: "" };
+const STATUS_COL:   Record<Status,   string> = { Open: "badge-blue", "In Progress": "badge-amber", Closed: "badge-green" };
+const PRIORITY_COL: Record<Priority, string> = { High: "badge-red",  Medium: "badge-amber",        Low: "badge-grey"     };
 
-  useEffect(() => {
-    const savedFontSize = localStorage.getItem("fontSize");
-    const savedTheme = localStorage.getItem("theme");
-    const savedLanguage = localStorage.getItem("language");
-    const savedNotifications = localStorage.getItem("emailNotifications");
+export default function HelpdeskPage() {
+  const [form, setForm]           = useState<FormState>(EMPTY);
+  const [errors, setErrors]       = useState<Partial<FormState>>({});
+  const [submitted, setSubmitted] = useState(false);
 
-    if (savedFontSize) setFontSize(savedFontSize);
-    if (savedTheme) setTheme(savedTheme);
-    if (savedLanguage) setLanguage(savedLanguage);
-    if (savedNotifications) setEmailNotifications(savedNotifications === "true");
-  }, []);
+  function set(key: keyof FormState, val: string) {
+    setForm((f) => ({ ...f, [key]: val }));
+    setErrors((e) => ({ ...e, [key]: undefined }));
+  }
 
-  const saveSettings = () => {
-    localStorage.setItem("fontSize", fontSize);
-    localStorage.setItem("theme", theme);
-    localStorage.setItem("language", language);
-    localStorage.setItem("emailNotifications", String(emailNotifications));
+  function validate() {
+    const e: Partial<FormState> = {};
+    if (!form.name.trim())        e.name        = "Name is required.";
+    if (!form.studentId.trim())   e.studentId   = "Student ID is required.";
+    if (!form.email.trim())       e.email       = "Email is required.";
+    if (!form.subject.trim())     e.subject     = "Subject is required.";
+    if (!form.description.trim()) e.description = "Description is required.";
+    return e;
+  }
 
-    setSaved(true);
+  function handleSubmit() {
+    const e = validate();
+    if (Object.keys(e).length) { setErrors(e); return; }
+    setSubmitted(true);
+    setForm(EMPTY);
+    setErrors({});
+    setTimeout(() => setSubmitted(false), 4000);
+  }
 
-    setTimeout(() => {
-      setSaved(false);
-    }, 2500);
-  };
+  const tickets = ticketsData as Ticket[];
 
   return (
-    <main className="page">
-      <div style={{ maxWidth: "760px", margin: "0 auto" }}>
-        <h1 className="page-title">Accessibility Options</h1>
-        <div className="page-line"></div>
+    <div className="page">
+      <section style={{ marginBottom: "2rem" }} aria-label="Existing tickets">
+        <p style={{ fontSize: "0.78rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.05em", color: "var(--text-muted)", marginBottom: "0.75rem" }}>Current Tickets</p>
+        <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: "0.6rem" }}>
+          {tickets.map((t) => (
+            <li key={t.id} className="card" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0.85rem 1.1rem" }}>
+              <div>
+                <div style={{ fontWeight: 600, fontSize: "0.9rem" }}>{t.subject}</div>
+                <div style={{ fontSize: "0.78rem", color: "var(--text-muted)" }}>{t.name} · {t.student_id}</div>
+              </div>
+              <div style={{ display: "flex", gap: "0.4rem" }}>
+                <span className={`badge ${PRIORITY_COL[t.priority]}`}>{t.priority}</span>
+                <span className={`badge ${STATUS_COL[t.status]}`}>{t.status}</span>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </section>
 
-        <h2 className="section-title">🎨 Appearance</h2>
-        <p className="section-subtitle">Change how the app looks and feels</p>
+      <div style={{ maxWidth: 540 }}>
+        <h1 style={{ fontSize: "1.6rem", fontWeight: 700, marginBottom: "0.3rem" }}>Helpdesk</h1>
+        <p style={{ color: "var(--text-muted)", fontSize: "0.875rem", marginBottom: "1.5rem" }}>
+          Submit your questions and concerns. Our team will respond within 24 hours.
+        </p>
 
-        <section className="card" style={{ marginBottom: "1.5rem" }}>
-          <h3 style={{ color: "var(--primary)", marginBottom: "0.4rem" }}>
-            ↕ Font Size
-          </h3>
-          <p style={{ color: "var(--text-muted)", marginBottom: "1rem" }}>
-            Adjust text size for better readability
-          </p>
-
-          <select
-            className="form-input"
-            value={fontSize}
-            onChange={(e) => setFontSize(e.target.value)}
-          >
-            <option value="small">Small</option>
-            <option value="medium">Medium</option>
-            <option value="large">Large</option>
-          </select>
-        </section>
-
-        <section className="card" style={{ marginBottom: "1.5rem" }}>
-          <h3 style={{ color: "var(--primary)", marginBottom: "0.4rem" }}>
-            ◐ Theme
-          </h3>
-          <p style={{ color: "var(--text-muted)", marginBottom: "1rem" }}>
-            Choose your preferred colour scheme
-          </p>
-
-          <label style={{ display: "block", marginBottom: "0.75rem" }}>
-            <input
-              type="radio"
-              name="theme"
-              value="light"
-              checked={theme === "light"}
-              onChange={(e) => setTheme(e.target.value)}
-              style={{ marginRight: "0.5rem" }}
-            />
-            Light Mode
-          </label>
-
-          <label>
-            <input
-              type="radio"
-              name="theme"
-              value="dark"
-              checked={theme === "dark"}
-              onChange={(e) => setTheme(e.target.value)}
-              style={{ marginRight: "0.5rem" }}
-            />
-            Dark Mode
-          </label>
-        </section>
-
-        <h2 className="section-title">⚙ Preferences</h2>
-        <p className="section-subtitle">Manage your app preferences</p>
-
-        <section className="card" style={{ marginBottom: "1.5rem" }}>
-          <h3 style={{ color: "var(--primary)", marginBottom: "0.4rem" }}>
-            🌐 Language
-          </h3>
-          <p style={{ color: "var(--text-muted)", marginBottom: "1rem" }}>
-            Select your preferred language
-          </p>
-
-          <select
-            className="form-input"
-            value={language}
-            onChange={(e) => setLanguage(e.target.value)}
-          >
-            <option>English</option>
-            <option>Irish</option>
-            <option>French</option>
-            <option>Spanish</option>
-          </select>
-        </section>
-
-        <section className="card" style={{ marginBottom: "1.5rem" }}>
-          <h3 style={{ color: "var(--primary)", marginBottom: "0.4rem" }}>
-            🔔 Notifications
-          </h3>
-          <p style={{ color: "var(--text-muted)", marginBottom: "1rem" }}>
-            Manage how you receive updates
-          </p>
-
-          <label style={{ display: "flex", justifyContent: "space-between" }}>
-            Email Notifications
-            <input
-              type="checkbox"
-              checked={emailNotifications}
-              onChange={(e) => setEmailNotifications(e.target.checked)}
-            />
-          </label>
-        </section>
-
-        <button className="btn-primary" onClick={saveSettings}>
-          Submit Changes
-        </button>
-
-        {saved && (
-          <p
-            style={{
-              marginTop: "1rem",
-              textAlign: "center",
-              color: "green",
-              fontWeight: 600,
-            }}
-          >
-            Settings saved successfully.
-          </p>
+        {submitted && (
+          <div role="alert" style={{ background: "#d1fae5", color: "#065f46", borderRadius: "6px", padding: "0.75rem 1rem", marginBottom: "1rem", fontWeight: 600, fontSize: "0.875rem" }}>
+            ✅ Request submitted! We'll get back to you within 24 hours.
+          </div>
         )}
+
+        <div className="card" style={{ padding: "1.5rem" }}>
+          {([
+            { id: "name",      label: "Name",              placeholder: "Enter your name",         type: "text"  },
+            { id: "studentId", label: "Student ID Number", placeholder: "Enter your student ID",   type: "text"  },
+            { id: "email",     label: "Email",             placeholder: "Enter your email",        type: "email" },
+            { id: "phone",     label: "Phone Number",      placeholder: "Enter your phone number", type: "tel"   },
+            { id: "subject",   label: "Subject",           placeholder: "Enter subject",           type: "text"  },
+          ] as { id: keyof FormState; label: string; placeholder: string; type: string }[]).map(({ id, label, placeholder, type }) => (
+            <div key={id} className="form-group">
+              <label className="form-label" htmlFor={id}>{label}</label>
+              <input id={id} className="form-input" type={type} placeholder={placeholder}
+                value={form[id]} onChange={(e) => set(id, e.target.value)} />
+              {(errors as Record<string,string>)[id] && (
+                <span role="alert" style={{ color: "#ef4444", fontSize: "0.78rem" }}>{(errors as Record<string,string>)[id]}</span>
+              )}
+            </div>
+          ))}
+
+          <div className="form-group">
+            <label className="form-label" htmlFor="description">Description</label>
+            <textarea id="description" className="form-textarea" placeholder="Enter description"
+              value={form.description} onChange={(e) => set("description", e.target.value)} />
+            {errors.description && <span role="alert" style={{ color: "#ef4444", fontSize: "0.78rem" }}>{errors.description}</span>}
+          </div>
+
+          <p style={{ fontSize: "0.75rem", color: "var(--text-muted)", marginBottom: "1rem" }}>Please provide as much detail as possible.</p>
+          <button className="btn-primary" onClick={handleSubmit}>Submit Request</button>
+        </div>
       </div>
-    </main>
+    </div>
   );
 }
