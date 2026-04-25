@@ -9,6 +9,7 @@ export const translations = {
     helpdesk: "Helpdesk",
     helpdeskDesc: "Submit your questions and concerns. Our team will respond within 24 hours.",
     currentTickets: "Current Tickets",
+    submitRequest: "Submit Request",
 
     canteen: "Campus Canteen",
     menu: "Today's Menu",
@@ -22,21 +23,31 @@ export const translations = {
     language: "Language",
     submitChanges: "Submit Changes",
 
-    statusOpen: "Open",
-    statusInProgress: "In Progress",
-    statusClosed: "Closed",
-
-    priorityHigh: "High",
-    priorityMedium: "Medium",
-    priorityLow: "Low",
-
     formName: "Name",
     formStudentId: "Student ID Number",
     formEmail: "Email",
     formPhone: "Phone Number",
     formSubject: "Subject",
     formDescription: "Description",
-    formSubmit: "Submit Request"
+
+    formNamePlaceholder: "Enter your name",
+    formStudentIdPlaceholder: "Enter your student ID",
+    formEmailPlaceholder: "Enter your email",
+    formPhonePlaceholder: "Enter your phone number",
+    formSubjectPlaceholder: "Enter subject",
+    formDescriptionPlaceholder: "Enter description",
+
+    status: {
+      Open: "Open",
+      "In Progress": "In Progress",
+      Closed: "Closed",
+    },
+
+    priority: {
+      High: "High",
+      Medium: "Medium",
+      Low: "Low",
+    },
   },
 
   ga: {
@@ -49,6 +60,7 @@ export const translations = {
     helpdesk: "Deasc Chabhrach",
     helpdeskDesc: "Cuir isteach do cheisteanna agus imní. Freagróimid laistigh de 24 uair an chloig.",
     currentTickets: "Ticéid Reatha",
+    submitRequest: "Cuir Iarratas Isteach",
 
     canteen: "Ceaintín",
     menu: "Biachlár an Lae",
@@ -62,21 +74,31 @@ export const translations = {
     language: "Teanga",
     submitChanges: "Sábháil Athruithe",
 
-    statusOpen: "Oscailte",
-    statusInProgress: "Ar siúl",
-    statusClosed: "Dúnta",
-
-    priorityHigh: "Ard",
-    priorityMedium: "Meán",
-    priorityLow: "Íseal",
-
     formName: "Ainm",
     formStudentId: "Uimhir Mac Léinn",
     formEmail: "Ríomhphost",
     formPhone: "Fón",
     formSubject: "Ábhar",
     formDescription: "Cur síos",
-    formSubmit: "Cuir isteach"
+
+    formNamePlaceholder: "Cuir isteach d’ainm",
+    formStudentIdPlaceholder: "Cuir isteach d’uimhir mac léinn",
+    formEmailPlaceholder: "Cuir isteach do ríomhphost",
+    formPhonePlaceholder: "Cuir isteach d’uimhir fóin",
+    formSubjectPlaceholder: "Cuir isteach ábhar",
+    formDescriptionPlaceholder: "Cuir isteach cur síos",
+
+    status: {
+      Open: "Oscailte",
+      "In Progress": "Ar Siúl",
+      Closed: "Dúnta",
+    },
+
+    priority: {
+      High: "Ard",
+      Medium: "Meánach",
+      Low: "Íseal",
+    },
   },
 
   es: {
@@ -89,6 +111,7 @@ export const translations = {
     helpdesk: "Soporte",
     helpdeskDesc: "Envía tus preguntas y dudas. Respondemos en 24 horas.",
     currentTickets: "Tickets Actuales",
+    submitRequest: "Enviar Solicitud",
 
     canteen: "Cafetería",
     menu: "Menú de Hoy",
@@ -102,21 +125,31 @@ export const translations = {
     language: "Idioma",
     submitChanges: "Guardar Cambios",
 
-    statusOpen: "Abierto",
-    statusInProgress: "En progreso",
-    statusClosed: "Cerrado",
-
-    priorityHigh: "Alto",
-    priorityMedium: "Medio",
-    priorityLow: "Bajo",
-
     formName: "Nombre",
-    formStudentId: "Número de estudiante",
-    formEmail: "Correo electrónico",
+    formStudentId: "Número de Estudiante",
+    formEmail: "Correo",
     formPhone: "Teléfono",
     formSubject: "Asunto",
     formDescription: "Descripción",
-    formSubmit: "Enviar solicitud"
+
+    formNamePlaceholder: "Introduce tu nombre",
+    formStudentIdPlaceholder: "Introduce tu número de estudiante",
+    formEmailPlaceholder: "Introduce tu correo",
+    formPhonePlaceholder: "Introduce tu teléfono",
+    formSubjectPlaceholder: "Introduce asunto",
+    formDescriptionPlaceholder: "Introduce descripción",
+
+    status: {
+      Open: "Abierto",
+      "In Progress": "En Progreso",
+      Closed: "Cerrado",
+    },
+
+    priority: {
+      High: "Alta",
+      Medium: "Media",
+      Low: "Baja",
+    },
   },
 
   fr: {
@@ -129,6 +162,7 @@ export const translations = {
     helpdesk: "Assistance",
     helpdeskDesc: "Soumettez vos questions. Réponse sous 24 heures.",
     currentTickets: "Tickets Actuels",
+    submitRequest: "Envoyer la Demande",
 
     canteen: "Cantine",
     menu: "Menu du Jour",
@@ -142,20 +176,30 @@ export const translations = {
     language: "Langue",
     submitChanges: "Enregistrer",
 
-    statusOpen: "Ouvert",
-    statusInProgress: "En cours",
-    statusClosed: "Fermé",
-
-    priorityHigh: "Élevé",
-    priorityMedium: "Moyen",
-    priorityLow: "Faible",
-
     formName: "Nom",
-    formStudentId: "Numéro étudiant",
+    formStudentId: "Numéro Étudiant",
     formEmail: "Email",
     formPhone: "Téléphone",
     formSubject: "Sujet",
     formDescription: "Description",
-    formSubmit: "Envoyer la demande"
-  }
+
+    formNamePlaceholder: "Entrez votre nom",
+    formStudentIdPlaceholder: "Entrez votre numéro étudiant",
+    formEmailPlaceholder: "Entrez votre email",
+    formPhonePlaceholder: "Entrez votre téléphone",
+    formSubjectPlaceholder: "Entrez le sujet",
+    formDescriptionPlaceholder: "Entrez la description",
+
+    status: {
+      Open: "Ouvert",
+      "In Progress": "En cours",
+      Closed: "Fermé",
+    },
+
+    priority: {
+      High: "Élevée",
+      Medium: "Moyenne",
+      Low: "Faible",
+    },
+  },
 };
