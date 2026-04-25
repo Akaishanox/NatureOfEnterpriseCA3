@@ -5,8 +5,7 @@ import Link from "next/link";
 import usersData from "@/data/users.json";
 import eventsData from "@/data/events.json";
 import menuData from "@/data/menu.json";
-import { translations } from "@/lib/translations";
-
+import { translations } from "@/app/lib/translations";
 const currentUser = (usersData as { id: number; name: string; preferred_category: string }[])[0];
 const nextEvent = (eventsData as { id: number; title: string; date: string; location: string }[])[0];
 const todaysSpecial = (menuData as { id: number; name: string; price: number; diet: string }[])[0];
