@@ -12,5 +12,33 @@
     },
     "status": "Open",
     "priority": "High"
+  },
+  {
+    "id": 2,
+    "name": "Sarah Lee",
+    "student_id": "TUD67890",
+    "email": "sarah@example.com",
+    "subject": {
+      "en": "Login issue",
+      "es": "Problema de inicio de sesión",
+      "fr": "Problème de connexion",
+      "ga": "Fadhb logála isteach"
+    },
+    "status": "In Progress",
+    "priority": "Medium"
+  },
+  {
+    "id": 3,
+    "name": "Alex Kim",
+    "student_id": "TUD54321",
+    "email": "alex@example.com",
+    "subject": {
+      "en": "App bug",
+      "es": "Error de la aplicación",
+      "fr": "Bug de l'application",
+      "ga": "Fabht san aip"
+    },
+    "status": "Closed",
+    "priority": "Low"
   }
 ]
