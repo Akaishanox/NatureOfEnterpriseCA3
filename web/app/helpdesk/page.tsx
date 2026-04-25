@@ -94,7 +94,7 @@ export default function HelpdeskPage() {
         <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: "0.6rem" }}>
           {tickets.map((ticket) => (
             <li key={ticket.id} className="card" style={{ display: "flex", justifyContent: "space-between", padding: "0.85rem 1.1rem" }}>
-              
+
               <div>
                 <div style={{ fontWeight: 600 }}>
                   {ticket.subject}
@@ -107,11 +107,11 @@ export default function HelpdeskPage() {
 
               <div style={{ display: "flex", gap: "0.4rem" }}>
                 <span className={`badge ${PRIORITY_COL[ticket.priority]}`}>
-                  {t.priority?.[ticket.priority] || ticket.priority}
+                  {t.priority[ticket.priority]}
                 </span>
 
                 <span className={`badge ${STATUS_COL[ticket.status]}`}>
-                  {t.status?.[ticket.status] || ticket.status}
+                  {t.status[ticket.status]}
                 </span>
               </div>
 
@@ -135,77 +135,69 @@ export default function HelpdeskPage() {
 
         <div className="card" style={{ padding: "1.5rem" }}>
 
-          {([
-            {
-              id: "name",
-              label: t.formName,
-              placeholder: t.formNamePlaceholder,
-              type: "text",
-            },
-            {
-              id: "studentId",
-              label: t.formStudentId,
-              placeholder: t.formStudentIdPlaceholder,
-              type: "text",
-            },
-            {
-              id: "email",
-              label: t.formEmail,
-              placeholder: t.formEmailPlaceholder,
-              type: "email",
-            },
-            {
-              id: "phone",
-              label: t.formPhone,
-              placeholder: t.formPhonePlaceholder,
-              type: "tel",
-            },
-            {
-              id: "subject",
-              label: t.formSubject,
-              placeholder: t.formSubjectPlaceholder,
-              type: "text",
-            },
-          ] as {
-            id: keyof FormState;
-            label: string;
-            placeholder: string;
-            type: string;
-          }[]).map(({ id, label, placeholder, type }) => (
-            <div key={id} className="form-group">
-              <label className="form-label">{label}</label>
+          <div className="form-group">
+            <label className="form-label">{t.formName}</label>
+            <input
+              className="form-input"
+              type="text"
+              placeholder={t.formNamePlaceholder}
+              value={form.name}
+              onChange={(e) => setField("name", e.target.value)}
+            />
+          </div>
 
-              <input
-                className="form-input"
-                type={type}
-                placeholder={placeholder}
-                value={form[id]}
-                onChange={(e) => setField(id, e.target.value)}
-              />
+          <div className="form-group">
+            <label className="form-label">{t.formStudentId}</label>
+            <input
+              className="form-input"
+              type="text"
+              placeholder={t.formStudentIdPlaceholder}
+              value={form.studentId}
+              onChange={(e) => setField("studentId", e.target.value)}
+            />
+          </div>
 
-              {errors[id] && (
-                <span style={{ color: "#ef4444", fontSize: "0.78rem" }}>
-                  {errors[id]}
-                </span>
-              )}
-            </div>
-          ))}
+          <div className="form-group">
+            <label className="form-label">{t.formEmail}</label>
+            <input
+              className="form-input"
+              type="email"
+              placeholder={t.formEmailPlaceholder}
+              value={form.email}
+              onChange={(e) => setField("email", e.target.value)}
+            />
+          </div>
+
+          <div className="form-group">
+            <label className="form-label">{t.formPhone}</label>
+            <input
+              className="form-input"
+              type="tel"
+              placeholder={t.formPhonePlaceholder}
+              value={form.phone}
+              onChange={(e) => setField("phone", e.target.value)}
+            />
+          </div>
+
+          <div className="form-group">
+            <label className="form-label">{t.formSubject}</label>
+            <input
+              className="form-input"
+              type="text"
+              placeholder={t.formSubjectPlaceholder}
+              value={form.subject}
+              onChange={(e) => setField("subject", e.target.value)}
+            />
+          </div>
 
           <div className="form-group">
             <label className="form-label">{t.formDescription}</label>
-
             <textarea
               className="form-textarea"
               placeholder={t.formDescriptionPlaceholder}
               value={form.description}
               onChange={(e) => setField("description", e.target.value)}
             />
-
-            {errors.description && (
-              <span style={{ color: "#ef4444", fontSize: "0.78rem" }}>
-                {errors.description}
-              </span>
-            )}
           </div>
 
           <button className="btn-primary" onClick={handleSubmit}>
