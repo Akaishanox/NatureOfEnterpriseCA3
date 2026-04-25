@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import ticketsData from "@/data/tickets.json";
+import { translations } from "@/app/lib/translations";
 
 type Status   = "Open" | "In Progress" | "Closed";
 type Priority = "High" | "Medium" | "Low";
@@ -12,6 +13,12 @@ const STATUS_COL:   Record<Status,   string> = { Open: "badge-blue", "In Progres
 const PRIORITY_COL: Record<Priority, string> = { High: "badge-red",  Medium: "badge-amber",        Low: "badge-grey"     };
 
 export default function HelpdeskPage() {
+  const lang =
+    typeof window !== "undefined"
+      ? localStorage.getItem("language") || "en"
+      : "en";
+
+  const t = translations[lang];
   const [form, setForm]           = useState<FormState>(EMPTY);
   const [errors, setErrors]       = useState<Partial<FormState>>({});
   const [submitted, setSubmitted] = useState(false);
@@ -63,9 +70,9 @@ export default function HelpdeskPage() {
       </section>
 
       <div style={{ maxWidth: 540 }}>
-        <h1 style={{ fontSize: "1.6rem", fontWeight: 700, marginBottom: "0.3rem" }}>Helpdesk</h1>
+        <h1 style={{ fontSize: "1.6rem", fontWeight: 700, marginBottom: "0.3rem" }}>{t.helpdesk}</h1>
         <p style={{ color: "var(--text-muted)", fontSize: "0.875rem", marginBottom: "1.5rem" }}>
-          Submit your questions and concerns. Our team will respond within 24 hours.
+          {t.helpdeskDesc}
         </p>
 
         {submitted && (
