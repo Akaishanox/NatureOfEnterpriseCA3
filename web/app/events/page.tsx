@@ -25,9 +25,33 @@ export default function EventsPage() {
     Academic: "📘",
   };
 
+  const popupMessages: Record<string, { title: string; message: string; ok: string }> = {
+    en: {
+      title: "Registered",
+      message: "You have now been registered for",
+      ok: "OK",
+    },
+    ga: {
+      title: "Cláraithe",
+      message: "Tá tú cláraithe anois do",
+      ok: "Ceart go leor",
+    },
+    es: {
+      title: "Registrado",
+      message: "Ahora estás registrado para",
+      ok: "OK",
+    },
+    fr: {
+      title: "Inscrit",
+      message: "Vous êtes maintenant inscrit à",
+      ok: "OK",
+    },
+  };
+
+  const pop = popupMessages[lang] || popupMessages.en;
+
   function handleRegister(title: string) {
-    setPopup(`You have now been registered for ${title}.`);
-    setTimeout(() => setPopup(""), 3000);
+    setPopup(title);
   }
 
   return (
@@ -74,9 +98,11 @@ export default function EventsPage() {
       {popup && (
         <div className="popup-overlay">
           <div className="popup-box">
-            <h2>Registered</h2>
-            <p>{popup}</p>
-            <button onClick={() => setPopup("")}>OK</button>
+            <h2>{pop.title}</h2>
+            <p>
+              {pop.message} {popup}.
+            </p>
+            <button onClick={() => setPopup("")}>{pop.ok}</button>
           </div>
         </div>
       )}
