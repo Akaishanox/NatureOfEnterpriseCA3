@@ -56,7 +56,7 @@ export default function HelpdeskPage() {
   const [errors, setErrors] = useState<Partial<FormState>>({});
   const [submitted, setSubmitted] = useState(false);
 
-  function set(key: keyof FormState, val: string) {
+  function setField(key: keyof FormState, val: string) {
     setForm((f) => ({ ...f, [key]: val }));
     setErrors((e) => ({ ...e, [key]: undefined }));
   }
@@ -89,9 +89,7 @@ export default function HelpdeskPage() {
     <div className="page">
 
       <section style={{ marginBottom: "2rem" }}>
-        <p style={{ fontSize: "0.78rem", fontWeight: 700, textTransform: "uppercase", color: "var(--text-muted)", marginBottom: "0.75rem" }}>
-          {t.currentTickets}
-        </p>
+        <p className="section-label">{t.currentTickets}</p>
 
         <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: "0.6rem" }}>
           {tickets.map((ticket) => (
@@ -117,50 +115,65 @@ export default function HelpdeskPage() {
       </section>
 
       <div style={{ maxWidth: 540 }}>
-        <h1 style={{ fontSize: "1.6rem", fontWeight: 700 }}>
-          {t.helpdesk}
-        </h1>
+        <h1 className="page-title">{t.helpdesk}</h1>
 
-        <p style={{ color: "var(--text-muted)", marginBottom: "1.5rem" }}>
+        <p className="section-subtitle">
           {t.helpdeskDesc}
         </p>
 
         {submitted && (
-          <div style={{ background: "#d1fae5", padding: "0.75rem", marginBottom: "1rem" }}>
+          <div style={{ background: "#d1fae5", color: "#065f46", padding: "0.75rem", borderRadius: "6px", marginBottom: "1rem", fontWeight: 600 }}>
             Submitted
           </div>
         )}
 
         <div className="card" style={{ padding: "1.5rem" }}>
+
           {([
             { id: "name", label: "Name", type: "text" },
-            { id: "studentId", label: "Student ID", type: "text" },
+            { id: "studentId", label: "Student ID Number", type: "text" },
             { id: "email", label: "Email", type: "email" },
-            { id: "phone", label: "Phone", type: "tel" },
+            { id: "phone", label: "Phone Number", type: "tel" },
             { id: "subject", label: "Subject", type: "text" },
           ] as { id: keyof FormState; label: string; type: string }[]).map(({ id, label, type }) => (
             <div key={id} className="form-group">
-              <label>{label}</label>
+              <label className="form-label">{label}</label>
+
               <input
+                className="form-input"
                 type={type}
                 value={form[id]}
-                onChange={(e) => set(id, e.target.value)}
+                onChange={(e) => setField(id, e.target.value)}
               />
-              {errors[id] && <span style={{ color: "red" }}>{errors[id]}</span>}
+
+              {errors[id] && (
+                <span style={{ color: "#ef4444", fontSize: "0.78rem" }}>
+                  {errors[id]}
+                </span>
+              )}
             </div>
           ))}
 
           <div className="form-group">
-            <label>Description</label>
+            <label className="form-label">Description</label>
+
             <textarea
+              className="form-textarea"
               value={form.description}
-              onChange={(e) => set("description", e.target.value)}
+              onChange={(e) => setField("description", e.target.value)}
             />
+
+            {errors.description && (
+              <span style={{ color: "#ef4444", fontSize: "0.78rem" }}>
+                {errors.description}
+              </span>
+            )}
           </div>
 
-          <button onClick={handleSubmit}>
+          <button className="btn-primary" onClick={handleSubmit}>
             {t.submitRequest}
           </button>
+
         </div>
       </div>
 
