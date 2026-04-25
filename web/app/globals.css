@@ -227,6 +227,28 @@ body {
   background: var(--primary-dark);
 }
 
+/* ===== CLEAN UI SPACING (ADDED) ===== */
+
+.page {
+  padding: calc(var(--navbar-h) + 3.5rem) 2rem 4rem;
+}
+
+.page-grid {
+  margin-top: 30px;
+}
+
+.card {
+  padding: 1.75rem;
+}
+
+.section-title {
+  margin-top: 40px;
+}
+
+.section-subtitle {
+  margin-bottom: 30px;
+}
+
 @media (max-width: 640px) {
   .navbar { padding: 0 1rem; }
   .page { padding-left: 1rem; padding-right: 1rem; }
