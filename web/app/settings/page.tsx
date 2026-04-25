@@ -1,158 +1,115 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function SettingsPage() {
-  const [fontSize, setFontSize] = useState("medium");
+  const [fontSize, setFontSize] = useState(16);
   const [theme, setTheme] = useState("light");
   const [language, setLanguage] = useState("English");
-  const [emailNotifications, setEmailNotifications] = useState(true);
-  const [saved, setSaved] = useState(false);
 
+  // Load saved settings
   useEffect(() => {
-    const savedFontSize = localStorage.getItem("fontSize");
+    const savedFont = localStorage.getItem("fontSize");
     const savedTheme = localStorage.getItem("theme");
-    const savedLanguage = localStorage.getItem("language");
-    const savedNotifications = localStorage.getItem("emailNotifications");
+    const savedLang = localStorage.getItem("language");
 
-    if (savedFontSize) setFontSize(savedFontSize);
+    if (savedFont) setFontSize(Number(savedFont));
     if (savedTheme) setTheme(savedTheme);
-    if (savedLanguage) setLanguage(savedLanguage);
-    if (savedNotifications) setEmailNotifications(savedNotifications === "true");
+    if (savedLang) setLanguage(savedLang);
   }, []);
 
-  const saveSettings = () => {
-    localStorage.setItem("fontSize", fontSize);
+  // Apply settings live
+  useEffect(() => {
+    document.documentElement.style.fontSize = fontSize + "px";
+
+    if (theme === "dark") {
+      document.body.style.background = "#111827";
+      document.body.style.color = "#f9fafb";
+    } else {
+      document.body.style.background = "#f3f4f6";
+      document.body.style.color = "#111827";
+    }
+  }, [fontSize, theme]);
+
+  const handleSave = () => {
+    localStorage.setItem("fontSize", fontSize.toString());
     localStorage.setItem("theme", theme);
     localStorage.setItem("language", language);
-    localStorage.setItem("emailNotifications", String(emailNotifications));
 
-    setSaved(true);
-
-    setTimeout(() => {
-      setSaved(false);
-    }, 2500);
+    alert("Settings saved!");
   };
 
   return (
-    <main className="page">
-      <div style={{ maxWidth: "760px", margin: "0 auto" }}>
-        <h1 className="page-title">Accessibility Options</h1>
-        <div className="page-line"></div>
+    <div className="page">
+      <h1 className="page-title">Accessibility Options</h1>
+      <div className="page-line"></div>
 
-        <h2 className="section-title">🎨 Appearance</h2>
-        <p className="section-subtitle">Change how the app looks and feels</p>
+      {/* FONT SIZE */}
+      <div className="card">
+        <h3>Font Size</h3>
+        <p>Adjust text size</p>
 
-        <section className="card" style={{ marginBottom: "1.5rem" }}>
-          <h3 style={{ color: "var(--primary)", marginBottom: "0.4rem" }}>
-            ↕ Font Size
-          </h3>
-          <p style={{ color: "var(--text-muted)", marginBottom: "1rem" }}>
-            Adjust text size for better readability
-          </p>
+        <input
+          type="range"
+          min="12"
+          max="22"
+          value={fontSize}
+          onChange={(e) => setFontSize(Number(e.target.value))}
+          style={{ width: "100%", marginTop: "10px" }}
+        />
 
-          <select
-            className="form-input"
-            value={fontSize}
-            onChange={(e) => setFontSize(e.target.value)}
-          >
-            <option value="small">Small</option>
-            <option value="medium">Medium</option>
-            <option value="large">Large</option>
-          </select>
-        </section>
-
-        <section className="card" style={{ marginBottom: "1.5rem" }}>
-          <h3 style={{ color: "var(--primary)", marginBottom: "0.4rem" }}>
-            ◐ Theme
-          </h3>
-          <p style={{ color: "var(--text-muted)", marginBottom: "1rem" }}>
-            Choose your preferred colour scheme
-          </p>
-
-          <label style={{ display: "block", marginBottom: "0.75rem" }}>
-            <input
-              type="radio"
-              name="theme"
-              value="light"
-              checked={theme === "light"}
-              onChange={(e) => setTheme(e.target.value)}
-              style={{ marginRight: "0.5rem" }}
-            />
-            Light Mode
-          </label>
-
-          <label>
-            <input
-              type="radio"
-              name="theme"
-              value="dark"
-              checked={theme === "dark"}
-              onChange={(e) => setTheme(e.target.value)}
-              style={{ marginRight: "0.5rem" }}
-            />
-            Dark Mode
-          </label>
-        </section>
-
-        <h2 className="section-title">⚙ Preferences</h2>
-        <p className="section-subtitle">Manage your app preferences</p>
-
-        <section className="card" style={{ marginBottom: "1.5rem" }}>
-          <h3 style={{ color: "var(--primary)", marginBottom: "0.4rem" }}>
-            🌐 Language
-          </h3>
-          <p style={{ color: "var(--text-muted)", marginBottom: "1rem" }}>
-            Select your preferred language
-          </p>
-
-          <select
-            className="form-input"
-            value={language}
-            onChange={(e) => setLanguage(e.target.value)}
-          >
-            <option>English</option>
-            <option>Irish</option>
-            <option>French</option>
-            <option>Spanish</option>
-          </select>
-        </section>
-
-        <section className="card" style={{ marginBottom: "1.5rem" }}>
-          <h3 style={{ color: "var(--primary)", marginBottom: "0.4rem" }}>
-            🔔 Notifications
-          </h3>
-          <p style={{ color: "var(--text-muted)", marginBottom: "1rem" }}>
-            Manage how you receive updates
-          </p>
-
-          <label style={{ display: "flex", justifyContent: "space-between" }}>
-            Email Notifications
-            <input
-              type="checkbox"
-              checked={emailNotifications}
-              onChange={(e) => setEmailNotifications(e.target.checked)}
-            />
-          </label>
-        </section>
-
-        <button className="btn-primary" onClick={saveSettings}>
-          Submit Changes
-        </button>
-
-        {saved && (
-          <p
-            style={{
-              marginTop: "1rem",
-              textAlign: "center",
-              color: "green",
-              fontWeight: 600,
-            }}
-          >
-            Settings saved successfully.
-          </p>
-        )}
+        <p style={{ marginTop: "5px" }}>{fontSize}px</p>
       </div>
-    </main>
+
+      {/* THEME */}
+      <div className="card" style={{ marginTop: "20px" }}>
+        <h3>Theme</h3>
+
+        <label>
+          <input
+            type="radio"
+            value="light"
+            checked={theme === "light"}
+            onChange={(e) => setTheme(e.target.value)}
+          />
+          Light Mode
+        </label>
+
+        <br />
+
+        <label>
+          <input
+            type="radio"
+            value="dark"
+            checked={theme === "dark"}
+            onChange={(e) => setTheme(e.target.value)}
+          />
+          Dark Mode
+        </label>
+      </div>
+
+      {/* LANGUAGE */}
+      <div className="card" style={{ marginTop: "20px" }}>
+        <h3>Language</h3>
+
+        <select
+          value={language}
+          onChange={(e) => setLanguage(e.target.value)}
+          className="form-input"
+        >
+          <option>English</option>
+          <option>Irish</option>
+        </select>
+      </div>
+
+      {/* SAVE BUTTON */}
+      <button
+        onClick={handleSave}
+        className="btn-primary"
+        style={{ marginTop: "30px" }}
+      >
+        Submit Changes
+      </button>
+    </div>
   );
 }
