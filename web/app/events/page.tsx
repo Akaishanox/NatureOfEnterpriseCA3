@@ -1,4 +1,5 @@
 import events from "@/data/events.json";
+import { translations } from "@/app/lib/translations";
 
 export default function EventsPage() {
   return (
