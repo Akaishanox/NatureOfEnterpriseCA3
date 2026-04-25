@@ -1,5 +1,6 @@
 export const translations = {
   en: {
+    home: "Home",
     greeting: "Good Evening",
 
     events: "Campus Events",
@@ -37,10 +38,10 @@ export const translations = {
     formSubjectPlaceholder: "Enter subject",
     formDescriptionPlaceholder: "Enter description",
 
+    registerNow: "Register Now",
     date: "Date",
     time: "Time",
     location: "Location",
-    registerNow: "Register Now",
 
     status: {
       Open: "Open",
@@ -56,6 +57,7 @@ export const translations = {
   },
 
   ga: {
+    home: "Baile",
     greeting: "Tráthnóna maith",
 
     events: "Imeachtaí Campais",
@@ -93,10 +95,10 @@ export const translations = {
     formSubjectPlaceholder: "Cuir isteach ábhar",
     formDescriptionPlaceholder: "Cuir isteach cur síos",
 
+    registerNow: "Cláraigh Anois",
     date: "Dáta",
     time: "Am",
     location: "Suíomh",
-    registerNow: "Cláraigh Anois",
 
     status: {
       Open: "Oscailte",
@@ -112,6 +114,7 @@ export const translations = {
   },
 
   es: {
+    home: "Inicio",
     greeting: "Buenas noches",
 
     events: "Eventos del Campus",
@@ -149,10 +152,10 @@ export const translations = {
     formSubjectPlaceholder: "Introduce asunto",
     formDescriptionPlaceholder: "Introduce descripción",
 
+    registerNow: "Registrarse",
     date: "Fecha",
     time: "Hora",
     location: "Ubicación",
-    registerNow: "Registrarse",
 
     status: {
       Open: "Abierto",
@@ -168,6 +171,7 @@ export const translations = {
   },
 
   fr: {
+    home: "Accueil",
     greeting: "Bonsoir",
 
     events: "Événements du Campus",
@@ -205,10 +209,10 @@ export const translations = {
     formSubjectPlaceholder: "Entrez le sujet",
     formDescriptionPlaceholder: "Entrez la description",
 
+    registerNow: "S'inscrire",
     date: "Date",
     time: "Heure",
     location: "Lieu",
-    registerNow: "S'inscrire",
 
     status: {
       Open: "Ouvert",
