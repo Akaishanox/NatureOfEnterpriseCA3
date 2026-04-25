@@ -7,10 +7,11 @@ import { useLang } from "@/app/lib/useLang";
 
 interface MenuItem {
   id: number;
-  name: string;
+  name: any;
   category: string;
   price: number;
-  diet: string;
+  diet: any;
+  description: any;
 }
 
 const menu = menuData as MenuItem[];
@@ -20,13 +21,6 @@ const ICONS: Record<string, string> = {
   "Margherita Pizza": "🍕",
   "Coffee": "☕",
   "Chicken Caesar Salad": "🥗",
-};
-
-const DESCRIPTIONS: Record<string, string> = {
-  "Grilled Salmon": "Delicious grilled salmon prepared with fresh herbs and lemon butter",
-  "Margherita Pizza": "Traditional Margherita pizza prepared with fresh mozzarella and basil",
-  "Coffee": "Freshly brewed coffee prepared with premium Arabica beans",
-  "Chicken Caesar Salad": "Classic Caesar salad prepared with grilled chicken, romaine lettuce and parmesan",
 };
 
 const DIET_BADGE: Record<string, string> = {
@@ -66,19 +60,21 @@ export default function CanteenPage() {
           return (
             <li key={item.id} className="menu-card card">
               <div style={{ fontSize: "2rem", textAlign: "center" }}>
-                {ICONS[item.name] || "🍽️"}
+                {ICONS[item.name.en] || "🍽️"}
               </div>
 
-              <div style={{ fontWeight: 700 }}>{item.name}</div>
+              <div style={{ fontWeight: 700 }}>
+                {item.name[lang]}
+              </div>
 
               <div>
-                <span className={`badge ${DIET_BADGE[item.diet] || "badge-grey"}`}>
-                  {item.diet}
+                <span className={`badge ${DIET_BADGE[item.diet.en] || "badge-grey"}`}>
+                  {item.diet[lang]}
                 </span>
               </div>
 
               <p style={{ color: "var(--text-muted)" }}>
-                {DESCRIPTIONS[item.name]}
+                {item.description[lang]}
               </p>
 
               <div style={{ display: "flex", justifyContent: "space-between" }}>
