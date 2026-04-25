@@ -3,92 +3,92 @@
     "id": 1,
     "name": {
       "en": "Grilled Salmon",
-      "fr": "Saumon Grillé",
-      "es": "Salmón a la Parrilla",
-      "ga": "Bradán Gríoscaithe"
+      "ga": "Bradán Gríoscaithe",
+      "es": "Salmón a la parrilla",
+      "fr": "Saumon grillé"
     },
     "category": "Main",
     "price": 12.5,
     "diet": {
       "en": "Gluten-Free",
-      "fr": "Sans Gluten",
-      "es": "Sin Gluten",
-      "ga": "Gan Glútan"
+      "ga": "Gan Glútan",
+      "es": "Sin gluten",
+      "fr": "Sans gluten"
     },
     "description": {
       "en": "Delicious grilled salmon prepared with fresh herbs and lemon butter",
-      "fr": "Délicieux saumon grillé avec herbes fraîches et beurre citronné",
-      "es": "Delicioso salmón a la parrilla con hierbas frescas y mantequilla de limón",
-      "ga": "Bradán blasta le luibheanna úra agus im líomóide"
+      "ga": "Bradán blasta le luibheanna úra agus im líomóide",
+      "es": "Salmón a la parrilla con hierbas frescas y mantequilla de limón",
+      "fr": "Saumon grillé avec des herbes fraîches et beurre citronné"
     }
   },
   {
     "id": 2,
     "name": {
       "en": "Margherita Pizza",
-      "fr": "Pizza Margherita",
+      "ga": "Píotsa Margherita",
       "es": "Pizza Margarita",
-      "ga": "Píotsa Margherita"
+      "fr": "Pizza Margherita"
     },
     "category": "Main",
     "price": 8.25,
     "diet": {
       "en": "Vegetarian",
-      "fr": "Végétarien",
+      "ga": "Veigeatórach",
       "es": "Vegetariano",
-      "ga": "Veigeatánach"
+      "fr": "Végétarien"
     },
     "description": {
-      "en": "Traditional Margherita pizza prepared with fresh mozzarella and basil",
-      "fr": "Pizza traditionnelle avec mozzarella fraîche et basilic",
-      "es": "Pizza tradicional con mozzarella fresca y albahaca",
-      "ga": "Píotsa traidisiúnta le mozzarella úr agus basil"
+      "en": "Traditional Margherita pizza with mozzarella and basil",
+      "ga": "Píotsa traidisiúnta le mozzarella agus basil",
+      "es": "Pizza tradicional con mozzarella y albahaca",
+      "fr": "Pizza traditionnelle avec mozzarella et basilic"
     }
   },
   {
     "id": 3,
     "name": {
       "en": "Coffee",
-      "fr": "Café",
+      "ga": "Caife",
       "es": "Café",
-      "ga": "Caife"
+      "fr": "Café"
     },
     "category": "Drink",
     "price": 2.5,
     "diet": {
       "en": "Vegetarian",
-      "fr": "Végétarien",
+      "ga": "Veigeatórach",
       "es": "Vegetariano",
-      "ga": "Veigeatánach"
+      "fr": "Végétarien"
     },
     "description": {
-      "en": "Freshly brewed coffee prepared with premium Arabica beans",
-      "fr": "Café fraîchement préparé avec des grains Arabica premium",
-      "es": "Café recién hecho con granos Arábica premium",
-      "ga": "Caife úr déanta le pónairí Arabica ardchaighdeáin"
+      "en": "Freshly brewed coffee from premium beans",
+      "ga": "Caife úr déanta le pónairí préimhe",
+      "es": "Café recién hecho con granos premium",
+      "fr": "Café fraîchement préparé avec des grains premium"
     }
   },
   {
     "id": 4,
     "name": {
       "en": "Chicken Caesar Salad",
-      "fr": "Salade César au Poulet",
-      "es": "Ensalada César con Pollo",
-      "ga": "Sailéad Caesar le Sicín"
+      "ga": "Sailéad Caesar Sicín",
+      "es": "Ensalada César con pollo",
+      "fr": "Salade César au poulet"
     },
     "category": "Main",
     "price": 9.5,
     "diet": {
       "en": "Contains Meat",
-      "fr": "Contient de la viande",
+      "ga": "Le Feoil",
       "es": "Contiene carne",
-      "ga": "Tá feoil ann"
+      "fr": "Contient de la viande"
     },
     "description": {
-      "en": "Classic Caesar salad prepared with grilled chicken, romaine lettuce and parmesan",
-      "fr": "Salade César classique avec poulet grillé, laitue romaine et parmesan",
-      "es": "Ensalada César clásica con pollo a la parrilla, lechuga romana y parmesano",
-      "ga": "Sailéad Caesar clasaiceach le sicín, leitís agus parmesan"
+      "en": "Classic Caesar salad with grilled chicken",
+      "ga": "Sailéad clasaiceach le sicín gríoscaithe",
+      "es": "Ensalada César clásica con pollo a la parrilla",
+      "fr": "Salade César classique avec poulet grillé"
     }
   }
 ]
