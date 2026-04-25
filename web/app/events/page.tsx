@@ -1,8 +1,8 @@
 "use client";
 
 import events from "@/data/events.json";
-import { translations } from "../lib/translations";
-import { useLang } from "../lib/useLang";
+import { translations } from "@/app/lib/translations";
+import { useLang } from "@/app/lib/useLang";
 
 export default function EventsPage() {
 
@@ -24,14 +24,28 @@ export default function EventsPage() {
           <div className="event-card" key={event.id}>
             <div className="event-icon">📅</div>
 
-            <h3>{event.title}</h3>
+            <h3>
+              {typeof event.title === "object"
+                ? event.title[lang]
+                : event.title}
+            </h3>
 
-            <p>🗓️ {t.date}: {event.date}</p>
-            <p>🕘 {t.time}: {event.time}</p>
-            <p>📍 {t.location}: {event.location}</p>
+            <p>
+              🗓️ {t.date}: {event.date}
+            </p>
+
+            <p>
+              🕘 {t.time}: {event.time}
+            </p>
+
+            <p>
+              📍 {t.location}: {event.location}
+            </p>
 
             <p className="event-description">
-              {event.description}
+              {typeof event.description === "object"
+                ? event.description[lang]
+                : event.description}
             </p>
 
             <button className="register-btn">
