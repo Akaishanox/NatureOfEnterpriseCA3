@@ -94,10 +94,14 @@ export default function HelpdeskPage() {
         <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: "0.6rem" }}>
           {tickets.map((ticket) => (
             <li key={ticket.id} className="card" style={{ display: "flex", justifyContent: "space-between", padding: "0.85rem 1.1rem" }}>
+              
               <div>
                 <div style={{ fontWeight: 600 }}>
-                  {typeof ticket.subject === "object" ? ticket.subject[lang] : ticket.subject}
+                  {typeof ticket.subject === "object"
+                    ? ticket.subject[lang]
+                    : ticket.subject}
                 </div>
+
                 <div style={{ fontSize: "0.78rem", color: "var(--text-muted)" }}>
                   {ticket.name} · {ticket.student_id}
                 </div>
@@ -111,6 +115,7 @@ export default function HelpdeskPage() {
                   {ticket.status}
                 </span>
               </div>
+
             </li>
           ))}
         </ul>
@@ -138,6 +143,7 @@ export default function HelpdeskPage() {
             { id: "phone", label: "Phone Number", type: "tel" },
             { id: "subject", label: "Subject", type: "text" },
           ] as { id: keyof FormState; label: string; type: string }[]).map(({ id, label, type }) => (
+            
             <div key={id} className="form-group">
               <label className="form-label">{label}</label>
 
@@ -154,6 +160,7 @@ export default function HelpdeskPage() {
                 </span>
               )}
             </div>
+
           ))}
 
           <div className="form-group">
