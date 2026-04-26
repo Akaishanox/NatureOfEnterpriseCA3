@@ -23,13 +23,6 @@ const ICONS: Record<string, string> = {
   "Chicken Caesar Salad": "🥗",
 };
 
-const DIET_BADGE: Record<string, string> = {
-  "Gluten-Free": "badge-blue",
-  Vegetarian: "badge-green",
-  Vegan: "badge-green",
-  "Contains Meat": "badge-amber",
-};
-
 export default function CanteenPage() {
   const lang = useLang();
   const t = translations[lang];
@@ -53,30 +46,28 @@ export default function CanteenPage() {
       <h2 className="canteen-subtitle">{t.menu}</h2>
       <p className="canteen-description">{t.chooseMenu}</p>
 
-      <ul className="canteen-grid-fixed">
+      <div className="canteen-grid-fixed">
         {menu.map((item) => {
           const count = cart.filter((id) => id === item.id).length;
 
           return (
-            <li key={item.id} className="canteen-card-fixed">
+            <div className="canteen-card-fixed" key={item.id}>
               <div className="canteen-icon-fixed">
                 {ICONS[item.name.en] || "🍽️"}
               </div>
 
               <h3>{item.name[lang]}</h3>
 
-              <div className="canteen-badge-row">
-                <span className={`badge ${DIET_BADGE[item.diet.en] || "badge-grey"}`}>
-                  {item.diet[lang]}
-                </span>
+              <div className="canteen-info">
+                <p>{item.diet[lang]}</p>
               </div>
 
               <p className="canteen-description-text">
                 {item.description[lang]}
               </p>
 
-              <div className="canteen-bottom-row">
-                <span className="canteen-price">€{item.price.toFixed(2)}</span>
+              <div className="canteen-bottom">
+                <span>€{item.price.toFixed(2)}</span>
 
                 <button
                   className="canteen-add-btn"
@@ -85,10 +76,10 @@ export default function CanteenPage() {
                   {count > 0 ? `${t.addToOrder} (${count})` : t.addToOrder}
                 </button>
               </div>
-            </li>
+            </div>
           );
         })}
-      </ul>
+      </div>
 
       {cart.length > 0 && (
         <div className="cart-bar">
@@ -138,8 +129,6 @@ export default function CanteenPage() {
           gap: 2.4rem 8rem;
           max-width: 1450px;
           margin: 0 auto;
-          list-style: none;
-          padding: 0;
         }
 
         .canteen-card-fixed {
@@ -164,12 +153,17 @@ export default function CanteenPage() {
           font-size: 1.45rem;
           font-weight: 800;
           color: var(--text);
+          margin-bottom: 1.2rem;
+        }
+
+        .canteen-info {
           margin-bottom: 1rem;
         }
 
-        .canteen-badge-row {
-          text-align: center;
-          margin-bottom: 1rem;
+        .canteen-info p {
+          font-size: 0.95rem;
+          color: var(--text);
+          margin-bottom: 0.7rem;
         }
 
         .canteen-description-text {
@@ -180,19 +174,18 @@ export default function CanteenPage() {
           flex: 1;
         }
 
-        .canteen-bottom-row {
+        .canteen-bottom {
           display: flex;
           align-items: center;
           justify-content: space-between;
-          gap: 1.2rem;
+          gap: 1rem;
           margin-top: auto;
         }
 
-        .canteen-price {
+        .canteen-bottom span {
           font-size: 1rem;
           font-weight: 800;
           color: var(--text);
-          white-space: nowrap;
         }
 
         .canteen-add-btn {
@@ -203,8 +196,7 @@ export default function CanteenPage() {
           padding: 0.8rem 1rem;
           font-size: 1rem;
           cursor: pointer;
-          min-width: 145px;
-          white-space: nowrap;
+          min-width: 150px;
         }
 
         .canteen-add-btn:hover {
