@@ -1,16 +1,22 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 
 export function useLang() {
+  const pathname = usePathname();
   const [lang, setLang] = useState("en");
 
   useEffect(() => {
     const loadLang = () => {
+      const savedLang = localStorage.getItem("language") || "en";
       const previewLang = localStorage.getItem("previewLanguage");
-      const savedLang = localStorage.getItem("language");
 
-      setLang(previewLang || savedLang || "en");
+      if (pathname === "/settings") {
+        setLang(previewLang || savedLang);
+      } else {
+        setLang(savedLang);
+      }
     };
 
     loadLang();
@@ -20,7 +26,7 @@ export function useLang() {
     return () => {
       window.removeEventListener("languageChanged", loadLang);
     };
-  }, []);
+  }, [pathname]);
 
   return lang;
 }
