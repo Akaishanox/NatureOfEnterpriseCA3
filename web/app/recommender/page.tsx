@@ -136,12 +136,36 @@ export default function RecommenderPage() {
   const pop = popupMessages[lang] || popupMessages.en;
 
   function getRecommendations() {
-    const filtered = events.filter(
-      (event: any) => event.category === selectedCategory
-    );
+  const scored = events.map((event: any) => {
+    let score = 0;
 
-    setRecommendations(filtered);
-  }
+    // main feature (category match)
+    if (event.category === selectedCategory) {
+      score += 5;
+    }
+
+    // extra feature 1: closer dates get higher score
+    const today = new Date();
+    const eventDate = new Date(event.date);
+    const diffDays = Math.abs((eventDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
+
+    if (diffDays < 7) score += 2;
+    else if (diffDays < 14) score += 1;
+
+    // extra feature 2: longer events = slightly more value
+    if (event.time.includes("-")) {
+      score += 1;
+    }
+
+    return { ...event, score };
+  });
+
+  const sorted = scored
+    .filter((e) => e.score > 0)
+    .sort((a, b) => b.score - a.score);
+
+  setRecommendations(sorted);
+}
 
   function handleRegister(title: string) {
     setPopup(title);
