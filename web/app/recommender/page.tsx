@@ -18,6 +18,7 @@ export default function RecommenderPage() {
 
   const [selectedCategory, setSelectedCategory] = useState("");
   const [recommendations, setRecommendations] = useState<any[]>([]);
+  const [popup, setPopup] = useState("");
 
   const categories = ["Technology", "Sports", "Careers", "Social", "Academic"];
 
@@ -29,12 +30,44 @@ export default function RecommenderPage() {
     Academic: "📘",
   };
 
+  const popupMessages: Record<
+    string,
+    { title: string; message: string; ok: string }
+  > = {
+    en: {
+      title: "Registered",
+      message: "You have now been registered for",
+      ok: "OK",
+    },
+    ga: {
+      title: "Cláraithe",
+      message: "Tá tú cláraithe anois do",
+      ok: "Ceart go leor",
+    },
+    es: {
+      title: "Registrado",
+      message: "Ahora estás registrado para",
+      ok: "OK",
+    },
+    fr: {
+      title: "Inscrit",
+      message: "Vous êtes maintenant inscrit à",
+      ok: "OK",
+    },
+  };
+
+  const pop = popupMessages[lang] || popupMessages.en;
+
   function getRecommendations() {
     const filtered = events.filter(
       (event: any) => event.category === selectedCategory
     );
 
     setRecommendations(filtered);
+  }
+
+  function handleRegister(title: string) {
+    setPopup(title);
   }
 
   return (
@@ -103,11 +136,30 @@ export default function RecommenderPage() {
                   Recommended because it matches your interest in{" "}
                   <b>{selectedCategory}</b>
                 </p>
+
+                <button
+                  className="register-btn-fixed"
+                  onClick={() => handleRegister(eventTitle)}
+                >
+                  {t.registerNow}
+                </button>
               </div>
             );
           })}
         </div>
       </div>
+
+      {popup && (
+        <div className="popup-overlay">
+          <div className="popup-box">
+            <h2>{pop.title}</h2>
+            <p>
+              {pop.message} {popup}.
+            </p>
+            <button onClick={() => setPopup("")}>{pop.ok}</button>
+          </div>
+        </div>
+      )}
 
       <style>{`
         .recommender-page {
@@ -155,7 +207,7 @@ export default function RecommenderPage() {
           border-radius: 10px;
           padding: 1.6rem;
           box-shadow: var(--shadow);
-          margin-bottom: 2.6rem;
+          margin: 0 auto 2.6rem;
           max-width: 520px;
         }
 
@@ -217,18 +269,20 @@ export default function RecommenderPage() {
           border-color: var(--primary);
         }
 
-        .recommend-btn {
+        .recommend-btn,
+        .register-btn-fixed {
           width: 100%;
           background: var(--primary);
           color: white;
           border: none;
-          border-radius: 7px;
-          padding: 0.85rem 1rem;
+          border-radius: 6px;
+          padding: 0.8rem 1rem;
           font-size: 1rem;
           cursor: pointer;
         }
 
-        .recommend-btn:hover {
+        .recommend-btn:hover,
+        .register-btn-fixed:hover {
           background: var(--primary-dark);
         }
 
@@ -284,7 +338,48 @@ export default function RecommenderPage() {
         .reason-text {
           font-size: 0.9rem;
           color: var(--text-muted);
-          margin-top: auto;
+          margin-bottom: 1rem;
+        }
+
+        .popup-overlay {
+          position: fixed;
+          inset: 0;
+          background: rgba(0, 0, 0, 0.35);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          z-index: 9999;
+        }
+
+        .popup-box {
+          background: var(--surface);
+          color: var(--text);
+          width: 360px;
+          max-width: 90%;
+          padding: 2rem;
+          border-radius: 14px;
+          box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+          text-align: center;
+          border: 1px solid var(--border);
+        }
+
+        .popup-box h2 {
+          margin-bottom: 0.8rem;
+          color: var(--primary);
+        }
+
+        .popup-box p {
+          margin-bottom: 1.4rem;
+          color: var(--text);
+        }
+
+        .popup-box button {
+          background: var(--primary);
+          color: white;
+          border: none;
+          border-radius: 6px;
+          padding: 0.7rem 1.5rem;
+          cursor: pointer;
         }
 
         @media (max-width: 900px) {
