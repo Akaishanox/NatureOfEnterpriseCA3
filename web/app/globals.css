@@ -91,28 +91,20 @@ main#main-content {
   color: #fff;
 }
 
-.page {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: calc(var(--navbar-h) + 2.5rem) 1.5rem 3rem;
-}
-
-/* EVENTS PAGE EXACTLY LIKE BEFORE */
+.page,
 .events-page,
 .events-page-fixed {
-  max-width: 1000px;
+  max-width: 1100px;
   margin: 0 auto;
-  padding: calc(var(--navbar-h) + 2.5rem) 1.5rem 3rem;
+  padding: calc(var(--navbar-h) + 2.5rem) 2rem 3rem;
 }
 
-/* SETTINGS BIGGER */
 .settings-page {
   max-width: 1100px;
   margin: 0 auto;
   padding: calc(var(--navbar-h) + 2.5rem) 2rem 3rem;
 }
 
-/* CARDS */
 .card,
 .event-card,
 .menu-card {
@@ -123,15 +115,15 @@ main#main-content {
   box-shadow: var(--shadow);
 }
 
-/* GRID (EVENTS + CANTEEN SAME) */
 .events-grid,
 .menu-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 30px;
+  max-width: 900px;
+  margin: 0 auto;
 }
 
-/* CANTEEN FIX ONLY */
 .menu-card {
   display: flex;
   flex-direction: column;
@@ -139,32 +131,34 @@ main#main-content {
   min-height: 260px;
 }
 
-.menu-card button {
+.menu-card .price-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-top: auto;
 }
 
-/* HELP DESK WIDTH MATCH */
-.page section:first-child,
-.page > div[style*="max-width"] {
-  max-width: 850px !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
+.add-btn {
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem 0.9rem;
+  font-size: 0.8rem;
+  cursor: pointer;
 }
 
-/* BUTTONS */
-.btn-primary,
-.add-btn,
-.register-btn {
+.btn-primary {
+  width: 100%;
+  padding: 0.65rem;
   background: var(--primary);
   color: #fff;
   border: none;
   border-radius: 6px;
-  padding: 0.6rem;
   font-weight: 600;
   cursor: pointer;
 }
 
-/* TEXT */
 .page-title {
   color: var(--primary);
   font-size: 32px;
@@ -176,7 +170,18 @@ main#main-content {
   font-weight: 700;
 }
 
-/* MOBILE */
+.page section:first-child,
+section[aria-label="Existing tickets"] {
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.page form {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
 @media (max-width: 800px) {
   .events-grid,
   .menu-grid {
