@@ -40,7 +40,7 @@ export default function RecommenderPage() {
   return (
     <main className="recommender-page">
       <div className="recommender-container">
-        <h1 className="recommender-title">🎯 {t.events} Recommender</h1>
+        <h1 className="recommender-title">{t.events} Recommender</h1>
         <div className="recommender-line"></div>
 
         <h2 className="recommender-subtitle">Choose your interest</h2>
@@ -49,6 +49,16 @@ export default function RecommenderPage() {
         </p>
 
         <div className="recommender-controls">
+          <div className="control-header">
+            <div className="control-icon">✨</div>
+            <div>
+              <h3>Find events for you</h3>
+              <p>Select a category and get matching campus events.</p>
+            </div>
+          </div>
+
+          <label className="select-label">Interest category</label>
+
           <select
             className="recommender-select"
             value={selectedCategory}
@@ -143,21 +153,68 @@ export default function RecommenderPage() {
           background: var(--surface);
           border: 1px solid var(--border);
           border-radius: 10px;
-          padding: 1.5rem;
+          padding: 1.6rem;
           box-shadow: var(--shadow);
           margin-bottom: 2.6rem;
-          max-width: 450px;
+          max-width: 520px;
+        }
+
+        .control-header {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          margin-bottom: 1.4rem;
+          padding-bottom: 1.2rem;
+          border-bottom: 1px solid var(--border);
+        }
+
+        .control-icon {
+          width: 48px;
+          height: 48px;
+          border-radius: 12px;
+          background: var(--primary);
+          color: white;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 1.5rem;
+          flex-shrink: 0;
+        }
+
+        .control-header h3 {
+          color: var(--text);
+          font-size: 1.15rem;
+          font-weight: 800;
+          margin-bottom: 0.25rem;
+        }
+
+        .control-header p {
+          color: var(--text-muted);
+          font-size: 0.9rem;
+        }
+
+        .select-label {
+          display: block;
+          color: var(--text);
+          font-weight: 700;
+          font-size: 0.9rem;
+          margin-bottom: 0.6rem;
         }
 
         .recommender-select {
           width: 100%;
-          padding: 0.8rem;
+          padding: 0.85rem;
           border: 1px solid var(--border);
-          border-radius: 6px;
+          border-radius: 7px;
           background: var(--surface);
           color: var(--text);
           font-size: 1rem;
           margin-bottom: 1rem;
+          outline: none;
+        }
+
+        .recommender-select:focus {
+          border-color: var(--primary);
         }
 
         .recommend-btn {
@@ -165,8 +222,8 @@ export default function RecommenderPage() {
           background: var(--primary);
           color: white;
           border: none;
-          border-radius: 6px;
-          padding: 0.8rem 1rem;
+          border-radius: 7px;
+          padding: 0.85rem 1rem;
           font-size: 1rem;
           cursor: pointer;
         }
@@ -238,6 +295,10 @@ export default function RecommenderPage() {
           .recommender-grid {
             grid-template-columns: 1fr;
             gap: 1.5rem;
+          }
+
+          .recommender-controls {
+            max-width: 100%;
           }
         }
       `}</style>
