@@ -50,25 +50,7 @@ export default function EventsPage() {
 
   const pop = popupMessages[lang] || popupMessages.en;
 
-  // ✅ ONLY CHANGE: backend added here
-  async function handleRegister(title: string) {
-    try {
-      await fetch("/api/tickets", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: "Student",
-          student_id: "TUD000",
-          email: "student@email.com",
-          subject: `Event Registration: ${title}`,
-        }),
-      });
-    } catch (err) {
-      console.log("Backend failed");
-    }
-
+  function handleRegister(title: string) {
     setPopup(title);
   }
 
@@ -128,7 +110,7 @@ export default function EventsPage() {
       <style>{`
         .events-page-fixed {
           padding: 6rem 4rem 3rem;
-          background: var(--bg); /* ✅ FIXED */
+          background: var(--background);
           min-height: 100vh;
         }
 
