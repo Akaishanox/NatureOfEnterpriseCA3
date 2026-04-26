@@ -283,6 +283,11 @@ select:focus {
   gap: 30px;
 }
 
+.events-grid {
+  max-width: 1450px;
+  margin: 0 auto;
+}
+
 /* HELPDESK CONSISTENCY */
 .page section:first-child,
 section[aria-label="Existing tickets"] {
@@ -303,7 +308,12 @@ section[aria-label="Existing tickets"] {
   margin: 0 auto;
   display: grid !important;
   grid-template-columns: 1fr 1fr;
-  gap: 2.4rem 8rem !important;
+  gap: 30px !important;
+}
+
+.menu-card {
+  min-height: 300px;
+  padding: 2rem 1.7rem 1.7rem !important;
 }
 
 .menu-card {
