@@ -93,6 +93,12 @@ export default function CanteenPage() {
           min-height: 100vh;
         }
 
+        .canteen-page-fixed > * {
+        max-width: 1050px;
+        margin-left: auto;
+        margin-right: auto;
+        }
+
         .canteen-title {
           font-size: 2rem;
           font-weight: 800;
@@ -122,11 +128,11 @@ export default function CanteenPage() {
         }
 
         .canteen-grid-fixed {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 2.4rem 4rem;
-          max-width: 1050px;
-          margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2.4rem 4rem;
+        max-width: 1050px;
+        margin: 0 auto;
         }
 
         .canteen-card-fixed {
