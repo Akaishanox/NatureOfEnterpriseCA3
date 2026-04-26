@@ -35,60 +35,6 @@ export default function RecommenderPage() {
         Academic: "Academic",
       },
     },
-    ga: {
-      title: "Moltóir Imeachtaí Campais",
-      subtitle: "Roghnaigh do spéis",
-      desc: "Faigh imeachtaí molta bunaithe ar do chatagóir roghnaithe.",
-      findTitle: "Aimsigh imeachtaí duit",
-      findDesc: "Roghnaigh catagóir agus faigh imeachtaí campais oiriúnacha.",
-      interest: "Catagóir spéise",
-      select: "Roghnaigh catagóir",
-      button: "Faigh Moltaí",
-      reason: "Moltar é seo mar go bhfuil sé ag teacht le do spéis i",
-      categories: {
-        Technology: "Teicneolaíocht",
-        Sports: "Spóirt",
-        Careers: "Gairmeacha",
-        Social: "Sóisialta",
-        Academic: "Acadúil",
-      },
-    },
-    es: {
-      title: "Recomendador de Eventos del Campus",
-      subtitle: "Elige tu interés",
-      desc: "Recibe eventos recomendados según la categoría seleccionada.",
-      findTitle: "Encuentra eventos para ti",
-      findDesc: "Selecciona una categoría y recibe eventos del campus relacionados.",
-      interest: "Categoría de interés",
-      select: "Selecciona una categoría",
-      button: "Obtener recomendaciones",
-      reason: "Recomendado porque coincide con tu interés en",
-      categories: {
-        Technology: "Tecnología",
-        Sports: "Deportes",
-        Careers: "Carreras",
-        Social: "Social",
-        Academic: "Académico",
-      },
-    },
-    fr: {
-      title: "Recommandateur d’Événements du Campus",
-      subtitle: "Choisissez votre intérêt",
-      desc: "Recevez des événements recommandés selon la catégorie choisie.",
-      findTitle: "Trouvez des événements pour vous",
-      findDesc: "Sélectionnez une catégorie et obtenez des événements du campus.",
-      interest: "Catégorie d’intérêt",
-      select: "Sélectionnez une catégorie",
-      button: "Obtenir des recommandations",
-      reason: "Recommandé car cela correspond à votre intérêt pour",
-      categories: {
-        Technology: "Technologie",
-        Sports: "Sport",
-        Careers: "Carrières",
-        Social: "Social",
-        Academic: "Académique",
-      },
-    },
   };
 
   const x = pageText[lang] || pageText.en;
@@ -107,63 +53,20 @@ export default function RecommenderPage() {
     Academic: "📘",
   };
 
-  const popupMessages: Record<string, { title: string; message: string; ok: string }> = {
-    en: {
-      title: "Registered",
-      message: "You have now been registered for",
-      ok: "OK",
-    },
-    ga: {
-      title: "Cláraithe",
-      message: "Tá tú cláraithe anois do",
-      ok: "Ceart go leor",
-    },
-    es: {
-      title: "Registrado",
-      message: "Ahora estás registrado para",
-      ok: "OK",
-    },
-    fr: {
-      title: "Inscrit",
-      message: "Vous êtes maintenant inscrit à",
-      ok: "OK",
-    },
+  const pop = {
+    title: "Registered",
+    message: "You have now been registered for",
+    ok: "OK",
   };
 
-  const pop = popupMessages[lang] || popupMessages.en;
-
   function getRecommendations() {
-    const scored = events.map((event: any) => {
-      let score = 0;
-
-      if (event.category === selectedCategory) {
-        score += 5;
-      }
-
-      const today = new Date();
-      const eventDate = new Date(event.date);
-      const diffDays = Math.abs(
-        (eventDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)
-      );
-
-      if (diffDays < 7) score += 2;
-      else if (diffDays < 14) score += 1;
-
-      if (event.time.includes("-")) {
-        score += 1;
-      }
-
-      return { ...event, score };
-    });
-
-    const sorted = scored
-      .filter((e) => e.score > 0)
-      .sort((a, b) => b.score - a.score);
-
-    setRecommendations(sorted);
+    const filtered = events.filter(
+      (event: any) => event.category === selectedCategory
+    );
+    setRecommendations(filtered);
   }
 
-  // ✅ ONLY CHANGE: backend added
+  // ✅ backend added (SAFE)
   async function handleRegister(title: string) {
     try {
       await fetch("/api/tickets", {
@@ -265,9 +168,7 @@ export default function RecommenderPage() {
         <div className="popup-overlay">
           <div className="popup-box">
             <h2>{pop.title}</h2>
-            <p>
-              {pop.message} {popup}.
-            </p>
+            <p>{pop.message} {popup}.</p>
             <button onClick={() => setPopup("")}>{pop.ok}</button>
           </div>
         </div>
@@ -276,7 +177,7 @@ export default function RecommenderPage() {
       <style>{`
         .recommender-page {
           padding: 6rem 4rem 3rem;
-          background: var(--bg); /* ✅ FIXED */
+          background: var(--bg);
           min-height: 100vh;
         }
 
@@ -314,51 +215,45 @@ export default function RecommenderPage() {
         }
 
         .recommender-controls {
-          width: 100%;
-          max-width: 1000px;
-          margin: 3.5rem auto 3rem;
+          max-width: 900px;
+          margin: 2rem auto;
           background: var(--surface);
-          border: 1px solid var(--border);
-          border-radius: 10px;
           padding: 2rem;
-          box-shadow: var(--shadow);
+          border-radius: 10px;
+          border: 1px solid var(--border);
         }
 
-        .control-header {
-          display: flex;
-          align-items: center;
-          gap: 1rem;
-          margin-bottom: 1.4rem;
-          padding-bottom: 1.2rem;
-          border-bottom: 1px solid var(--border);
+        .recommender-select {
+          width: 100%;
+          padding: 0.8rem;
+          margin-bottom: 1rem;
         }
 
-        .control-icon {
-          width: 48px;
-          height: 48px;
-          border-radius: 12px;
+        .recommend-btn {
+          width: 100%;
+          padding: 0.8rem;
           background: var(--primary);
           color: white;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 1.5rem;
+          border: none;
+          border-radius: 6px;
         }
 
         .recommender-grid {
           display: grid;
           grid-template-columns: 1fr 1fr;
-          gap: 2.4rem 8rem;
+          gap: 2rem;
+        }
+
+        .recommender-card {
+          background: var(--surface);
+          padding: 1.5rem;
+          border-radius: 10px;
+          border: 1px solid var(--border);
         }
 
         @media (max-width: 900px) {
-          .recommender-page {
-            padding: 5rem 1.5rem 2rem;
-          }
-
           .recommender-grid {
             grid-template-columns: 1fr;
-            gap: 1.5rem;
           }
         }
       `}</style>
