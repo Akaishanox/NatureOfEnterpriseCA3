@@ -10,12 +10,19 @@ export default function NavBar() {
   const lang = useLang();
   const t = translations[lang];
 
+  const recommenderText: Record<string, string> = {
+    en: "Recommender",
+    ga: "Moltóir",
+    es: "Recomendador",
+    fr: "Recommandations",
+  };
+
   const navItems = [
     { href: "/", label: t.home || "Home" },
     { href: "/events", label: t.events },
     { href: "/helpdesk", label: t.helpdesk },
     { href: "/canteen", label: t.canteen },
-    { href: "/recommender", label: "Recommender" },
+    { href: "/recommender", label: recommenderText[lang] || recommenderText.en },
     { href: "/settings", label: t.settings },
   ];
 
