@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
+import ticketsData from "@/data/tickets.json";
 
-let tickets: any[] = [];
+let tickets: any[] = [...ticketsData];
 
 export async function GET() {
   return NextResponse.json(tickets);
@@ -16,7 +17,7 @@ export async function POST(req: Request) {
     priority: "Medium",
   };
 
-  tickets.push(newTicket);
+  tickets = [newTicket, ...tickets];
 
   return NextResponse.json(newTicket);
 }
