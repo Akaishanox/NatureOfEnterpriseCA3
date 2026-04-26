@@ -50,6 +50,11 @@ body {
   transition: background 0.2s ease, color 0.2s ease;
 }
 
+main#main-content {
+  min-height: 100vh;
+}
+
+/* NAVBAR */
 .navbar {
   position: fixed;
   top: 0;
@@ -62,6 +67,7 @@ body {
   justify-content: space-between;
   padding: 0 2rem;
   z-index: 100;
+  box-shadow: 0 1px 8px rgba(0,0,0,0.12);
 }
 
 .navbar-brand {
@@ -71,12 +77,14 @@ body {
   color: #fff;
   font-weight: 700;
   font-size: 1rem;
+  white-space: nowrap;
 }
 
 .nav-links {
   display: flex;
   list-style: none;
   gap: 0.25rem;
+  align-items: center;
 }
 
 .nav-link {
@@ -87,6 +95,7 @@ body {
   color: rgba(255,255,255,0.85);
   font-size: 0.88rem;
   font-weight: 500;
+  white-space: nowrap;
 }
 
 .nav-link:hover {
@@ -100,12 +109,53 @@ body {
   font-weight: 700;
 }
 
-.page {
-  max-width: 1000px;
+/* GLOBAL PAGE SIZE */
+.page,
+.events-page,
+.events-page-fixed,
+.settings-page {
+  width: 100%;
+  max-width: 1450px;
   margin: 0 auto;
-  padding: calc(var(--navbar-h) + 2.5rem) 1.5rem 3rem;
+  padding: 6rem 4rem 3rem;
 }
 
+/* HOME PAGE CONSISTENCY */
+.banner,
+.info-row,
+.nav-grid {
+  max-width: 850px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.banner {
+  min-height: 105px;
+  display: flex;
+  align-items: center;
+}
+
+.info-row {
+  margin-bottom: 1.75rem;
+}
+
+.nav-grid {
+  gap: 1rem;
+}
+
+.nav-card {
+  min-height: 130px;
+}
+
+.nav-icon {
+  font-size: 2.5rem !important;
+}
+
+.nav-label {
+  font-size: 1rem !important;
+}
+
+/* CARDS */
 .card,
 .event-card,
 .menu-card {
@@ -114,7 +164,7 @@ body {
   border-radius: var(--radius);
   padding: 1.5rem;
   box-shadow: var(--shadow);
-  transition: all 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, border 0.2s ease;
 }
 
 .card:hover,
@@ -123,28 +173,50 @@ body {
   transform: translateY(-2px);
 }
 
-.btn-primary {
-  display: block;
-  width: 100%;
-  padding: 0.65rem 1rem;
+/* BUTTONS */
+.btn-primary,
+.add-btn,
+.register-btn,
+.register-btn-fixed {
   background: var(--primary);
   color: #fff;
   border: none;
   border-radius: 6px;
   font-family: var(--font);
-  font-size: 0.9rem;
   font-weight: 600;
   cursor: pointer;
 }
 
-.btn-primary:hover {
+.btn-primary {
+  display: block;
+  width: 100%;
+  padding: 0.65rem 1rem;
+  font-size: 0.9rem;
+}
+
+.btn-primary:hover,
+.add-btn:hover,
+.register-btn:hover,
+.register-btn-fixed:hover {
   background: var(--primary-dark);
+}
+
+/* FORM */
+.form-group {
+  margin-bottom: 0.9rem;
+}
+
+.form-label {
+  display: block;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
 }
 
 .form-input,
 .form-textarea,
 select {
   width: 100%;
+  min-height: 44px;
   padding: 0.55rem 0.75rem;
   border: 1px solid var(--border);
   border-radius: 6px;
@@ -152,6 +224,11 @@ select {
   font-size: 0.9rem;
   color: var(--text);
   background: var(--surface);
+}
+
+.form-textarea {
+  min-height: 95px;
+  resize: vertical;
 }
 
 .form-input:focus,
@@ -162,6 +239,7 @@ select:focus {
   box-shadow: 0 0 0 3px rgba(37,99,235,0.18);
 }
 
+/* TITLES */
 .page-title {
   color: var(--primary);
   font-size: 32px;
@@ -188,6 +266,16 @@ select:focus {
   margin-bottom: 35px;
 }
 
+.section-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  margin-bottom: 0.75rem;
+}
+
+/* GRIDS */
 .page-grid,
 .events-grid {
   display: grid;
@@ -195,14 +283,88 @@ select:focus {
   gap: 30px;
 }
 
-@media (max-width: 640px) {
-  .page-grid,
-  .events-grid {
-    grid-template-columns: 1fr;
+/* HELPDESK CONSISTENCY */
+.page section:first-child,
+section[aria-label="Existing tickets"] {
+  max-width: 850px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.page > div[style*="max-width"] {
+  max-width: 850px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* CANTEEN CONSISTENCY */
+.menu-grid {
+  max-width: 1450px;
+  margin: 0 auto;
+  display: grid !important;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.4rem 8rem !important;
+}
+
+.menu-card {
+  min-height: 300px;
+  padding: 2rem 1.7rem 1.7rem !important;
+}
+
+/* SETTINGS CONSISTENCY */
+.settings-page {
+  max-width: 850px;
+}
+
+.settings-card {
+  width: 100%;
+}
+
+/* DARK MODE EXTRA POLISH */
+.dark-mode .card,
+.dark-mode .event-card,
+.dark-mode .menu-card,
+.dark-mode .settings-card {
+  background: rgba(31, 41, 55, 0.92);
+}
+
+.dark-mode .navbar {
+  background: var(--primary);
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .page,
+  .events-page,
+  .events-page-fixed,
+  .settings-page {
+    padding: 5rem 1.5rem 2rem;
   }
 
+  .menu-grid,
+  .page-grid,
+  .events-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+  }
+
+  .banner,
+  .info-row,
+  .nav-grid,
+  .page section:first-child,
+  section[aria-label="Existing tickets"],
+  .page > div[style*="max-width"] {
+    max-width: 100% !important;
+  }
+}
+
+@media (max-width: 640px) {
   .navbar {
     padding: 0 1rem;
+  }
+
+  .navbar-brand {
+    font-size: 0.88rem;
   }
 
   .nav-links {
