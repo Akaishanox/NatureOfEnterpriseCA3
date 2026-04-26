@@ -1,6 +1,6 @@
 # Campus Companion
 
-#Project Description
+# Project Description
 A web-based Campus Campanion app built using Next.js.
 It allows students to browse campus events, order from the canteen, submit helpdesk requests and customise settings.
 
