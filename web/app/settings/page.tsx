@@ -86,6 +86,22 @@ export default function SettingsPage() {
     setFontSize(Number(savedFont));
     setTheme(savedTheme);
     setLanguage(savedLang);
+
+    return () => {
+      const realFont = localStorage.getItem("fontSize") || "16";
+      const realTheme = localStorage.getItem("theme") || "light";
+      const realLang = localStorage.getItem("language") || "en";
+
+      document.documentElement.style.fontSize = realFont + "px";
+      document.documentElement.classList.toggle(
+        "dark-mode",
+        realTheme === "dark"
+      );
+      document.documentElement.setAttribute("lang", realLang);
+
+      localStorage.removeItem("previewLanguage");
+      window.dispatchEvent(new Event("languageChanged"));
+    };
   }, []);
 
   useEffect(() => {
@@ -95,22 +111,6 @@ export default function SettingsPage() {
 
     localStorage.setItem("previewLanguage", language);
     window.dispatchEvent(new Event("languageChanged"));
-
-    return () => {
-      const savedFont = localStorage.getItem("fontSize") || "16";
-      const savedTheme = localStorage.getItem("theme") || "light";
-      const savedLang = localStorage.getItem("language") || "en";
-
-      document.documentElement.style.fontSize = savedFont + "px";
-      document.documentElement.classList.toggle(
-        "dark-mode",
-        savedTheme === "dark"
-      );
-      document.documentElement.setAttribute("lang", savedLang);
-
-      localStorage.removeItem("previewLanguage");
-      window.dispatchEvent(new Event("languageChanged"));
-    };
   }, [fontSize, theme, language]);
 
   const handleSave = () => {
