@@ -54,7 +54,6 @@ main#main-content {
   min-height: 100vh;
 }
 
-/* NAVBAR */
 .navbar {
   position: fixed;
   top: 0;
@@ -70,158 +69,158 @@ main#main-content {
 }
 
 .navbar-brand {
-  color: white;
+  color: #fff;
   font-weight: 700;
+  font-size: 1rem;
+}
+
+.nav-links {
+  display: flex;
+  gap: 0.3rem;
+  list-style: none;
+  align-items: center;
 }
 
 .nav-link {
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
   color: rgba(255,255,255,0.85);
+  text-decoration: none;
+  font-size: 0.85rem;
+}
+
+.nav-link:hover {
+  background: rgba(255,255,255,0.15);
+  color: #fff;
 }
 
 .nav-link.active {
-  color: white;
+  background: rgba(255,255,255,0.25);
+  color: #fff;
 }
 
-/* DEFAULT PAGE */
-.page {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: calc(var(--navbar-h) + 2.5rem) 1.5rem 3rem;
-}
-
-/* EVENTS PAGE (KEEP ORIGINAL LOOK BUT CENTERED) */
+.page,
 .events-page,
-.events-page-fixed {
-  max-width: 1100px;
+.canteen-page,
+.settings-page {
+  max-width: 1200px;
   margin: 0 auto;
-  padding: calc(var(--navbar-h) + 2.5rem) 2rem 3rem;
+  padding: calc(var(--navbar-h) + 2rem) 2rem 3rem;
 }
 
-/* HOME PAGE BIGGER BUT STILL CENTERED */
-.banner,
-.info-row,
-.nav-grid {
-  max-width: 1100px;
-  margin-left: auto;
-  margin-right: auto;
+.home-wrapper {
+  max-width: 900px;
+  margin: 0 auto;
 }
 
 .banner {
-  min-height: 140px;
+  width: 100%;
+  padding: 1.6rem;
+  border-radius: var(--radius);
 }
 
-.nav-card {
-  min-height: 160px;
+.nav-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
 }
 
-/* SETTINGS BIGGER */
-.settings-page {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: calc(var(--navbar-h) + 2.5rem) 2rem 3rem;
+.events-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
 }
 
-/* CARDS */
 .card,
 .event-card,
 .menu-card {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 1.6rem;
+  padding: 1.5rem;
   box-shadow: var(--shadow);
+  transition: transform 0.2s ease;
 }
 
-/* EVENTS + CANTEEN SAME CARD SIZE */
-.event-card,
-.menu-card {
-  min-height: 260px;
+.card:hover,
+.event-card:hover,
+.menu-card:hover {
+  transform: translateY(-2px);
 }
 
-/* GRID */
-.page-grid,
-.events-grid,
-.menu-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 30px;
-}
-
-/* FIX CANTEEN BUTTON + PRICE COLLISION */
-.menu-card {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.menu-card .add-btn {
-  margin-top: 1rem;
-  align-self: flex-start;
-  white-space: nowrap;
-}
-
-/* BUTTONS */
 .btn-primary,
-.add-btn,
-.register-btn {
+.register-btn,
+.add-btn {
+  width: 100%;
+  padding: 0.6rem;
   background: var(--primary);
-  color: white;
+  color: #fff;
   border: none;
   border-radius: 6px;
-  padding: 0.65rem 1rem;
   font-weight: 600;
   cursor: pointer;
 }
 
 .btn-primary:hover,
-.add-btn:hover,
-.register-btn:hover {
+.register-btn:hover,
+.add-btn:hover {
   background: var(--primary-dark);
 }
 
-/* FORMS */
-.form-input,
-.form-textarea,
-select {
-  width: 100%;
-  padding: 0.55rem 0.75rem;
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  background: var(--surface);
-  color: var(--text);
+.menu-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
 }
 
-/* TITLES */
+.menu-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 260px;
+}
+
+.menu-card button {
+  margin-top: auto;
+}
+
+.menu-card .add-btn {
+  margin-top: 1rem;
+}
+
 .page-title {
   color: var(--primary);
   font-size: 32px;
   font-weight: 700;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 
 .section-title {
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 700;
 }
 
-/* DARK MODE */
+.settings-page {
+  max-width: 900px;
+}
+
 .dark-mode .card,
 .dark-mode .event-card,
 .dark-mode .menu-card {
-  background: rgba(31,41,55,0.92);
+  background: rgba(31,41,55,0.9);
 }
 
-/* MOBILE */
-@media (max-width: 900px) {
-  .page,
-  .events-page,
-  .settings-page {
-    padding: 5rem 1.5rem 2rem;
+@media (max-width: 800px) {
+  .events-grid,
+  .menu-grid,
+  .nav-grid {
+    grid-template-columns: 1fr;
   }
 
-  .page-grid,
-  .events-grid,
-  .menu-grid {
-    grid-template-columns: 1fr;
+  .page,
+  .events-page,
+  .canteen-page,
+  .settings-page {
+    padding: calc(var(--navbar-h) + 1.5rem) 1rem;
   }
 }
