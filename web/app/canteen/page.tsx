@@ -40,42 +40,44 @@ export default function CanteenPage() {
 
   return (
     <main className="canteen-page-fixed">
-      <h1 className="canteen-title">{t.canteen}</h1>
-      <div className="canteen-line"></div>
+      <div className="canteen-container">
+        <h1 className="canteen-title">{t.canteen}</h1>
+        <div className="canteen-line"></div>
 
-      <h2 className="canteen-subtitle">{t.menu}</h2>
-      <p className="canteen-description">{t.chooseMenu}</p>
+        <h2 className="canteen-subtitle">{t.menu}</h2>
+        <p className="canteen-description">{t.chooseMenu}</p>
 
-      <div className="canteen-grid-fixed">
-        {menu.map((item) => {
-          const count = cart.filter((id) => id === item.id).length;
+        <div className="canteen-grid-fixed">
+          {menu.map((item) => {
+            const count = cart.filter((id) => id === item.id).length;
 
-          return (
-            <div className="canteen-card-fixed" key={item.id}>
-              <div className="canteen-icon-fixed">
-                {ICONS[item.name.en] || "🍽️"}
+            return (
+              <div className="canteen-card-fixed" key={item.id}>
+                <div className="canteen-icon-fixed">
+                  {ICONS[item.name.en] || "🍽️"}
+                </div>
+
+                <h3>{item.name[lang]}</h3>
+
+                <div className="canteen-info">
+                  <p>{item.diet[lang]}</p>
+                </div>
+
+                <p className="canteen-description-text">
+                  {item.description[lang]}
+                </p>
+
+                <button
+                  className="canteen-add-btn"
+                  onClick={() => addToOrder(item.id)}
+                >
+                  €{item.price.toFixed(2)} ·{" "}
+                  {count > 0 ? `${t.addToOrder} (${count})` : t.addToOrder}
+                </button>
               </div>
-
-              <h3>{item.name[lang]}</h3>
-
-              <div className="canteen-info">
-                <p>{item.diet[lang]}</p>
-              </div>
-
-              <p className="canteen-description-text">
-                {item.description[lang]}
-              </p>
-
-              <button
-                className="canteen-add-btn"
-                onClick={() => addToOrder(item.id)}
-              >
-                €{item.price.toFixed(2)} ·{" "}
-                {count > 0 ? `${t.addToOrder} (${count})` : t.addToOrder}
-              </button>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
 
       {cart.length > 0 && (
@@ -93,13 +95,9 @@ export default function CanteenPage() {
           min-height: 100vh;
         }
 
-        /* ONLY center text blocks (NOT the line) */
-        .canteen-title,
-        .canteen-subtitle,
-        .canteen-description {
+        .canteen-container {
           max-width: 1450px;
-          margin-left: auto;
-          margin-right: auto;
+          margin: 0 auto;
         }
 
         .canteen-title {
@@ -109,7 +107,6 @@ export default function CanteenPage() {
           margin-bottom: 0.8rem;
         }
 
-        /* stays LEFT like events */
         .canteen-line {
           width: 70px;
           height: 8px;
@@ -131,13 +128,10 @@ export default function CanteenPage() {
           margin-bottom: 2.6rem;
         }
 
-        /* MATCH EVENTS EXACTLY */
         .canteen-grid-fixed {
           display: grid;
           grid-template-columns: 1fr 1fr;
           gap: 2.4rem 8rem;
-          max-width: 1450px;
-          margin: 0 auto;
         }
 
         .canteen-card-fixed {
