@@ -125,7 +125,7 @@ export default function CanteenPage() {
           display: grid;
           grid-template-columns: 1fr 1fr;
           gap: 2.4rem 4rem;
-          max-width: 1200px;
+          max-width: 1050px;
           margin: 0 auto;
         }
 
