@@ -7,18 +7,18 @@ export function useLang() {
 
   useEffect(() => {
     const loadLang = () => {
-      const savedLang = localStorage.getItem("language") || "en";
-      setLang(savedLang);
+      const previewLang = localStorage.getItem("previewLanguage");
+      const savedLang = localStorage.getItem("language");
+
+      setLang(previewLang || savedLang || "en");
     };
 
     loadLang();
 
     window.addEventListener("languageChanged", loadLang);
-    window.addEventListener("storage", loadLang);
 
     return () => {
       window.removeEventListener("languageChanged", loadLang);
-      window.removeEventListener("storage", loadLang);
     };
   }, []);
 
