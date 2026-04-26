@@ -63,11 +63,35 @@ export default function HelpdeskPage() {
 
   function validate() {
     const e: Partial<FormState> = {};
-    if (!form.name.trim()) e.name = "Required";
-    if (!form.studentId.trim()) e.studentId = "Required";
-    if (!form.email.trim()) e.email = "Required";
-    if (!form.subject.trim()) e.subject = "Required";
-    if (!form.description.trim()) e.description = "Required";
+
+    if (!form.name.trim()) {
+      e.name = "Name is required";
+    }
+
+    if (!form.studentId.trim()) {
+      e.studentId = "Student ID is required";
+    }
+
+    if (!form.email.trim()) {
+      e.email = "Email is required";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
+      e.email = "Enter a valid email address";
+    }
+
+    if (!form.phone.trim()) {
+      e.phone = "Phone number is required";
+    } else if (!/^[0-9+\s()-]{7,15}$/.test(form.phone)) {
+      e.phone = "Enter a valid phone number";
+    }
+
+    if (!form.subject.trim()) {
+      e.subject = "Subject is required";
+    }
+
+    if (!form.description.trim()) {
+      e.description = "Please provide as much detail as possible";
+    }
+
     return e;
   }
 
@@ -132,7 +156,7 @@ export default function HelpdeskPage() {
           <div className="form-group">
             <label className="form-label">{t.formName}</label>
             <input
-              className="form-input"
+              className={`form-input ${errors.name ? "input-error" : ""}`}
               type="text"
               placeholder={t.formNamePlaceholder}
               value={form.name}
@@ -144,7 +168,7 @@ export default function HelpdeskPage() {
           <div className="form-group">
             <label className="form-label">{t.formStudentId}</label>
             <input
-              className="form-input"
+              className={`form-input ${errors.studentId ? "input-error" : ""}`}
               type="text"
               placeholder={t.formStudentIdPlaceholder}
               value={form.studentId}
@@ -156,7 +180,7 @@ export default function HelpdeskPage() {
           <div className="form-group">
             <label className="form-label">{t.formEmail}</label>
             <input
-              className="form-input"
+              className={`form-input ${errors.email ? "input-error" : ""}`}
               type="email"
               placeholder={t.formEmailPlaceholder}
               value={form.email}
@@ -168,18 +192,19 @@ export default function HelpdeskPage() {
           <div className="form-group">
             <label className="form-label">{t.formPhone}</label>
             <input
-              className="form-input"
+              className={`form-input ${errors.phone ? "input-error" : ""}`}
               type="tel"
               placeholder={t.formPhonePlaceholder}
               value={form.phone}
               onChange={(e) => setField("phone", e.target.value)}
             />
+            {errors.phone && <p className="error-text">{errors.phone}</p>}
           </div>
 
           <div className="form-group">
             <label className="form-label">{t.formSubject}</label>
             <input
-              className="form-input"
+              className={`form-input ${errors.subject ? "input-error" : ""}`}
               type="text"
               placeholder={t.formSubjectPlaceholder}
               value={form.subject}
@@ -191,7 +216,7 @@ export default function HelpdeskPage() {
           <div className="form-group">
             <label className="form-label">{t.formDescription}</label>
             <textarea
-              className="form-textarea"
+              className={`form-textarea ${errors.description ? "input-error" : ""}`}
               placeholder={t.formDescriptionPlaceholder}
               value={form.description}
               onChange={(e) => setField("description", e.target.value)}
@@ -326,9 +351,25 @@ export default function HelpdeskPage() {
           color: var(--text-muted);
         }
 
+        .form-input:focus,
+        .form-textarea:focus {
+          border-color: var(--primary);
+        }
+
         .form-textarea {
           min-height: 160px;
           resize: vertical;
+        }
+
+        .input-error {
+          border-color: #dc2626 !important;
+        }
+
+        .error-text {
+          color: #dc2626;
+          font-size: 0.8rem;
+          margin-top: 0.35rem;
+          font-weight: 600;
         }
 
         .detail-note {
@@ -350,12 +391,6 @@ export default function HelpdeskPage() {
 
         .submit-btn:hover {
           background: var(--primary-dark);
-        }
-
-        .error-text {
-          color: #dc2626;
-          font-size: 0.8rem;
-          margin-top: 0.3rem;
         }
 
         @media (max-width: 900px) {
