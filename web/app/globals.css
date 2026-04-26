@@ -136,6 +136,13 @@ main#main-content {
   margin-right: auto;
 }
 
+.home-section-title,
+.section-label {
+  max-width: 850px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .banner {
   min-height: 105px;
   display: flex;
