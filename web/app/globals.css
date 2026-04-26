@@ -391,3 +391,59 @@ section[aria-label="Existing tickets"] {
     font-size: 0.78rem;
   }
 }
+
+.events-page {
+  max-width: 1200px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-left: 2rem !important;
+  padding-right: 2rem !important;
+}
+
+.events-grid,
+.menu-grid {
+  max-width: 1200px !important;
+  width: 100% !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 30px !important;
+}
+
+.menu-card {
+  min-height: 300px !important;
+  padding: 2rem 1.7rem 1.7rem !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.menu-card > div:last-child {
+  margin-top: auto !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  gap: 1rem !important;
+}
+
+.add-btn {
+  width: auto !important;
+  min-width: 120px !important;
+  padding: 0.55rem 1rem !important;
+}
+
+section[aria-label="Existing tickets"],
+.page > div[style*="max-width"],
+.page > div[style*="maxWidth"] {
+  max-width: 850px !important;
+  width: 100% !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+@media (max-width: 900px) {
+  .events-grid,
+  .menu-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
