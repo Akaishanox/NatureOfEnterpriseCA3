@@ -11,10 +11,11 @@ export default function NavBar() {
   const t = translations[lang];
 
   const navItems = [
-    { href: "/",         label: t.home || "Home" },
-    { href: "/events",   label: t.events },
+    { href: "/", label: t.home || "Home" },
+    { href: "/events", label: t.events },
     { href: "/helpdesk", label: t.helpdesk },
-    { href: "/canteen",  label: t.canteen },
+    { href: "/canteen", label: t.canteen },
+    { href: "/recommender", label: "Recommender" },
     { href: "/settings", label: t.settings },
   ];
 
@@ -28,17 +29,21 @@ export default function NavBar() {
       </div>
 
       <ul className="nav-links" role="list">
-        {navItems.map((item) => (
-          <li key={item.href}>
-            <Link
-              href={item.href}
-              className={`nav-link ${pathname === item.href ? "active" : ""}`}
-              aria-current={pathname === item.href ? "page" : undefined}
-            >
-              {item.label}
-            </Link>
-          </li>
-        ))}
+        {navItems.map((item) => {
+          const isActive = pathname === item.href;
+
+          return (
+            <li key={item.href}>
+              <Link
+                href={item.href}
+                className={`nav-link ${isActive ? "active" : ""}`}
+                aria-current={isActive ? "page" : undefined}
+              >
+                {item.label}
+              </Link>
+            </li>
+          );
+        })}
       </ul>
     </nav>
   );
