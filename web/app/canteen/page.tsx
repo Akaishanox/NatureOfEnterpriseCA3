@@ -58,22 +58,21 @@ export default function CanteenPage() {
 
               <h3>{item.name[lang]}</h3>
 
-              <p className="canteen-diet">{item.diet[lang]}</p>
+              <div className="canteen-info">
+                <p>{item.diet[lang]}</p>
+              </div>
 
               <p className="canteen-description-text">
                 {item.description[lang]}
               </p>
 
-              <div className="canteen-bottom">
-                <span>€{item.price.toFixed(2)}</span>
-
-                <button
-                  className="canteen-add-btn"
-                  onClick={() => addToOrder(item.id)}
-                >
-                  {count > 0 ? `${t.addToOrder} (${count})` : t.addToOrder}
-                </button>
-              </div>
+              <button
+                className="canteen-add-btn"
+                onClick={() => addToOrder(item.id)}
+              >
+                €{item.price.toFixed(2)} ·{" "}
+                {count > 0 ? `${t.addToOrder} (${count})` : t.addToOrder}
+              </button>
             </div>
           );
         })}
@@ -90,7 +89,7 @@ export default function CanteenPage() {
       <style>{`
         .canteen-page-fixed {
           padding: 6rem 4rem 3rem;
-          background: var(--background);
+          background: var(--bg);
           min-height: 100vh;
         }
 
@@ -125,8 +124,8 @@ export default function CanteenPage() {
         .canteen-grid-fixed {
           display: grid;
           grid-template-columns: 1fr 1fr;
-          gap: 2.4rem 8rem;
-          max-width: 1450px;
+          gap: 2.4rem 4rem;
+          max-width: 1200px;
           margin: 0 auto;
         }
 
@@ -155,10 +154,14 @@ export default function CanteenPage() {
           margin-bottom: 1.6rem;
         }
 
-        .canteen-diet {
+        .canteen-info {
+          margin-bottom: 1rem;
+        }
+
+        .canteen-info p {
           font-size: 0.95rem;
           color: var(--text);
-          margin-bottom: 1rem;
+          margin-bottom: 0.7rem;
         }
 
         .canteen-description-text {
@@ -169,24 +172,8 @@ export default function CanteenPage() {
           flex: 1;
         }
 
-        .canteen-bottom {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: 1rem;
-          margin-top: auto;
-        }
-
-        .canteen-bottom span {
-          font-size: 1rem;
-          font-weight: 800;
-          color: var(--text);
-          white-space: nowrap;
-        }
-
         .canteen-add-btn {
           width: 100%;
-          max-width: 170px;
           background: var(--primary);
           color: white;
           border: none;
@@ -194,6 +181,7 @@ export default function CanteenPage() {
           padding: 0.8rem 1rem;
           font-size: 1rem;
           cursor: pointer;
+          margin-top: auto;
         }
 
         .canteen-add-btn:hover {
