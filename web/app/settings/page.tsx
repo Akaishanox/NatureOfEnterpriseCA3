@@ -327,11 +327,11 @@ export default function SettingsPage() {
         }
 
         .saved-message {
-          text-align: center;
-          color: green;
-          font-weight: 700;
-          margin-top: 1rem;
-        }
+        text-align: center;
+        color: var(--text);
+        font-weight: 700;
+        margin-top: 1rem;
+      }
 
         @media (max-width: 700px) {
           .settings-page {
