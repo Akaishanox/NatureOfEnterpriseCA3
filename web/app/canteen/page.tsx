@@ -58,9 +58,7 @@ export default function CanteenPage() {
 
               <h3>{item.name[lang]}</h3>
 
-              <div className="canteen-info">
-                <p>{item.diet[lang]}</p>
-              </div>
+              <p className="canteen-diet">{item.diet[lang]}</p>
 
               <p className="canteen-description-text">
                 {item.description[lang]}
@@ -83,7 +81,8 @@ export default function CanteenPage() {
 
       {cart.length > 0 && (
         <div className="cart-bar">
-          🛒 {cart.length} item{cart.length !== 1 ? "s" : ""} — €{total.toFixed(2)}
+          🛒 {cart.length} item{cart.length !== 1 ? "s" : ""} — €
+          {total.toFixed(2)}
           <button onClick={() => setCart([])}>Clear</button>
         </div>
       )}
@@ -153,17 +152,13 @@ export default function CanteenPage() {
           font-size: 1.45rem;
           font-weight: 800;
           color: var(--text);
-          margin-bottom: 1.2rem;
+          margin-bottom: 1.6rem;
         }
 
-        .canteen-info {
-          margin-bottom: 1rem;
-        }
-
-        .canteen-info p {
+        .canteen-diet {
           font-size: 0.95rem;
           color: var(--text);
-          margin-bottom: 0.7rem;
+          margin-bottom: 1rem;
         }
 
         .canteen-description-text {
@@ -186,9 +181,12 @@ export default function CanteenPage() {
           font-size: 1rem;
           font-weight: 800;
           color: var(--text);
+          white-space: nowrap;
         }
 
         .canteen-add-btn {
+          width: 100%;
+          max-width: 170px;
           background: var(--primary);
           color: white;
           border: none;
@@ -196,7 +194,6 @@ export default function CanteenPage() {
           padding: 0.8rem 1rem;
           font-size: 1rem;
           cursor: pointer;
-          min-width: 150px;
         }
 
         .canteen-add-btn:hover {
