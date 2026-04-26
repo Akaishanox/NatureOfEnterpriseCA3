@@ -93,7 +93,10 @@ export default function CanteenPage() {
           min-height: 100vh;
         }
 
-        .canteen-page-fixed > * {
+        .canteen-title,
+        .canteen-subtitle,
+        .canteen-description,
+        .canteen-grid-fixed {
         max-width: 1050px;
         margin-left: auto;
         margin-right: auto;
