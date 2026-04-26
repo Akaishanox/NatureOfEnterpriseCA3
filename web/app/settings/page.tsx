@@ -79,38 +79,46 @@ export default function SettingsPage() {
   const liveT = translations[language] || translations.en;
 
   useEffect(() => {
-    const savedFont = localStorage.getItem("fontSize");
-    const savedTheme = localStorage.getItem("theme");
-    const savedLang = localStorage.getItem("language");
+    const savedFont = localStorage.getItem("fontSize") || "16";
+    const savedTheme = localStorage.getItem("theme") || "light";
+    const savedLang = localStorage.getItem("language") || "en";
 
-    if (savedFont) {
-      setFontSize(Number(savedFont));
+    setFontSize(Number(savedFont));
+    setTheme(savedTheme);
+    setLanguage(savedLang);
+  }, []);
+
+  useEffect(() => {
+    document.documentElement.style.fontSize = fontSize + "px";
+    document.documentElement.classList.toggle("dark-mode", theme === "dark");
+    document.documentElement.setAttribute("lang", language);
+
+    localStorage.setItem("previewLanguage", language);
+    window.dispatchEvent(new Event("languageChanged"));
+
+    return () => {
+      const savedFont = localStorage.getItem("fontSize") || "16";
+      const savedTheme = localStorage.getItem("theme") || "light";
+      const savedLang = localStorage.getItem("language") || "en";
+
       document.documentElement.style.fontSize = savedFont + "px";
-    }
-
-    if (savedTheme) {
-      setTheme(savedTheme);
       document.documentElement.classList.toggle(
         "dark-mode",
         savedTheme === "dark"
       );
-    }
-
-    if (savedLang) {
-      setLanguage(savedLang);
       document.documentElement.setAttribute("lang", savedLang);
-    }
-  }, []);
+
+      localStorage.removeItem("previewLanguage");
+      window.dispatchEvent(new Event("languageChanged"));
+    };
+  }, [fontSize, theme, language]);
 
   const handleSave = () => {
     localStorage.setItem("fontSize", fontSize.toString());
     localStorage.setItem("theme", theme);
     localStorage.setItem("language", language);
 
-    document.documentElement.style.fontSize = fontSize + "px";
-    document.documentElement.classList.toggle("dark-mode", theme === "dark");
-    document.documentElement.setAttribute("lang", language);
-
+    localStorage.removeItem("previewLanguage");
     window.dispatchEvent(new Event("languageChanged"));
 
     setSaved(true);
