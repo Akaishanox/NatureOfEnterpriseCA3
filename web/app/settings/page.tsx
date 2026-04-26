@@ -5,11 +5,11 @@ import { translations } from "@/app/lib/translations";
 import { useLang } from "@/app/lib/useLang";
 
 export default function SettingsPage() {
-  const lang = useLang();
+  const currentLang = useLang();
 
   const [fontSize, setFontSize] = useState(16);
   const [theme, setTheme] = useState("light");
-  const [language, setLanguage] = useState(lang);
+  const [language, setLanguage] = useState(currentLang);
   const [saved, setSaved] = useState(false);
 
   const extraText: Record<string, any> = {
@@ -83,21 +83,33 @@ export default function SettingsPage() {
     const savedTheme = localStorage.getItem("theme");
     const savedLang = localStorage.getItem("language");
 
-    if (savedFont) setFontSize(Number(savedFont));
-    if (savedTheme) setTheme(savedTheme);
-    if (savedLang) setLanguage(savedLang);
-  }, []);
+    if (savedFont) {
+      setFontSize(Number(savedFont));
+      document.documentElement.style.fontSize = savedFont + "px";
+    }
 
-  useEffect(() => {
-    document.documentElement.style.fontSize = fontSize + "px";
-    document.documentElement.classList.toggle("dark-mode", theme === "dark");
-    document.documentElement.setAttribute("lang", language);
-  }, [fontSize, theme, language]);
+    if (savedTheme) {
+      setTheme(savedTheme);
+      document.documentElement.classList.toggle(
+        "dark-mode",
+        savedTheme === "dark"
+      );
+    }
+
+    if (savedLang) {
+      setLanguage(savedLang);
+      document.documentElement.setAttribute("lang", savedLang);
+    }
+  }, []);
 
   const handleSave = () => {
     localStorage.setItem("fontSize", fontSize.toString());
     localStorage.setItem("theme", theme);
     localStorage.setItem("language", language);
+
+    document.documentElement.style.fontSize = fontSize + "px";
+    document.documentElement.classList.toggle("dark-mode", theme === "dark");
+    document.documentElement.setAttribute("lang", language);
 
     window.dispatchEvent(new Event("languageChanged"));
 
@@ -163,15 +175,7 @@ export default function SettingsPage() {
           <h2>🌐 {liveT.language}</h2>
           <p>{x.languageDesc}</p>
 
-          <select
-            value={language}
-            onChange={(e) => {
-              const newLang = e.target.value;
-              setLanguage(newLang);
-              localStorage.setItem("language", newLang);
-              window.dispatchEvent(new Event("languageChanged"));
-            }}
-          >
+          <select value={language} onChange={(e) => setLanguage(e.target.value)}>
             <option value="en">English</option>
             <option value="ga">Irish</option>
             <option value="es">Spanish</option>
@@ -327,11 +331,11 @@ export default function SettingsPage() {
         }
 
         .saved-message {
-        text-align: center;
-        color: var(--text);
-        font-weight: 700;
-        margin-top: 1rem;
-      }
+          text-align: center;
+          color: var(--text);
+          font-weight: 700;
+          margin-top: 1rem;
+        }
 
         @media (max-width: 700px) {
           .settings-page {
