@@ -80,7 +80,7 @@ export default function CanteenPage() {
 
       {cart.length > 0 && (
         <div className="cart-bar">
-          🛒 {cart.length} item{cart.length !== 1 ? "s" : ""} — €
+          🛒 {cart.length} item{cart.length !== 1 ? "s" : ""} · €
           {total.toFixed(2)}
           <button onClick={() => setCart([])}>Clear</button>
         </div>
@@ -89,17 +89,17 @@ export default function CanteenPage() {
       <style>{`
         .canteen-page-fixed {
           padding: 6rem 4rem 3rem;
-          background: var(--bg);
+          background: var(--background);
           min-height: 100vh;
         }
 
         .canteen-title,
+        .canteen-line,
         .canteen-subtitle,
-        .canteen-description,
-        .canteen-grid-fixed {
-        max-width: 1050px;
-        margin-left: auto;
-        margin-right: auto;
+        .canteen-description {
+          max-width: 1450px;
+          margin-left: auto;
+          margin-right: auto;
         }
 
         .canteen-title {
@@ -131,11 +131,11 @@ export default function CanteenPage() {
         }
 
         .canteen-grid-fixed {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 2.4rem 4rem;
-        max-width: 1050px;
-        margin: 0 auto;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 2.4rem 8rem;
+          max-width: 1450px;
+          margin: 0 auto;
         }
 
         .canteen-card-fixed {
@@ -221,6 +221,13 @@ export default function CanteenPage() {
         @media (max-width: 900px) {
           .canteen-page-fixed {
             padding: 5rem 1.5rem 2rem;
+          }
+
+          .canteen-title,
+          .canteen-line,
+          .canteen-subtitle,
+          .canteen-description {
+            max-width: 100%;
           }
 
           .canteen-grid-fixed {
