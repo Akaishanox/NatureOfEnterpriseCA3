@@ -18,12 +18,19 @@ The app also includes a simple event recommender feature which suggests events b
 - TypeScript
 - JSON (for data storage)
 
+## Setup
+No external database or API keys are required.
+The app uses local JSON files for all data.
+
 ## How to run
 ```
 npm install
 npm run dev
 ```
 Open http://localhost:3000
+
+## Deployment
+Deployed using Netlify with Git-based automatic deployment.
 
 ## Build for Netlify
 - Build command: `npm run build`
