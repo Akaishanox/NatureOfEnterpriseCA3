@@ -16,6 +16,83 @@ export default function RecommenderPage() {
   const lang = useLang();
   const t = translations[lang];
 
+  const pageText: Record<string, any> = {
+    en: {
+      title: "Campus Events Recommender",
+      subtitle: "Choose your interest",
+      desc: "Get recommended events based on your selected category.",
+      findTitle: "Find events for you",
+      findDesc: "Select a category and get matching campus events.",
+      interest: "Interest category",
+      select: "Select category",
+      button: "Get Recommendations",
+      reason: "Recommended because it matches your interest in",
+      categories: {
+        Technology: "Technology",
+        Sports: "Sports",
+        Careers: "Careers",
+        Social: "Social",
+        Academic: "Academic",
+      },
+    },
+    ga: {
+      title: "Moltóir Imeachtaí Campais",
+      subtitle: "Roghnaigh do spéis",
+      desc: "Faigh imeachtaí molta bunaithe ar do chatagóir roghnaithe.",
+      findTitle: "Aimsigh imeachtaí duit",
+      findDesc: "Roghnaigh catagóir agus faigh imeachtaí campais oiriúnacha.",
+      interest: "Catagóir spéise",
+      select: "Roghnaigh catagóir",
+      button: "Faigh Moltaí",
+      reason: "Moltar é seo mar go bhfuil sé ag teacht le do spéis i",
+      categories: {
+        Technology: "Teicneolaíocht",
+        Sports: "Spóirt",
+        Careers: "Gairmeacha",
+        Social: "Sóisialta",
+        Academic: "Acadúil",
+      },
+    },
+    es: {
+      title: "Recomendador de Eventos del Campus",
+      subtitle: "Elige tu interés",
+      desc: "Recibe eventos recomendados según la categoría seleccionada.",
+      findTitle: "Encuentra eventos para ti",
+      findDesc: "Selecciona una categoría y recibe eventos del campus relacionados.",
+      interest: "Categoría de interés",
+      select: "Selecciona una categoría",
+      button: "Obtener recomendaciones",
+      reason: "Recomendado porque coincide con tu interés en",
+      categories: {
+        Technology: "Tecnología",
+        Sports: "Deportes",
+        Careers: "Carreras",
+        Social: "Social",
+        Academic: "Académico",
+      },
+    },
+    fr: {
+      title: "Recommandateur d’Événements du Campus",
+      subtitle: "Choisissez votre intérêt",
+      desc: "Recevez des événements recommandés selon la catégorie choisie.",
+      findTitle: "Trouvez des événements pour vous",
+      findDesc: "Sélectionnez une catégorie et obtenez des événements du campus.",
+      interest: "Catégorie d’intérêt",
+      select: "Sélectionnez une catégorie",
+      button: "Obtenir des recommandations",
+      reason: "Recommandé car cela correspond à votre intérêt pour",
+      categories: {
+        Technology: "Technologie",
+        Sports: "Sport",
+        Careers: "Carrières",
+        Social: "Social",
+        Academic: "Académique",
+      },
+    },
+  };
+
+  const x = pageText[lang] || pageText.en;
+
   const [selectedCategory, setSelectedCategory] = useState("");
   const [recommendations, setRecommendations] = useState<any[]>([]);
   const [popup, setPopup] = useState("");
@@ -73,40 +150,38 @@ export default function RecommenderPage() {
   return (
     <main className="recommender-page">
       <div className="recommender-container">
-        <h1 className="recommender-title">{t.events} Recommender</h1>
+        <h1 className="recommender-title">{x.title}</h1>
         <div className="recommender-line"></div>
 
-        <h2 className="recommender-subtitle">Choose your interest</h2>
-        <p className="recommender-description">
-          Get recommended events based on your selected category.
-        </p>
+        <h2 className="recommender-subtitle">{x.subtitle}</h2>
+        <p className="recommender-description">{x.desc}</p>
 
         <div className="recommender-controls">
           <div className="control-header">
             <div className="control-icon">✨</div>
             <div>
-              <h3>Find events for you</h3>
-              <p>Select a category and get matching campus events.</p>
+              <h3>{x.findTitle}</h3>
+              <p>{x.findDesc}</p>
             </div>
           </div>
 
-          <label className="select-label">Interest category</label>
+          <label className="select-label">{x.interest}</label>
 
           <select
             className="recommender-select"
             value={selectedCategory}
             onChange={(e) => setSelectedCategory(e.target.value)}
           >
-            <option value="">Select category</option>
+            <option value="">{x.select}</option>
             {categories.map((cat) => (
               <option key={cat} value={cat}>
-                {cat}
+                {x.categories[cat]}
               </option>
             ))}
           </select>
 
           <button className="recommend-btn" onClick={getRecommendations}>
-            Get Recommendations
+            {x.button}
           </button>
         </div>
 
@@ -133,8 +208,7 @@ export default function RecommenderPage() {
                 </p>
 
                 <p className="reason-text">
-                  Recommended because it matches your interest in{" "}
-                  <b>{selectedCategory}</b>
+                  {x.reason} <b>{x.categories[selectedCategory]}</b>
                 </p>
 
                 <button
