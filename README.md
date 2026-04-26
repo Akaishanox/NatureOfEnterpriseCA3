@@ -30,7 +30,8 @@ npm run dev
 Open http://localhost:3000
 
 ## Deployment
-Deployed using Netlify with Git-based automatic deployment.
+The application is deployed using Netlify and connected to a Github repository.
+Any changes pushed to the main branch automatically trigger a new deployment.
 
 ## Build for Netlify
 - Build command: `npm run build`
