@@ -67,13 +67,20 @@ export default function CanteenPage() {
                   {item.description[lang]}
                 </p>
 
-                <button
-                  className="canteen-add-btn"
-                  onClick={() => addToOrder(item.id)}
-                >
-                  €{item.price.toFixed(2)} ·{" "}
-                  {count > 0 ? `${t.addToOrder} (${count})` : t.addToOrder}
-                </button>
+                <div className="canteen-card-bottom">
+                  <p className="canteen-price">
+                    €{item.price.toFixed(2)}
+                  </p>
+
+                  <button
+                    className="canteen-add-btn"
+                    onClick={() => addToOrder(item.id)}
+                  >
+                    {count > 0
+                      ? `${t.addToOrder} (${count})`
+                      : t.addToOrder}
+                  </button>
+                </div>
               </div>
             );
           })}
@@ -104,41 +111,41 @@ export default function CanteenPage() {
           font-size: 2rem;
           font-weight: 800;
           color: var(--primary);
-          margin-bottom: 0.8rem;
+          margin-bottom: 0.6rem;
         }
 
         .canteen-line {
           width: 70px;
-          height: 8px;
+          height: 6px;
           background: var(--primary);
           border-radius: 999px;
-          margin-bottom: 2.8rem;
+          margin-bottom: 2.2rem;
         }
 
         .canteen-subtitle {
-          font-size: 1.55rem;
-          font-weight: 800;
+          font-size: 1.4rem;
+          font-weight: 700;
           color: var(--text);
-          margin-bottom: 0.6rem;
+          margin-bottom: 0.3rem;
         }
 
         .canteen-description {
-          font-size: 1rem;
+          font-size: 0.95rem;
           color: var(--text-muted);
-          margin-bottom: 2.6rem;
+          margin-bottom: 2rem;
         }
 
         .canteen-grid-fixed {
           display: grid;
           grid-template-columns: 1fr 1fr;
-          gap: 2.4rem 8rem;
+          gap: 2rem 4rem;
         }
 
         .canteen-card-fixed {
           background: var(--surface);
           border: 1px solid var(--border);
           border-radius: 10px;
-          padding: 2rem 1.7rem 1.7rem;
+          padding: 2rem 1.7rem;
           min-height: 300px;
           box-shadow: var(--shadow);
           display: flex;
@@ -146,47 +153,56 @@ export default function CanteenPage() {
         }
 
         .canteen-icon-fixed {
-          font-size: 2.5rem;
+          font-size: 2.6rem;
           text-align: center;
-          margin-bottom: 1rem;
+          color: var(--primary);
+          margin-bottom: 1.2rem;
         }
 
         .canteen-card-fixed h3 {
-          text-align: center;
-          font-size: 1.45rem;
+          font-size: 1.2rem;
           font-weight: 800;
-          color: var(--text);
-          margin-bottom: 1.6rem;
-        }
-
-        .canteen-info {
-          margin-bottom: 1rem;
-        }
-
-        .canteen-info p {
-          font-size: 0.95rem;
           color: var(--text);
           margin-bottom: 0.7rem;
         }
 
+        .canteen-info p {
+          font-size: 0.85rem;
+          color: var(--primary);
+          margin-bottom: 0.6rem;
+        }
+
         .canteen-description-text {
-          font-size: 0.95rem;
-          color: var(--text);
-          line-height: 1.5;
-          margin-bottom: 1.4rem;
+          font-size: 0.9rem;
+          color: var(--text-muted);
+          line-height: 1.4;
+          margin-bottom: 1.5rem;
           flex: 1;
         }
 
+        .canteen-card-bottom {
+          border-top: 1px solid var(--border);
+          padding-top: 1rem;
+          margin-top: auto;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+
+        .canteen-price {
+          font-size: 1.6rem;
+          font-weight: 800;
+          color: var(--primary);
+        }
+
         .canteen-add-btn {
-          width: 100%;
           background: var(--primary);
           color: white;
           border: none;
           border-radius: 6px;
-          padding: 0.8rem 1rem;
-          font-size: 1rem;
+          padding: 0.6rem 1.2rem;
+          font-size: 0.9rem;
           cursor: pointer;
-          margin-top: auto;
         }
 
         .canteen-add-btn:hover {
