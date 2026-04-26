@@ -5,35 +5,30 @@ import menuData from "@/data/menu.json";
 import { translations } from "@/app/lib/translations";
 import { useLang } from "@/app/lib/useLang";
 
-interface MenuItem {
-  id: number;
-  name: any;
-  category: string;
-  price: number;
-  diet: any;
-  description: any;
+function getText(value: any, lang: string) {
+  if (typeof value === "object") {
+    return value[lang] || value.en;
+  }
+  return value;
 }
-
-const menu = menuData as MenuItem[];
-
-const ICONS: Record<string, string> = {
-  "Grilled Salmon": "🐟",
-  "Margherita Pizza": "🍕",
-  Coffee: "☕",
-  "Chicken Caesar Salad": "🥗",
-};
 
 export default function CanteenPage() {
   const lang = useLang();
   const t = translations[lang];
-
   const [cart, setCart] = useState<number[]>([]);
 
-  const addToOrder = (id: number) => {
-    setCart((prev) => [...prev, id]);
+  const ICONS: Record<string, string> = {
+    "Grilled Salmon": "🐟",
+    "Margherita Pizza": "🍕",
+    Coffee: "☕",
+    "Chicken Caesar Salad": "🥗",
   };
 
-  const total = menu.reduce((sum, item) => {
+  function handleAddToOrder(id: number) {
+    setCart((prev) => [...prev, id]);
+  }
+
+  const total = (menuData as any[]).reduce((sum, item) => {
     const count = cart.filter((id) => id === item.id).length;
     return sum + item.price * count;
   }, 0);
@@ -47,7 +42,10 @@ export default function CanteenPage() {
       <p className="canteen-description">{t.chooseMenu}</p>
 
       <div className="canteen-grid-fixed">
-        {menu.map((item) => {
+        {(menuData as any[]).map((item: any) => {
+          const itemName = getText(item.name, lang);
+          const itemDiet = getText(item.diet, lang);
+          const itemDescription = getText(item.description, lang);
           const count = cart.filter((id) => id === item.id).length;
 
           return (
@@ -56,24 +54,23 @@ export default function CanteenPage() {
                 {ICONS[item.name.en] || "🍽️"}
               </div>
 
-              <h3>{item.name[lang]}</h3>
+              <h3>{itemName}</h3>
 
-              <p className="canteen-diet">{item.diet[lang]}</p>
+              <div className="canteen-info">
+                <p>{itemDiet}</p>
+              </div>
 
               <p className="canteen-description-text">
-                {item.description[lang]}
+                {itemDescription}
               </p>
 
-              <div className="canteen-bottom">
-                <span>€{item.price.toFixed(2)}</span>
-
-                <button
-                  className="canteen-add-btn"
-                  onClick={() => addToOrder(item.id)}
-                >
-                  {count > 0 ? `${t.addToOrder} (${count})` : t.addToOrder}
-                </button>
-              </div>
+              <button
+                className="canteen-add-btn"
+                onClick={() => handleAddToOrder(item.id)}
+              >
+                €{item.price.toFixed(2)} ·{" "}
+                {count > 0 ? `${t.addToOrder} (${count})` : t.addToOrder}
+              </button>
             </div>
           );
         })}
@@ -85,9 +82,7 @@ export default function CanteenPage() {
           {total.toFixed(2)}
           <button onClick={() => setCart([])}>Clear</button>
         </div>
-      )}
-
-      <style>{`
+      )}<style>{`
         .canteen-page-fixed {
           padding: 6rem 4rem 3rem;
           background: var(--background);
@@ -155,10 +150,14 @@ export default function CanteenPage() {
           margin-bottom: 1.6rem;
         }
 
-        .canteen-diet {
+        .canteen-info {
+          margin-bottom: 1rem;
+        }
+
+        .canteen-info p {
           font-size: 0.95rem;
           color: var(--text);
-          margin-bottom: 1rem;
+          margin-bottom: 0.7rem;
         }
 
         .canteen-description-text {
@@ -169,24 +168,8 @@ export default function CanteenPage() {
           flex: 1;
         }
 
-        .canteen-bottom {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: 1rem;
-          margin-top: auto;
-        }
-
-        .canteen-bottom span {
-          font-size: 1rem;
-          font-weight: 800;
-          color: var(--text);
-          white-space: nowrap;
-        }
-
         .canteen-add-btn {
           width: 100%;
-          max-width: 170px;
           background: var(--primary);
           color: white;
           border: none;
@@ -194,6 +177,7 @@ export default function CanteenPage() {
           padding: 0.8rem 1rem;
           font-size: 1rem;
           cursor: pointer;
+          margin-top: auto;
         }
 
         .canteen-add-btn:hover {
