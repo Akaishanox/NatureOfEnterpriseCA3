@@ -4,13 +4,11 @@
   --primary: #2563eb;
   --primary-dark: #1d4ed8;
   --primary-light: #eff6ff;
-
   --text: #111827;
   --text-muted: #6b7280;
   --bg: #f3f4f6;
   --surface: #ffffff;
   --border: #e5e7eb;
-
   --navbar-h: 56px;
   --radius: 10px;
   --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 2px 8px rgba(0,0,0,0.06);
@@ -21,13 +19,11 @@
   --primary: #1d4ed8;
   --primary-dark: #1e40af;
   --primary-light: #172554;
-
   --text: #f9fafb;
   --text-muted: #d1d5db;
   --bg: #111827;
   --surface: #1f2937;
   --border: #374151;
-
   --shadow: 0 1px 3px rgba(0,0,0,0.35), 0 2px 10px rgba(0,0,0,0.3);
 }
 
@@ -76,11 +72,9 @@ main#main-content {
   display: flex;
   list-style: none;
   gap: 0.25rem;
-  align-items: center;
 }
 
 .nav-link {
-  display: block;
   padding: 0.35rem 0.8rem;
   border-radius: 6px;
   text-decoration: none;
@@ -88,28 +82,17 @@ main#main-content {
   font-size: 0.88rem;
 }
 
-.nav-link:hover {
-  background: rgba(255,255,255,0.15);
-  color: #fff;
-}
-
 .nav-link.active {
   background: rgba(255,255,255,0.22);
   color: #fff;
-  font-weight: 700;
 }
 
-.page {
+.page,
+.events-page,
+.events-page-fixed {
   max-width: 1000px;
   margin: 0 auto;
   padding: calc(var(--navbar-h) + 2.5rem) 1.5rem 3rem;
-}
-
-.events-page,
-.events-page-fixed {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: calc(var(--navbar-h) + 2.5rem) 2rem 3rem;
 }
 
 .settings-page {
@@ -128,28 +111,23 @@ main#main-content {
   box-shadow: var(--shadow);
 }
 
-.events-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 30px;
-}
-
+.events-grid,
 .menu-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 30px;
-  max-width: 1200px;
+}.menu-grid {
+  max-width: 1000px;
   margin: 0 auto;
 }
 
 .menu-card {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   min-height: 260px;
 }
 
-.menu-card .price-row {
+.menu-card .row {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -167,10 +145,6 @@ main#main-content {
   cursor: pointer;
 }
 
-.add-btn:hover {
-  background: var(--primary-dark);
-}
-
 .btn-primary {
   width: 100%;
   padding: 0.65rem;
@@ -186,7 +160,6 @@ main#main-content {
   color: var(--primary);
   font-size: 32px;
   font-weight: 700;
-  margin-bottom: 8px;
 }
 
 .section-title {
@@ -195,12 +168,6 @@ main#main-content {
 }
 
 .page section:first-child,
-section[aria-label="Existing tickets"] {
-  max-width: 900px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
 .page form {
   max-width: 900px;
   margin: 0 auto;
@@ -216,11 +183,5 @@ section[aria-label="Existing tickets"] {
   .events-grid,
   .menu-grid {
     grid-template-columns: 1fr;
-  }
-
-  .page,
-  .events-page,
-  .settings-page {
-    padding: calc(var(--navbar-h) + 2rem) 1rem 2rem;
   }
 }
