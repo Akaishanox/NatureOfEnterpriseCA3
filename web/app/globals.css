@@ -128,7 +128,9 @@ main#main-content {
 /* HOME PAGE CONSISTENCY */
 .banner,
 .info-row,
-.nav-grid {
+.nav-grid,
+.home-section,
+.home-section-title {
   max-width: 850px;
   margin-left: auto;
   margin-right: auto;
