@@ -93,8 +93,8 @@ export default function CanteenPage() {
           min-height: 100vh;
         }
 
+        /* ONLY center text blocks (NOT the line) */
         .canteen-title,
-        .canteen-line,
         .canteen-subtitle,
         .canteen-description {
           max-width: 1450px;
@@ -109,6 +109,7 @@ export default function CanteenPage() {
           margin-bottom: 0.8rem;
         }
 
+        /* stays LEFT like events */
         .canteen-line {
           width: 70px;
           height: 8px;
@@ -130,6 +131,7 @@ export default function CanteenPage() {
           margin-bottom: 2.6rem;
         }
 
+        /* MATCH EVENTS EXACTLY */
         .canteen-grid-fixed {
           display: grid;
           grid-template-columns: 1fr 1fr;
@@ -221,13 +223,6 @@ export default function CanteenPage() {
         @media (max-width: 900px) {
           .canteen-page-fixed {
             padding: 5rem 1.5rem 2rem;
-          }
-
-          .canteen-title,
-          .canteen-line,
-          .canteen-subtitle,
-          .canteen-description {
-            max-width: 100%;
           }
 
           .canteen-grid-fixed {
