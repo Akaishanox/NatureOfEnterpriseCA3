@@ -80,6 +80,18 @@ export default function RecommenderPage() {
     localStorage.setItem("userPrefs", JSON.stringify(updated));
   }
 
+  function getConfidence(score: number) {
+    const max = 13;
+    return Math.min(100, Math.round((score / max) * 100));
+  }
+
+  const topMatchText: Record<string, string> = {
+    en: "Top Match",
+    ga: "An Rogha is Fearr",
+    es: "Mejor Opción",
+    fr: "Meilleur Choix",
+  };
+
   return (
     <main className="events-page-fixed">
       <h1 className="events-title">
@@ -99,26 +111,19 @@ export default function RecommenderPage() {
         <div className="control-header">
           <div className="control-icon">✨</div>
           <div className="control-text">
-            <h3>{t.findEvents || "Find events for you"}</h3>
-            <p>
-              {t.findEventsDesc || "Select a category and get matching campus events."}
-            </p>
+            <h3>{t.findEvents}</h3>
+            <p>{t.findEventsDesc}</p>
           </div>
         </div>
 
-        <label className="select-label">
-          {t.interestCategory || "Interest category"}
-        </label>
+        <label className="select-label">{t.interestCategory}</label>
 
         <select
           className="recommender-select"
           value={selectedCategory}
           onChange={(e) => setSelectedCategory(e.target.value)}
         >
-          <option value="">
-            {t.selectCategory || "Select category"}
-          </option>
-
+          <option value="">{t.selectCategory}</option>
           {categories.map((cat) => (
             <option key={cat} value={cat}>
               {t.categories[cat]}
@@ -127,20 +132,28 @@ export default function RecommenderPage() {
         </select>
 
         <button className="recommend-btn" onClick={getRecommendations}>
-          {t.getRecommendations || "Get Recommendations"}
+          {t.getRecommendations}
         </button>
       </div>
 
       <div className="events-grid-fixed">
         {recommendations.map((event: any, index) => {
           const eventTitle = getText(event.title, lang);
+          const confidence = getConfidence(event.score);
 
           return (
             <div className="event-card-fixed" key={event.id}>
 
-              {/* ✅ ADDED TOP MATCH (ONLY VISUAL) */}
               {index === 0 && (
-                <div className="top-match-badge">⭐ Top Match</div>
+                <div className="top-match-badge glow">
+                  ⭐ {topMatchText[lang] || topMatchText.en}
+                </div>
+              )}
+
+              {index === 0 && (
+                <div className="confidence-badge">
+                  {confidence}%
+                </div>
               )}
 
               <div className="event-icon-fixed">
@@ -160,7 +173,7 @@ export default function RecommenderPage() {
               </p>
 
               <p className="reason-text">
-                {t.recommendedBecause || "Recommended because it matches your interest in"}{" "}
+                {t.recommendedBecause}{" "}
                 <b>{t.categories[appliedCategory]}</b>
               </p>
 
@@ -178,118 +191,14 @@ export default function RecommenderPage() {
       {popup && (
         <div className="popup-overlay">
           <div className="popup-box">
-            <h2>{t.registered || "Registered"}</h2>
-            <p>
-              {t.registerMessage || "You have now been registered for"} {popup}.
-            </p>
-            <button onClick={() => setPopup("")}>
-              {t.ok || "OK"}
-            </button>
+            <h2>{t.registered}</h2>
+            <p>{t.registerMessage} {popup}.</p>
+            <button onClick={() => setPopup("")}>{t.ok}</button>
           </div>
         </div>
       )}
 
       <style>{`
-        .events-page-fixed {
-          padding: 6rem 4rem 3rem;
-          background: var(--bg);
-          min-height: 100vh;
-        }
-
-        .events-title {
-          font-size: 2rem;
-          font-weight: 800;
-          color: var(--primary);
-          margin-bottom: 0.8rem;
-        }
-
-        .events-line {
-          width: 70px;
-          height: 8px;
-          background: var(--primary);
-          border-radius: 999px;
-          margin-bottom: 2.8rem;
-        }
-
-        .events-subtitle {
-          font-size: 1.55rem;
-          font-weight: 800;
-          margin-bottom: 0.6rem;
-        }
-
-        .events-description {
-          font-size: 1rem;
-          margin-bottom: 2rem;
-        }
-
-        .recommender-controls {
-          background: var(--surface);
-          border: 1px solid var(--border);
-          padding: 2rem;
-          border-radius: 12px;
-          max-width: 1450px;
-          width: 100%;
-          margin: 0 auto 2.5rem;
-          box-shadow: var(--shadow);
-        }
-
-        .control-header {
-          display: flex;
-          align-items: center;
-          gap: 1rem;
-          margin-bottom: 1.2rem;
-        }
-
-        .control-icon {
-          font-size: 1.6rem;
-          background: var(--primary-light);
-          padding: 0.6rem;
-          border-radius: 8px;
-        }
-
-        .control-text h3 {
-          font-size: 1.2rem;
-          font-weight: 700;
-        }
-
-        .control-text p {
-          font-size: 0.9rem;
-          color: var(--text-muted);
-        }
-
-        .select-label {
-          display: block;
-          font-weight: 600;
-          margin-top: 1rem;
-        }
-
-        .recommender-select {
-          width: 100%;
-          padding: 0.85rem;
-          margin: 0.7rem 0 1rem;
-          border-radius: 8px;
-          border: 1px solid var(--border);
-        }
-
-        .recommend-btn {
-          width: 100%;
-          background: var(--primary);
-          color: white;
-          border: none;
-          border-radius: 8px;
-          padding: 0.95rem;
-          font-weight: 600;
-          cursor: pointer;
-        }
-
-        .events-grid-fixed {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 2.4rem;
-          max-width: 1450px;
-          margin: 0 auto;
-        }
-
         .event-card-fixed {
           position: relative;
           background: var(--surface);
@@ -314,96 +223,33 @@ export default function RecommenderPage() {
           border-radius: 999px;
         }
 
-        .event-icon-fixed {
-          font-size: 2.5rem;
-          text-align: center;
-          margin-bottom: 1rem;
-        }
-
-        .event-card-fixed h3 {
-          text-align: center;
-          font-size: 1.45rem;
-          font-weight: 800;
-          margin-bottom: 1.6rem;
-        }
-
-        .event-info p {
-          font-size: 0.95rem;
-          margin-bottom: 0.7rem;
-        }
-
-        .event-description-text {
-          font-size: 0.95rem;
-          margin-bottom: 1.2rem;
-          flex: 1;
-        }
-
-        .reason-text {
-          font-size: 0.85rem;
-          background: var(--primary-light);
-          color: var(--primary);
-          padding: 6px;
-          border-radius: 6px;
-          margin-bottom: 1rem;
-        }
-
-        .register-btn-fixed {
-          width: 100%;
+        .confidence-badge {
+          position: absolute;
+          top: 12px;
+          right: 12px;
           background: var(--primary);
           color: white;
-          border: none;
+          font-size: 0.75rem;
+          font-weight: 700;
+          padding: 4px 8px;
           border-radius: 6px;
-          padding: 0.8rem;
         }
 
-        .popup-overlay {
-          position: fixed;
-          inset: 0;
-          background: rgba(0, 0, 0, 0.6);
-          backdrop-filter: blur(6px);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          z-index: 1000;
+        .glow {
+          animation: glowPulse 2s infinite ease-in-out;
         }
 
-        .popup-box {
-          background: var(--surface);
-          border: 1px solid var(--border);
-          padding: 2rem 2.5rem;
-          border-radius: 16px;
-          text-align: center;
-          box-shadow: var(--shadow);
-          max-width: 400px;
-          width: 90%;
+        @keyframes glowPulse {
+          0% { box-shadow: 0 0 6px rgba(255, 215, 0, 0.5); }
+          50% { box-shadow: 0 0 14px rgba(255, 215, 0, 1); }
+          100% { box-shadow: 0 0 6px rgba(255, 215, 0, 0.5); }
         }
 
-        .popup-box h2 {
-          font-size: 1.8rem;
-          font-weight: 800;
-          color: var(--primary);
-          margin-bottom: 0.5rem;
+        html.dark-mode .top-match-badge {
+          background: linear-gradient(135deg, #ffcc00, #ffaa00);
+          color: #000;
         }
 
-        .popup-box p {
-          font-size: 1rem;
-          color: var(--text);
-          margin-bottom: 1.5rem;
-        }
-
-        .popup-box button {
-          background: var(--primary);
-          color: white;
-          border: none;
-          border-radius: 8px;
-          padding: 0.6rem 1.4rem;
-          font-weight: 600;
-          cursor: pointer;
-        }
-
-        .popup-box button:hover {
-          background: var(--primary-dark);
-        }
       `}</style>
     </main>
   );
