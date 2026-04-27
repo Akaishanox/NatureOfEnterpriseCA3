@@ -36,12 +36,13 @@ export default function RecommenderPage() {
 
     setAppliedCategory(selectedCategory);
 
+    const today = new Date();
+
     const scored = events.map((event: any) => {
       let score = 0;
 
       if (event.category === selectedCategory) score += 5;
 
-      const today = new Date();
       const eventDate = new Date(event.date);
       const diffDays = Math.abs(
         (eventDate.getTime() - today.getTime()) /
@@ -52,10 +53,6 @@ export default function RecommenderPage() {
       else if (diffDays < 14) score += 1;
 
       if (event.time.includes("-")) score += 1;
-
-      // ✅ FIXED ML UPGRADE (SAFE)
-      const locationText = getText(event.location, "en");
-      if (locationText.toLowerCase().includes("hall")) score += 1;
 
       return { ...event, score };
     });
@@ -146,10 +143,7 @@ export default function RecommenderPage() {
 
               <p className="reason-text">
                 {t.recommendedBecause || "Recommended because it matches your interest in"}{" "}
-                <b>{t.categories[appliedCategory]}</b> •{" "}
-                {new Date(event.date) > new Date()
-                  ? "Upcoming event"
-                  : "Recent event"}
+                <b>{t.categories[appliedCategory]}</b>
               </p>
 
               <button
@@ -351,6 +345,33 @@ export default function RecommenderPage() {
           box-shadow: var(--shadow);
           max-width: 400px;
           width: 90%;
+        }
+
+        .popup-box h2 {
+          font-size: 1.8rem;
+          font-weight: 800;
+          color: var(--primary);
+          margin-bottom: 0.5rem;
+        }
+
+        .popup-box p {
+          font-size: 1rem;
+          color: var(--text);
+          margin-bottom: 1.5rem;
+        }
+
+        .popup-box button {
+          background: var(--primary);
+          color: white;
+          border: none;
+          border-radius: 8px;
+          padding: 0.6rem 1.4rem;
+          font-weight: 600;
+          cursor: pointer;
+        }
+
+        .popup-box button:hover {
+          background: var(--primary-dark);
         }
       `}</style>
     </main>
