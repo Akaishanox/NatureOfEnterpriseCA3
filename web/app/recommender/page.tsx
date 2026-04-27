@@ -53,7 +53,7 @@ export default function RecommenderPage() {
 
       if (event.time.includes("-")) score += 1;
 
-      // ✅ SMALL SAFE UPGRADE
+      // ✅ SAFE ML BOOST (no UI impact)
       if (event.location.toLowerCase().includes("hall")) score += 1;
 
       return { ...event, score };
@@ -72,42 +72,30 @@ export default function RecommenderPage() {
 
   return (
     <main className="events-page-fixed">
-      <h1 className="events-title">
-        {t.recommenderTitle || "Campus Events Recommender"}
-      </h1>
+      <h1 className="events-title">{t.recommenderTitle}</h1>
       <div className="events-line"></div>
 
-      <h2 className="events-subtitle">
-        {t.chooseInterest || "Choose your interest"}
-      </h2>
+      <h2 className="events-subtitle">{t.chooseInterest}</h2>
 
-      <p className="events-description">
-        {t.recommenderDesc || "Get recommended events based on your selected category."}
-      </p>
+      <p className="events-description">{t.recommenderDesc}</p>
 
       <div className="recommender-controls">
         <div className="control-header">
           <div className="control-icon">✨</div>
           <div className="control-text">
-            <h3>{t.findEvents || "Find events for you"}</h3>
-            <p>
-              {t.findEventsDesc || "Select a category and get matching campus events."}
-            </p>
+            <h3>{t.findEvents}</h3>
+            <p>{t.findEventsDesc}</p>
           </div>
         </div>
 
-        <label className="select-label">
-          {t.interestCategory || "Interest category"}
-        </label>
+        <label className="select-label">{t.interestCategory}</label>
 
         <select
           className="recommender-select"
           value={selectedCategory}
           onChange={(e) => setSelectedCategory(e.target.value)}
         >
-          <option value="">
-            {t.selectCategory || "Select category"}
-          </option>
+          <option value="">{t.selectCategory}</option>
 
           {categories.map((cat) => (
             <option key={cat} value={cat}>
@@ -117,7 +105,7 @@ export default function RecommenderPage() {
         </select>
 
         <button className="recommend-btn" onClick={getRecommendations}>
-          {t.getRecommendations || "Get Recommendations"}
+          {t.getRecommendations}
         </button>
       </div>
 
@@ -143,10 +131,10 @@ export default function RecommenderPage() {
                 {getText(event.description, lang)}
               </p>
 
-              {/* ✅ IMPROVED BUT SAFE */}
+              {/* ✅ Better reasoning text */}
               <p className="reason-text">
-                {t.recommendedBecause} <b>{t.categories[appliedCategory]}</b>
-                {" • "}
+                {t.recommendedBecause}{" "}
+                <b>{t.categories[appliedCategory]}</b> •{" "}
                 {new Date(event.date) > new Date()
                   ? "Upcoming event"
                   : "Recent event"}
@@ -166,13 +154,11 @@ export default function RecommenderPage() {
       {popup && (
         <div className="popup-overlay">
           <div className="popup-box">
-            <h2>{t.registered || "Registered"}</h2>
+            <h2>{t.registered}</h2>
             <p>
-              {t.registerMessage || "You have now been registered for"} {popup}.
+              {t.registerMessage} {popup}.
             </p>
-            <button onClick={() => setPopup("")}>
-              {t.ok || "OK"}
-            </button>
+            <button onClick={() => setPopup("")}>{t.ok}</button>
           </div>
         </div>
       )}
@@ -221,6 +207,55 @@ export default function RecommenderPage() {
           box-shadow: var(--shadow);
         }
 
+        .control-header {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          margin-bottom: 1.2rem;
+        }
+
+        .control-icon {
+          font-size: 1.6rem;
+          background: var(--primary-light);
+          padding: 0.6rem;
+          border-radius: 8px;
+        }
+
+        .control-text h3 {
+          font-size: 1.2rem;
+          font-weight: 700;
+        }
+
+        .control-text p {
+          font-size: 0.9rem;
+          color: var(--text-muted);
+        }
+
+        .select-label {
+          display: block;
+          font-weight: 600;
+          margin-top: 1rem;
+        }
+
+        .recommender-select {
+          width: 100%;
+          padding: 0.85rem;
+          margin: 0.7rem 0 1rem;
+          border-radius: 8px;
+          border: 1px solid var(--border);
+        }
+
+        .recommend-btn {
+          width: 100%;
+          background: var(--primary);
+          color: white;
+          border: none;
+          border-radius: 8px;
+          padding: 0.95rem;
+          font-weight: 600;
+          cursor: pointer;
+        }
+
         .events-grid-fixed {
           display: grid;
           grid-template-columns: 1fr 1fr;
@@ -238,6 +273,48 @@ export default function RecommenderPage() {
           box-shadow: var(--shadow);
           display: flex;
           flex-direction: column;
+        }
+
+        .event-icon-fixed {
+          font-size: 2.5rem;
+          text-align: center;
+          margin-bottom: 1rem;
+        }
+
+        .event-card-fixed h3 {
+          text-align: center;
+          font-size: 1.45rem;
+          font-weight: 800;
+          margin-bottom: 1.6rem;
+        }
+
+        .event-info p {
+          font-size: 0.95rem;
+          margin-bottom: 0.7rem;
+        }
+
+        .event-description-text {
+          font-size: 0.95rem;
+          margin-bottom: 1.2rem;
+          flex: 1;
+        }
+
+        .reason-text {
+          font-size: 0.85rem;
+          background: var(--primary-light);
+          color: var(--primary);
+          padding: 6px;
+          border-radius: 6px;
+          margin-bottom: 1rem;
+        }
+
+        .register-btn-fixed {
+          width: 100%;
+          background: var(--primary);
+          color: white;
+          border: none;
+          border-radius: 6px;
+          padding: 0.8rem;
         }
 
         .popup-overlay {
