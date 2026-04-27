@@ -111,6 +111,14 @@ export default function HomePage() {
         ))}
       </div>
 
+      <Link href="/recommender" className="recommender-banner">
+        <div>
+          <h2 className="recommender-title">{t.recommenderTitle}</h2>
+          <p className="recommender-sub">{t.findEventsDesc}</p>
+        </div>
+        <span className="recommender-icon">✨</span>
+      </Link>
+
       <style>{`
         .banner {
           background: var(--primary);
@@ -119,41 +127,121 @@ export default function HomePage() {
           margin-bottom: 1.25rem;
           color: #fff;
         }
-        .banner-title { font-size: 1.6rem; font-weight: 800; margin-bottom: 0.2rem; }
-        .banner-sub   { font-size: 0.88rem; opacity: 0.8; }
 
-        .info-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.75rem; }
-        .info-box { display: flex; align-items: center; gap: 0.85rem; padding: 1rem 1.25rem; }
-        .info-icon { font-size: 1.6rem; }
-        .info-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); }
-        .info-val   { font-size: 0.88rem; font-weight: 600; margin-top: 0.1rem; }
+        .banner-title {
+          font-size: 1.6rem;
+          font-weight: 800;
+          margin-bottom: 0.2rem;
+        }
+
+        .banner-sub {
+          font-size: 0.88rem;
+          opacity: 0.8;
+        }
+
+        .info-row {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 1rem;
+          margin-bottom: 1.75rem;
+        }
+
+        .info-box {
+          display: flex;
+          align-items: center;
+          gap: 0.85rem;
+          padding: 1rem 1.25rem;
+        }
+
+        .info-icon {
+          font-size: 1.6rem;
+        }
+
+        .info-label {
+          font-size: 0.72rem;
+          font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+          color: var(--text-muted);
+        }
+
+        .info-val {
+          font-size: 0.88rem;
+          font-weight: 600;
+          margin-top: 0.1rem;
+        }
 
         .section-label {
-          font-size: 0.75rem; font-weight: 700;
-          text-transform: uppercase; letter-spacing: 0.07em;
-          color: var(--text-muted); margin-bottom: 0.75rem;
+          font-size: 0.75rem;
+          font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: 0.07em;
+          color: var(--text-muted);
+          margin-bottom: 0.75rem;
         }
 
         .nav-grid {
           display: grid;
           grid-template-columns: 1fr 1fr;
           gap: 1rem;
+          margin-bottom: 1.5rem;
         }
 
         .nav-card {
-          display: flex; flex-direction: column;
-          align-items: center; justify-content: center;
-          gap: 0.6rem; padding: 1.75rem 1rem;
-          background: var(--surface); border: 1px solid var(--border);
-          border-radius: var(--radius); box-shadow: var(--shadow);
-          text-decoration: none; color: var(--text);
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 0.6rem;
+          padding: 1.75rem 1rem;
+          background: var(--surface);
+          border: 1px solid var(--border);
+          border-radius: var(--radius);
+          box-shadow: var(--shadow);
+          text-decoration: none;
+          color: var(--text);
         }
 
-        .nav-icon  { font-size: 2rem; }
-        .nav-label { font-size: 0.95rem; font-weight: 700; }
+        .nav-icon {
+          font-size: 2rem;
+        }
+
+        .nav-label {
+          font-size: 0.95rem;
+          font-weight: 700;
+        }
+
+        .recommender-banner {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          background: var(--primary);
+          color: white;
+          border-radius: var(--radius);
+          padding: 1.5rem 1.75rem;
+          text-decoration: none;
+          box-shadow: var(--shadow);
+        }
+
+        .recommender-title {
+          font-size: 1.3rem;
+          font-weight: 800;
+          margin-bottom: 0.2rem;
+        }
+
+        .recommender-sub {
+          font-size: 0.9rem;
+          opacity: 0.85;
+        }
+
+        .recommender-icon {
+          font-size: 2rem;
+        }
 
         @media (max-width: 480px) {
-          .info-row { grid-template-columns: 1fr; }
+          .info-row {
+            grid-template-columns: 1fr;
+          }
         }
       `}</style>
     </div>
