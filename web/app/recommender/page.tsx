@@ -53,8 +53,9 @@ export default function RecommenderPage() {
 
       if (event.time.includes("-")) score += 1;
 
-      // ✅ SAFE ML BOOST (no UI impact)
-      if (event.location.toLowerCase().includes("hall")) score += 1;
+      // ✅ FIXED ML UPGRADE (SAFE)
+      const locationText = getText(event.location, "en");
+      if (locationText.toLowerCase().includes("hall")) score += 1;
 
       return { ...event, score };
     });
@@ -72,30 +73,42 @@ export default function RecommenderPage() {
 
   return (
     <main className="events-page-fixed">
-      <h1 className="events-title">{t.recommenderTitle}</h1>
+      <h1 className="events-title">
+        {t.recommenderTitle || "Campus Events Recommender"}
+      </h1>
       <div className="events-line"></div>
 
-      <h2 className="events-subtitle">{t.chooseInterest}</h2>
+      <h2 className="events-subtitle">
+        {t.chooseInterest || "Choose your interest"}
+      </h2>
 
-      <p className="events-description">{t.recommenderDesc}</p>
+      <p className="events-description">
+        {t.recommenderDesc || "Get recommended events based on your selected category."}
+      </p>
 
       <div className="recommender-controls">
         <div className="control-header">
           <div className="control-icon">✨</div>
           <div className="control-text">
-            <h3>{t.findEvents}</h3>
-            <p>{t.findEventsDesc}</p>
+            <h3>{t.findEvents || "Find events for you"}</h3>
+            <p>
+              {t.findEventsDesc || "Select a category and get matching campus events."}
+            </p>
           </div>
         </div>
 
-        <label className="select-label">{t.interestCategory}</label>
+        <label className="select-label">
+          {t.interestCategory || "Interest category"}
+        </label>
 
         <select
           className="recommender-select"
           value={selectedCategory}
           onChange={(e) => setSelectedCategory(e.target.value)}
         >
-          <option value="">{t.selectCategory}</option>
+          <option value="">
+            {t.selectCategory || "Select category"}
+          </option>
 
           {categories.map((cat) => (
             <option key={cat} value={cat}>
@@ -105,7 +118,7 @@ export default function RecommenderPage() {
         </select>
 
         <button className="recommend-btn" onClick={getRecommendations}>
-          {t.getRecommendations}
+          {t.getRecommendations || "Get Recommendations"}
         </button>
       </div>
 
@@ -131,9 +144,8 @@ export default function RecommenderPage() {
                 {getText(event.description, lang)}
               </p>
 
-              {/* ✅ Better reasoning text */}
               <p className="reason-text">
-                {t.recommendedBecause}{" "}
+                {t.recommendedBecause || "Recommended because it matches your interest in"}{" "}
                 <b>{t.categories[appliedCategory]}</b> •{" "}
                 {new Date(event.date) > new Date()
                   ? "Upcoming event"
@@ -154,11 +166,13 @@ export default function RecommenderPage() {
       {popup && (
         <div className="popup-overlay">
           <div className="popup-box">
-            <h2>{t.registered}</h2>
+            <h2>{t.registered || "Registered"}</h2>
             <p>
-              {t.registerMessage} {popup}.
+              {t.registerMessage || "You have now been registered for"} {popup}.
             </p>
-            <button onClick={() => setPopup("")}>{t.ok}</button>
+            <button onClick={() => setPopup("")}>
+              {t.ok || "OK"}
+            </button>
           </div>
         </div>
       )}
