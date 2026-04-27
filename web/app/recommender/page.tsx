@@ -21,7 +21,8 @@ export default function RecommenderPage() {
   const [popup, setPopup] = useState("");
   const [appliedCategory, setAppliedCategory] = useState("");
 
-  const categories = ["Technology", "Sports", "Careers", "Social", "Academic"];
+  // ✅ categories now come from translations
+  const categories = Object.keys(t.categories);
 
   const ICONS: Record<string, string> = {
     Technology: "💻",
@@ -69,47 +70,57 @@ export default function RecommenderPage() {
 
   return (
     <main className="events-page-fixed">
-      <h1 className="events-title">{t.recommenderTitle}</h1>
+      <h1 className="events-title">
+        {t.recommenderTitle || "Campus Events Recommender"}
+      </h1>
       <div className="events-line"></div>
 
-      <h2 className="events-subtitle">{t.chooseInterest}</h2>
-      <p className="events-description">{t.recommenderDesc}</p>
+      <h2 className="events-subtitle">
+        {t.chooseInterest || "Choose your interest"}
+      </h2>
+
+      <p className="events-description">
+        {t.recommenderDesc || "Get recommended events based on your selected category."}
+      </p>
 
       {/* ✨ CONTROL BOX */}
       <div className="recommender-controls">
         <div className="control-header">
           <div className="control-icon">✨</div>
           <div className="control-text">
-            <h3>{t.findEvents}</h3>
-            <p>{t.findEventsDesc}</p>
+            <h3>{t.findEvents || "Find events for you"}</h3>
+            <p>
+              {t.findEventsDesc || "Select a category and get matching campus events."}
+            </p>
           </div>
         </div>
 
-        <label className="select-label">{t.interestCategory}</label>
+        <label className="select-label">
+          {t.interestCategory || "Interest category"}
+        </label>
 
         <select
           className="recommender-select"
           value={selectedCategory}
           onChange={(e) => setSelectedCategory(e.target.value)}
         >
-          <option value="">{t.selectCategory}</option>
+          <option value="">
+            {t.selectCategory || "Select category"}
+          </option>
+
           {categories.map((cat) => (
             <option key={cat} value={cat}>
-              {cat}
+              {t.categories[cat]}
             </option>
           ))}
         </select>
 
-        <button
-          className="recommend-btn"
-          onClick={getRecommendations}
-          disabled={!selectedCategory}
-        >
-          {t.getRecommendations}
+        <button className="recommend-btn" onClick={getRecommendations}>
+          {t.getRecommendations || "Get Recommendations"}
         </button>
       </div>
 
-      {/* EVENTS GRID */}
+      {/* EVENTS */}
       <div className="events-grid-fixed">
         {recommendations.map((event: any) => {
           const eventTitle = getText(event.title, lang);
@@ -132,8 +143,10 @@ export default function RecommenderPage() {
                 {getText(event.description, lang)}
               </p>
 
+              {/* ✅ FIXED translation + dark mode */}
               <p className="reason-text">
-                {t.recommendedBecause} <b>{appliedCategory}</b>
+                {t.recommendedBecause || "Recommended because it matches your interest in"}{" "}
+                <b>{t.categories[appliedCategory]}</b>
               </p>
 
               <button
@@ -147,18 +160,17 @@ export default function RecommenderPage() {
         })}
       </div>
 
-      {!recommendations.length && appliedCategory && (
-        <p style={{ textAlign: "center", marginTop: "1rem" }}>
-          {t.noEvents}
-        </p>
-      )}
-
+      {/* POPUP */}
       {popup && (
         <div className="popup-overlay">
           <div className="popup-box">
-            <h2>Registered</h2>
-            <p>You have now been registered for {popup}.</p>
-            <button onClick={() => setPopup("")}>OK</button>
+            <h2>{t.registered || "Registered"}</h2>
+            <p>
+              {t.registerMessage || "You have now been registered for"} {popup}.
+            </p>
+            <button onClick={() => setPopup("")}>
+              {t.ok || "OK"}
+            </button>
           </div>
         </div>
       )}
@@ -216,7 +228,7 @@ export default function RecommenderPage() {
 
         .control-icon {
           font-size: 1.6rem;
-          background: #eef5ff;
+          background: var(--primary-light);
           padding: 0.6rem;
           border-radius: 8px;
         }
@@ -224,7 +236,6 @@ export default function RecommenderPage() {
         .control-text h3 {
           font-size: 1.2rem;
           font-weight: 700;
-          margin-bottom: 0.2rem;
         }
 
         .control-text p {
@@ -260,7 +271,7 @@ export default function RecommenderPage() {
         .events-grid-fixed {
           display: grid;
           grid-template-columns: 1fr 1fr;
-          gap: 2.4rem 2.4rem;
+          gap: 2.4rem;
           max-width: 1450px;
           margin: 0 auto;
         }
@@ -269,7 +280,7 @@ export default function RecommenderPage() {
           background: var(--surface);
           border: 1px solid var(--border);
           border-radius: 10px;
-          padding: 2rem 1.7rem 1.7rem;
+          padding: 2rem 1.7rem;
           min-height: 300px;
           box-shadow: var(--shadow);
           display: flex;
@@ -300,9 +311,11 @@ export default function RecommenderPage() {
           flex: 1;
         }
 
+        /* ✅ FIXED DARK MODE */
         .reason-text {
           font-size: 0.85rem;
-          background: #eef5ff;
+          background: var(--primary-light);
+          color: var(--primary);
           padding: 6px;
           border-radius: 6px;
           margin-bottom: 1rem;
