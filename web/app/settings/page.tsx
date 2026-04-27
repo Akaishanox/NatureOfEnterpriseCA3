@@ -97,7 +97,7 @@ export default function SettingsPage() {
 
     setFontSize(Number(savedFont));
     setTheme(savedTheme);
-    setLanguage(savedLang);
+    setLanguage(savedLang as "en" | "ga" | "es" | "fr");
   }, []);
 
   useEffect(() => {
