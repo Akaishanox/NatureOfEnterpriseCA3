@@ -141,7 +141,6 @@ export default function RecommenderPage() {
     setLoading(true);
     
     setTimeout(() => {
-      setAppliedCategory(selectedCategory);
       
       const scored = events.map((event: any) => {
         let score = 0;
@@ -171,7 +170,7 @@ export default function RecommenderPage() {
         .sort((a, b) => b.score - a.score);
       
       setRecommendations(sorted.slice(0, 4));
-      setLoading(false);]
+      setLoading(false);
     }, 500);
   }
     setAppliedCategory(selectedCategory);
