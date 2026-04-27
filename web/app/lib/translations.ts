@@ -43,27 +43,6 @@ export const translations = {
     time: "Time",
     location: "Location",
 
-    recommenderTitle: "Campus Events Recommender",
-    chooseInterest: "Choose your interest",
-    recommenderDesc: "Get recommended events based on your selected category",
-    findEvents: "Find events for you",
-    findEventsDesc: "Select a category and get matching campus events",
-    interestCategory: "Interest category",
-    selectCategory: "Select category",
-    getRecommendations: "Get Recommendations",
-    recommendedBecause: "Recommended because it matches your interest in",
-    registered: "Registered",
-    registerMessage: "You have now been registered for",
-    ok: "OK",
-
-    categories: {
-      Technology: "Technology",
-      Sports: "Sports",
-      Careers: "Careers",
-      Social: "Social",
-      Academic: "Academic",
-    },
-
     status: {
       Open: "Open",
       "In Progress": "In Progress",
@@ -75,6 +54,17 @@ export const translations = {
       Medium: "Medium",
       Low: "Low",
     },
+
+    errors: {
+      nameRequired: "Name is required",
+      studentIdRequired: "Student ID is required",
+      emailRequired: "Email is required",
+      emailInvalid: "Enter a valid email address",
+      phoneRequired: "Phone number is required",
+      phoneInvalid: "Enter a valid phone number",
+      subjectRequired: "Subject is required",
+      descriptionRequired: "Please provide as much detail as possible",
+    }
   },
 
   ga: {
@@ -121,27 +111,6 @@ export const translations = {
     time: "Am",
     location: "Suíomh",
 
-    recommenderTitle: "Moladh Imeachtaí Campais",
-    chooseInterest: "Roghnaigh do spéis",
-    recommenderDesc: "Faigh imeachtaí molta bunaithe ar do chatagóir roghnaithe",
-    findEvents: "Aimsigh imeachtaí duit",
-    findEventsDesc: "Roghnaigh catagóir agus faigh imeachtaí campais oiriúnacha",
-    interestCategory: "Catagóir spéise",
-    selectCategory: "Roghnaigh catagóir",
-    getRecommendations: "Faigh Moltaí",
-    recommendedBecause: "Molta toisc go bhfuil suim agat i",
-    registered: "Cláraithe",
-    registerMessage: "Tá tú cláraithe anois do",
-    ok: "Ceart go leor",
-
-    categories: {
-      Technology: "Teicneolaíocht",
-      Sports: "Spórt",
-      Careers: "Gairmeacha",
-      Social: "Sóisialta",
-      Academic: "Acadúil",
-    },
-
     status: {
       Open: "Oscailte",
       "In Progress": "Ar Siúl",
@@ -153,6 +122,17 @@ export const translations = {
       Medium: "Meánach",
       Low: "Íseal",
     },
+
+    errors: {
+      nameRequired: "Tá ainm riachtanach",
+      studentIdRequired: "Tá uimhir mhic léinn riachtanach",
+      emailRequired: "Tá ríomhphost riachtanach",
+      emailInvalid: "Iontráil ríomhphost bailí",
+      phoneRequired: "Tá uimhir fóin riachtanach",
+      phoneInvalid: "Iontráil uimhir fóin bhailí",
+      subjectRequired: "Tá ábhar riachtanach",
+      descriptionRequired: "Tabhair an oiread sonraí agus is féidir",
+    }
   },
 
   es: {
@@ -199,27 +179,6 @@ export const translations = {
     time: "Hora",
     location: "Ubicación",
 
-    recommenderTitle: "Recomendador de Eventos",
-    chooseInterest: "Elige tu interés",
-    recommenderDesc: "Obtén eventos recomendados según tu categoría",
-    findEvents: "Encuentra eventos para ti",
-    findEventsDesc: "Selecciona una categoría y recibe eventos",
-    interestCategory: "Categoría de interés",
-    selectCategory: "Seleccionar categoría",
-    getRecommendations: "Obtener recomendaciones",
-    recommendedBecause: "Recomendado porque coincide con tu interés en",
-    registered: "Registrado",
-    registerMessage: "Ahora estás registrado para",
-    ok: "OK",
-
-    categories: {
-      Technology: "Tecnología",
-      Sports: "Deportes",
-      Careers: "Carreras",
-      Social: "Social",
-      Academic: "Académico",
-    },
-
     status: {
       Open: "Abierto",
       "In Progress": "En Progreso",
@@ -231,6 +190,17 @@ export const translations = {
       Medium: "Media",
       Low: "Baja",
     },
+
+    errors: {
+      nameRequired: "El nombre es obligatorio",
+      studentIdRequired: "El número de estudiante es obligatorio",
+      emailRequired: "El correo es obligatorio",
+      emailInvalid: "Introduce un correo válido",
+      phoneRequired: "El teléfono es obligatorio",
+      phoneInvalid: "Introduce un número válido",
+      subjectRequired: "El asunto es obligatorio",
+      descriptionRequired: "Proporciona tantos detalles como sea posible",
+    }
   },
 
   fr: {
@@ -277,27 +247,6 @@ export const translations = {
     time: "Heure",
     location: "Lieu",
 
-    recommenderTitle: "Recommandations d'Événements",
-    chooseInterest: "Choisissez votre intérêt",
-    recommenderDesc: "Obtenez des événements recommandés",
-    findEvents: "Trouvez des événements pour vous",
-    findEventsDesc: "Sélectionnez une catégorie",
-    interestCategory: "Catégorie d'intérêt",
-    selectCategory: "Sélectionner une catégorie",
-    getRecommendations: "Obtenir des recommandations",
-    recommendedBecause: "Recommandé car cela correspond à votre intérêt pour",
-    registered: "Inscrit",
-    registerMessage: "Vous êtes maintenant inscrit à",
-    ok: "OK",
-
-    categories: {
-      Technology: "Technologie",
-      Sports: "Sport",
-      Careers: "Carrières",
-      Social: "Social",
-      Academic: "Académique",
-    },
-
     status: {
       Open: "Ouvert",
       "In Progress": "En cours",
@@ -309,5 +258,16 @@ export const translations = {
       Medium: "Moyenne",
       Low: "Faible",
     },
-  },
+
+    errors: {
+      nameRequired: "Le nom est requis",
+      studentIdRequired: "Le numéro étudiant est requis",
+      emailRequired: "L'email est requis",
+      emailInvalid: "Entrez un email valide",
+      phoneRequired: "Le téléphone est requis",
+      phoneInvalid: "Entrez un numéro valide",
+      subjectRequired: "Le sujet est requis",
+      descriptionRequired: "Veuillez fournir autant de détails que possible",
+    }
+  }
 };
