@@ -353,6 +353,7 @@ export default function RecommenderPage() {
         }
 
         .recommender-select {
+        font-family: var(--font);
           width: 100%;
           padding: 0.85rem;
           border: 1px solid var(--border);
@@ -370,6 +371,8 @@ export default function RecommenderPage() {
 
         .recommend-btn,
         .register-btn-fixed {
+        font-family: var(--font);
+        font-weight: 600;
           width: 100%;
           background: var(--primary);
           color: white;
@@ -386,9 +389,11 @@ export default function RecommenderPage() {
         }
 
         .recommender-grid {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 2.4rem 8rem;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2.4rem 8rem;
+        max-width: 1450px;
+        margin: 0 auto;
         }
 
         .recommender-card {
