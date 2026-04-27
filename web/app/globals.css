@@ -390,3 +390,19 @@ section[aria-label="Existing tickets"] {
     font-size: 0.78rem;
   }
 }
+
+/* Fix white flash on select dropdown in dark mode */
+select {
+  background-color: var(--surface);
+  color: var(--text);
+}
+
+.dark-mode select {
+  background-color: var(--surface);
+  color: var(--text);
+}
+
+select option {
+  background-color: var(--surface);
+  color: var(--text);
+}
