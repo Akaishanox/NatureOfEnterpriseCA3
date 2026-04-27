@@ -105,7 +105,7 @@ export default function HomePage() {
           <Link key={card.href} href={card.href} className="nav-card">
             <span className="nav-icon">{card.icon}</span>
             <span className="nav-label">
-              {t[card.key as keyof typeof t]}
+              {String((t as any)[card.key])}
             </span>
           </Link>
         ))}
