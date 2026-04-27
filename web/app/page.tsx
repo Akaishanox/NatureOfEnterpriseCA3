@@ -13,7 +13,7 @@ const nextEvent = (eventsData as {
   id: number;
   title: { en: string; es: string; fr: string; ga: string };
   date: string;
-  location: string;
+  location: { en: string; es: string; fr: string; ga: string };
 }[])[0];
 
 const todaysSpecial = (menuData as {
@@ -58,7 +58,7 @@ function getGreeting(lang: string) {
 
 export default function HomePage() {
   const lang = useLang();
-  const t = translations[lang];
+  const t = translations[lang as keyof typeof translations];
 
   return (
     <div className="page">
@@ -80,7 +80,7 @@ export default function HomePage() {
           <div>
             <div className="info-label">{t.events}</div>
             <div className="info-val">
-              {nextEvent.title[lang]}
+              {nextEvent.title[lang as keyof typeof nextEvent.title]}
             </div>
           </div>
         </div>
@@ -90,7 +90,7 @@ export default function HomePage() {
           <div>
             <div className="info-label">{t.menu}</div>
             <div className="info-val">
-              {todaysSpecial.name[lang]} — €{todaysSpecial.price.toFixed(2)}
+              {todaysSpecial.name[lang as keyof typeof todaysSpecial.name]}
             </div>
           </div>
         </div>
