@@ -77,7 +77,7 @@ export default function RecommenderPage() {
         Get recommended events based on your selected category.
       </p>
 
-      {/* ✨ FIXED CONTROL BOX */}
+      {/* ✨ FULL WIDTH CONTROL BOX */}
       <div className="recommender-controls">
         <div className="control-header">
           <div className="control-icon">✨</div>
@@ -107,6 +107,7 @@ export default function RecommenderPage() {
         </button>
       </div>
 
+      {/* EVENTS GRID */}
       <div className="events-grid-fixed">
         {recommendations.map((event: any) => {
           const eventTitle = getText(event.title, lang);
@@ -188,14 +189,17 @@ export default function RecommenderPage() {
           margin-bottom: 2rem;
         }
 
-        /* ✨ CONTROL BOX FIXED */
+        /* ✨ NOW PERFECTLY MATCHES GRID WIDTH */
         .recommender-controls {
           background: var(--surface);
           border: 1px solid var(--border);
           padding: 2rem;
           border-radius: 12px;
-          max-width: 800px;
+
+          max-width: 1450px;
+          width: 100%;
           margin: 0 auto 2.5rem;
+
           box-shadow: var(--shadow);
         }
 
@@ -252,7 +256,7 @@ export default function RecommenderPage() {
         .events-grid-fixed {
           display: grid;
           grid-template-columns: 1fr 1fr;
-          gap: 2.4rem 8rem;
+          gap: 2.4rem 2.4rem; /* cleaner alignment */
           max-width: 1450px;
           margin: 0 auto;
         }
