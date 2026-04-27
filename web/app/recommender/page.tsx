@@ -96,6 +96,7 @@ export default function RecommenderPage() {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [recommendations, setRecommendations] = useState<any[]>([]);
   const [popup, setPopup] = useState("");
+  const [appliedCategory, setAppliedCategory] = useState("");
 
   const categories = ["Technology", "Sports", "Careers", "Social", "Academic"];
 
@@ -136,7 +137,9 @@ export default function RecommenderPage() {
   const pop = popupMessages[lang] || popupMessages.en;
 
   function getRecommendations() {
-  const scored = events.map((event: any) => {
+    setAppliedCategory(selectedCategory);
+    
+    const scored = events.map((event: any) => {
     let score = 0;
 
     // main feature (category match)
@@ -232,7 +235,7 @@ export default function RecommenderPage() {
                 </p>
 
                 <p className="reason-text">
-                  {x.reason} <b>{x.categories[selectedCategory]}</b>
+                  {x.reason} <b>{x.categories[appliedCategory]}</b>
                 </p>
 
                 <button
