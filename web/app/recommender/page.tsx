@@ -35,60 +35,6 @@ export default function RecommenderPage() {
         Academic: "Academic",
       },
     },
-    ga: {
-      title: "Moltóir Imeachtaí Campais",
-      subtitle: "Roghnaigh do spéis",
-      desc: "Faigh imeachtaí molta bunaithe ar do chatagóir roghnaithe.",
-      findTitle: "Aimsigh imeachtaí duit",
-      findDesc: "Roghnaigh catagóir agus faigh imeachtaí campais oiriúnacha.",
-      interest: "Catagóir spéise",
-      select: "Roghnaigh catagóir",
-      button: "Faigh Moltaí",
-      reason: "Moltar é seo mar go bhfuil sé ag teacht le do spéis i",
-      categories: {
-        Technology: "Teicneolaíocht",
-        Sports: "Spóirt",
-        Careers: "Gairmeacha",
-        Social: "Sóisialta",
-        Academic: "Acadúil",
-      },
-    },
-    es: {
-      title: "Recomendador de Eventos del Campus",
-      subtitle: "Elige tu interés",
-      desc: "Recibe eventos recomendados según la categoría seleccionada.",
-      findTitle: "Encuentra eventos para ti",
-      findDesc: "Selecciona una categoría y recibe eventos del campus relacionados.",
-      interest: "Categoría de interés",
-      select: "Selecciona una categoría",
-      button: "Obtener recomendaciones",
-      reason: "Recomendado porque coincide con tu interés en",
-      categories: {
-        Technology: "Tecnología",
-        Sports: "Deportes",
-        Careers: "Carreras",
-        Social: "Social",
-        Academic: "Académico",
-      },
-    },
-    fr: {
-      title: "Recommandateur d’Événements du Campus",
-      subtitle: "Choisissez votre intérêt",
-      desc: "Recevez des événements recommandés selon la catégorie choisie.",
-      findTitle: "Trouvez des événements pour vous",
-      findDesc: "Sélectionnez une catégorie et obtenez des événements du campus.",
-      interest: "Catégorie d’intérêt",
-      select: "Sélectionnez une catégorie",
-      button: "Obtenir des recommandations",
-      reason: "Recommandé car cela correspond à votre intérêt pour",
-      categories: {
-        Technology: "Technologie",
-        Sports: "Sport",
-        Careers: "Carrières",
-        Social: "Social",
-        Academic: "Académique",
-      },
-    },
   };
 
   const x = pageText[lang] || pageText.en;
@@ -109,20 +55,11 @@ export default function RecommenderPage() {
     Academic: "📘",
   };
 
-  const popupMessages: Record<string, { title: string; message: string; ok: string }> = {
-    en: { title: "Registered", message: "You have now been registered for", ok: "OK" },
-    ga: { title: "Cláraithe", message: "Tá tú cláraithe anois do", ok: "Ceart go leor" },
-    es: { title: "Registrado", message: "Ahora estás registrado para", ok: "OK" },
-    fr: { title: "Inscrit", message: "Vous êtes maintenant inscrit à", ok: "OK" },
-  };
-
-  const pop = popupMessages[lang] || popupMessages.en;
-
   function getRecommendations() {
     setLoading(true);
 
     setTimeout(() => {
-      setAppliedCategory(selectedCategory); // FIXED POSITION
+      setAppliedCategory(selectedCategory);
 
       const scored = events.map((event: any) => {
         let score = 0;
@@ -132,7 +69,8 @@ export default function RecommenderPage() {
         const today = new Date();
         const eventDate = new Date(event.date);
         const diffDays = Math.abs(
-          (eventDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)
+          (eventDate.getTime() - today.getTime()) /
+            (1000 * 60 * 60 * 24)
         );
 
         if (diffDays < 7) score += 2;
@@ -198,18 +136,27 @@ export default function RecommenderPage() {
           </button>
         </div>
 
+        {/* LOADING */}
         {loading && (
           <p style={{ textAlign: "center", marginTop: "1rem" }}>
             Loading recommendations...
           </p>
         )}
 
+        {/* EMPTY STATE */}
         {!loading && recommendations.length === 0 && appliedCategory && (
-          <p style={{ textAlign: "center", marginTop: "2rem", color: "var(--text-muted)" }}>
+          <p
+            style={{
+              textAlign: "center",
+              marginTop: "2rem",
+              color: "var(--text-muted)",
+            }}
+          >
             No events found for this category.
           </p>
         )}
 
+        {/* RESULTS */}
         <div className="recommender-grid">
           {recommendations.map((event: any) => {
             const eventTitle = getText(event.title, lang);
@@ -225,7 +172,10 @@ export default function RecommenderPage() {
                 <div className="recommender-info">
                   <p>🗓️ {t.date}: {event.date}</p>
                   <p>🕘 {t.time}: {event.time}</p>
-                  <p>📍 {t.location}: {getText(event.location, lang)}</p>
+                  <p>
+                    📍 {t.location}:{" "}
+                    {getText(event.location, lang)}
+                  </p>
                 </div>
 
                 <p className="recommender-card-text">
@@ -233,10 +183,16 @@ export default function RecommenderPage() {
                 </p>
 
                 <p className="reason-text">
-                  {x.reason} <b>{x.categories[appliedCategory]}</b>
+                  {x.reason}{" "}
+                  <b>{x.categories[appliedCategory]}</b>
                 </p>
 
-                <p style={{ fontSize: "0.8rem", color: "var(--text-muted)" }}>
+                <p
+                  style={{
+                    fontSize: "0.8rem",
+                    color: "var(--text-muted)",
+                  }}
+                >
                   Score: {event.score}
                 </p>
 
@@ -252,17 +208,16 @@ export default function RecommenderPage() {
         </div>
       </div>
 
+      {/* POPUP */}
       {popup && (
         <div className="popup-overlay">
           <div className="popup-box">
-            <h2>{pop.title}</h2>
-            <p>{pop.message} {popup}.</p>
-            <button onClick={() => setPopup("")}>{pop.ok}</button>
+            <h2>Registered</h2>
+            <p>You have now been registered for {popup}.</p>
+            <button onClick={() => setPopup("")}>OK</button>
           </div>
         </div>
       )}
-
-      {/* KEEP YOUR STYLE BLOCK EXACTLY AS YOU HAD IT */}
     </main>
   );
 }
