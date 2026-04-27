@@ -97,6 +97,7 @@ export default function RecommenderPage() {
   const [recommendations, setRecommendations] = useState<any[]>([]);
   const [popup, setPopup] = useState("");
   const [appliedCategory, setAppliedCategory] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const categories = ["Technology", "Sports", "Careers", "Social", "Academic"];
 
@@ -137,6 +138,42 @@ export default function RecommenderPage() {
   const pop = popupMessages[lang] || popupMessages.en;
 
   function getRecommendations() {
+    setLoading(true);
+    
+    setTimeout(() => {
+      setAppliedCategory(selectedCategory);
+      
+      const scored = events.map((event: any) => {
+        let score = 0;
+        
+        if (event.category === selectedCategory) {
+          score += 5;
+        }
+        
+        const today = new Date();
+        const eventDate = new Date(event.date);
+        const diffDays = Math.abs(
+          (eventDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)
+        );
+        
+        if (diffDays < 7) score += 2;
+        else if (diffDays < 14) score += 1;
+        
+        if (event.time.includes("-")) {
+          score += 1;
+        }
+        
+        return { ...event, score };
+      });
+      
+      const sorted = scored
+        .filter((e) => e.score > 0)
+        .sort((a, b) => b.score - a.score);
+      
+      setRecommendations(sorted.slice(0, 4));
+      setLoading(false);]
+    }, 500);
+  }
     setAppliedCategory(selectedCategory);
     
     const scored = events.map((event: any) => {
@@ -167,7 +204,7 @@ export default function RecommenderPage() {
     .filter((e) => e.score > 0)
     .sort((a, b) => b.score - a.score);
 
-  setRecommendations(sorted);
+  setRecommendations(sorted.slice(0, 4));
 }
 
   function handleRegister(title: string) {
@@ -207,11 +244,21 @@ export default function RecommenderPage() {
             ))}
           </select>
 
-          <button className="recommend-btn" onClick={getRecommendations}>
+          <button
+            className="recommend-btn"
+            onClick={getRecommendations}
+            disabled={!selectedCategory}
+          >
             {x.button}
           </button>
         </div>
-
+        
+        {loading && (
+      <p style={{ textAlign: "center", marginTop: "1rem" }}>
+        Loading recommendations...
+      </p>
+    )}
+        
         <div className="recommender-grid">
           {recommendations.map((event: any) => {
             const eventTitle = getText(event.title, lang);
@@ -221,6 +268,11 @@ export default function RecommenderPage() {
                 <div className="recommender-icon">
                   {ICONS[event.category] || "📅"}
                 </div>
+                {recommendations.length === 0 && appliedCategory && (
+                <p style={{ textAlign: "center", marginTop: "2rem", color: "var(--text-muted)" }}>
+                  No events found for this category.
+                </p>
+              )}
 
                 <h3>{eventTitle}</h3>
 
@@ -236,6 +288,9 @@ export default function RecommenderPage() {
 
                 <p className="reason-text">
                   {x.reason} <b>{x.categories[appliedCategory]}</b>
+                </p>
+                <p style={{ fontSize: "0.8rem", color: "var(--text-muted)" }}>
+                  Score: {event.score}
                 </p>
 
                 <button
@@ -389,6 +444,10 @@ export default function RecommenderPage() {
         .recommend-btn:hover,
         .register-btn-fixed:hover {
           background: var(--primary-dark);
+        }
+        .recommend-btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
         }
 
         .recommender-grid {
