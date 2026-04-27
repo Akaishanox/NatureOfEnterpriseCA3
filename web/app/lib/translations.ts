@@ -11,6 +11,7 @@ export const translations = {
     helpdeskDesc: "Submit your questions and concerns. Our team will respond within 24 hours.",
     currentTickets: "Current Tickets",
     submitRequest: "Submit Request",
+    submitted: "Submitted",
 
     canteen: "Campus Canteen",
     menu: "Today's Menu",
@@ -104,6 +105,7 @@ export const translations = {
     helpdeskDesc: "Cuir isteach do cheisteanna agus imní. Freagróimid laistigh de 24 uair an chloig.",
     currentTickets: "Ticéid Reatha",
     submitRequest: "Cuir Iarratas Isteach",
+    submitted: "Curtha isteach",
 
     canteen: "Ceaintín",
     menu: "Biachlár an Lae",
@@ -197,6 +199,7 @@ export const translations = {
     helpdeskDesc: "Envía tus preguntas y dudas. Respondemos en 24 horas.",
     currentTickets: "Tickets Actuales",
     submitRequest: "Enviar Solicitud",
+    submitted: "Enviado",
 
     canteen: "Cafetería",
     menu: "Menú de Hoy",
@@ -290,6 +293,7 @@ export const translations = {
     helpdeskDesc: "Soumettez vos questions. Réponse sous 24 heures.",
     currentTickets: "Tickets Actuels",
     submitRequest: "Envoyer la Demande",
+    submitted: "Envoyé",
 
     canteen: "Cantine",
     menu: "Menu du Jour",
