@@ -109,15 +109,23 @@ export default function HomePage() {
             </span>
           </Link>
         ))}
-      </div>
 
-      <Link href="/recommender" className="recommender-banner">
-        <div>
-          <h2 className="recommender-title">{t.recommenderTitle}</h2>
-          <p className="recommender-sub">{t.findEventsDesc}</p>
-        </div>
-        <span className="recommender-icon">✨</span>
-      </Link>
+        <Link href="/recommender" className="recommender-card">
+          <div className="recommender-content">
+            <span className="recommender-icon">✨</span>
+
+            <div>
+              <div className="recommender-title">
+                {t.recommenderTitle}
+              </div>
+
+              <div className="recommender-sub">
+                {t.findEventsDesc}
+              </div>
+            </div>
+          </div>
+        </Link>
+      </div>
 
       <style>{`
         .banner {
@@ -184,7 +192,6 @@ export default function HomePage() {
           display: grid;
           grid-template-columns: 1fr 1fr;
           gap: 1rem;
-          margin-bottom: 1.5rem;
         }
 
         .nav-card {
@@ -211,36 +218,52 @@ export default function HomePage() {
           font-weight: 700;
         }
 
-        .recommender-banner {
+        .recommender-card {
+          grid-column: span 2;
           display: flex;
-          justify-content: space-between;
           align-items: center;
-          background: var(--primary);
-          color: white;
+          background: var(--surface);
+          border: 1px solid var(--border);
           border-radius: var(--radius);
-          padding: 1.5rem 1.75rem;
-          text-decoration: none;
           box-shadow: var(--shadow);
+          padding: 1.5rem;
+          text-decoration: none;
+          color: var(--text);
+          transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
-        .recommender-title {
-          font-size: 1.3rem;
-          font-weight: 800;
-          margin-bottom: 0.2rem;
+        .recommender-card:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 10px 25px rgba(0,0,0,0.15);
         }
 
-        .recommender-sub {
-          font-size: 0.9rem;
-          opacity: 0.85;
+        .recommender-content {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
         }
 
         .recommender-icon {
-          font-size: 2rem;
+          font-size: 1.8rem;
+        }
+
+        .recommender-title {
+          font-size: 1rem;
+          font-weight: 700;
+        }
+
+        .recommender-sub {
+          font-size: 0.85rem;
+          color: var(--text-muted);
         }
 
         @media (max-width: 480px) {
           .info-row {
             grid-template-columns: 1fr;
+          }
+
+          .recommender-card {
+            grid-column: span 1;
           }
         }
       `}</style>
