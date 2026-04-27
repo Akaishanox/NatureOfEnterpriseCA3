@@ -110,7 +110,7 @@ export default function EventsPage() {
       <style>{`
         .events-page-fixed {
           padding: 6rem 4rem 3rem;
-          background: var(--background);
+          background: var(--bg);
           min-height: 100vh;
         }
 
