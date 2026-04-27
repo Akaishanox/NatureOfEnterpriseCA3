@@ -14,7 +14,6 @@ function getText(value: any, lang: string) {
 
 export default function RecommenderPage() {
   const lang = useLang();
-  // Ensure translations exist for the current lang, fallback to 'en'
   const t = translations[lang] || translations.en;
 
   const pageText: Record<string, any> = {
@@ -98,7 +97,6 @@ export default function RecommenderPage() {
   const [recommendations, setRecommendations] = useState<any[]>([]);
   const [popup, setPopup] = useState("");
   const [appliedCategory, setAppliedCategory] = useState("");
-  const [loading, setLoading] = useState(false);
 
   const categories = ["Technology", "Sports", "Careers", "Social", "Academic"];
 
@@ -120,38 +118,39 @@ export default function RecommenderPage() {
   const pop = popupMessages[lang] || popupMessages.en;
 
   function getRecommendations() {
-    setLoading(true);
+    if (!selectedCategory) return;
+    
     setAppliedCategory(selectedCategory);
 
-    setTimeout(() => {
-      const scored = events.map((event: any) => {
-        let score = 0;
+    const scored = events.map((event: any) => {
+      let score = 0;
 
-        if (event.category === selectedCategory) {
-          score += 5;
-        }
+      // Category match
+      if (event.category === selectedCategory) {
+        score += 5;
+      }
 
-        const today = new Date();
-        const eventDate = new Date(event.date);
-        const diffDays = Math.abs((eventDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
+      // Date proximity
+      const today = new Date();
+      const eventDate = new Date(event.date);
+      const diffDays = Math.abs((eventDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
 
-        if (diffDays < 7) score += 2;
-        else if (diffDays < 14) score += 1;
+      if (diffDays < 7) score += 2;
+      else if (diffDays < 14) score += 1;
 
-        if (event.time.includes("-")) {
-          score += 1;
-        }
+      // Duration (time interval present)
+      if (event.time.includes("-")) {
+        score += 1;
+      }
 
-        return { ...event, score };
-      });
+      return { ...event, score };
+    });
 
-      const sorted = scored
-        .filter((e) => e.score > 0)
-        .sort((a, b) => b.score - a.score);
+    const sorted = scored
+      .filter((e) => e.score > 0)
+      .sort((a, b) => b.score - a.score);
 
-      setRecommendations(sorted.slice(0, 4));
-      setLoading(false);
-    }, 500);
+    setRecommendations(sorted.slice(0, 4)); // Show top 4
   }
 
   function handleRegister(title: string) {
@@ -191,57 +190,177 @@ export default function RecommenderPage() {
             ))}
           </select>
 
-          <button
-            className="recommend-btn"
+          <button 
+            className="recommend-btn" 
             onClick={getRecommendations}
-            disabled={!selectedCategory || loading}
+            disabled={!selectedCategory}
           >
-            {loading ? "..." : x.button}
+            {x.button}
           </button>
         </div>
 
-        {loading && (
-          <p style={{ textAlign: "center", marginTop: "1rem" }}>
-            Loading recommendations...
-          </p>
-        )}
-
-        {!loading && recommendations.length === 0 && appliedCategory && (
-          <p style={{ textAlign: "center", marginTop: "2rem", color: "gray" }}>
-            No events found for this category.
-          </p>
-        )}
-
         <div className="recommender-grid">
-          {!loading && recommendations.map((event: any) => (
-            <div className="recommender-card" key={event.id}>
-              <div className="recommender-icon">
-                {ICONS[event.category] || "📅"}
+          {recommendations.map((event: any) => {
+            const eventTitle = getText(event.title, lang);
+
+            return (
+              <div className="recommender-card" key={event.id}>
+                <div className="recommender-icon">
+                  {ICONS[event.category] || "📅"}
+                </div>
+
+                <h3>{eventTitle}</h3>
+
+                <div className="recommender-info">
+                  <p>🗓️ {t.date}: {event.date}</p>
+                  <p>🕘 {t.time}: {event.time}</p>
+                  <p>📍 {t.location}: {getText(event.location, lang)}</p>
+                </div>
+
+                <p className="recommender-card-text">
+                  {getText(event.description, lang)}
+                </p>
+
+                <p className="reason-text">
+                  {x.reason} <b>{x.categories[appliedCategory]}</b>
+                </p>
+
+                <button
+                  className="register-btn-fixed"
+                  onClick={() => handleRegister(eventTitle)}
+                >
+                  {t.registerNow}
+                </button>
               </div>
-              <h3>{getText(event.title, lang)}</h3>
-              <p className="recommender-reason">
-                {x.reason} {x.categories[event.category]}
-              </p>
-              <button 
-                className="register-btn" 
-                onClick={() => handleRegister(getText(event.title, lang))}
-              >
-                {pop.ok}
-              </button>
-            </div>
-          ))}
+            );
+          })}
         </div>
+
+        {!recommendations.length && appliedCategory && (
+            <p className="no-results">No matching events found.</p>
+        )}
       </div>
 
       {popup && (
         <div className="popup-overlay">
-          <div className="popup-content">
-            <h3>{pop.title}</h3>
-            <p>{pop.message} {popup}</p>
-            <button onClick={() => setPopup("")}>{pop.ok}</button>
+          <div className="popup-box">
+            <h2>{pop.title}</h2>
+            <p>
+              {pop.message} <b>{popup}</b>.
+            </p>
+            <button className="popup-close-btn" onClick={() => setPopup("")}>{pop.ok}</button>
           </div>
         </div>
       )}
+
+      <style jsx>{`
+        .recommender-page {
+          padding: 6rem 4rem 3rem;
+          background: var(--background);
+          min-height: 100vh;
+        }
+
+        .recommender-container {
+          max-width: 1450px;
+          margin: 0 auto;
+        }
+
+        .recommender-title {
+          font-size: 2.5rem;
+          font-weight: 800;
+          color: var(--primary);
+          margin-bottom: 0.5rem;
+        }
+
+        .recommender-line {
+          height: 4px;
+          width: 60px;
+          background: var(--accent);
+          margin-bottom: 2rem;
+        }
+
+        .recommender-controls {
+          background: white;
+          padding: 2rem;
+          border-radius: 12px;
+          box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+          margin-bottom: 3rem;
+          max-width: 500px;
+        }
+
+        .recommender-select {
+          width: 100%;
+          padding: 0.8rem;
+          margin: 1rem 0;
+          border-radius: 8px;
+          border: 1px solid #ddd;
+        }
+
+        .recommend-btn {
+          width: 100%;
+          padding: 1rem;
+          background: var(--primary);
+          color: white;
+          border-radius: 8px;
+          font-weight: 600;
+          cursor: pointer;
+        }
+
+        .recommender-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+          gap: 2rem;
+        }
+
+        .recommender-card {
+          background: white;
+          padding: 1.5rem;
+          border-radius: 12px;
+          border-left: 5px solid var(--accent);
+          box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .reason-text {
+          font-size: 0.85rem;
+          color: #666;
+          margin: 1rem 0;
+          padding: 0.5rem;
+          background: #f0f7ff;
+          border-radius: 4px;
+        }
+
+        .register-btn-fixed {
+          width: 100%;
+          padding: 0.7rem;
+          background: var(--primary);
+          color: white;
+          border-radius: 6px;
+        }
+
+        .popup-overlay {
+          position: fixed;
+          inset: 0;
+          background: rgba(0,0,0,0.5);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          z-index: 1000;
+        }
+
+        .popup-box {
+          background: white;
+          padding: 2.5rem;
+          border-radius: 15px;
+          text-align: center;
+          max-width: 400px;
+        }
+          
+        .no-results {
+          text-align: center;
+          color: #666;
+          margin-top: 2rem;
+        }
+      `}</style>
     </main>
   );
 }
