@@ -2,8 +2,11 @@
 
 import { useState } from "react";
 import events from "@/data/events.json";
+import usersData from "@/data/users.json";
 import { useLang } from "@/app/lib/useLang";
 import { translations } from "@/app/lib/translations";
+
+const currentUser = (usersData as { id: number; name: string; preferred_category: string }[])[0];
 
 function getText(value: any, lang: string) {
   if (typeof value === "object") {
@@ -37,11 +40,17 @@ export default function RecommenderPage() {
     setAppliedCategory(selectedCategory);
 
     const today = new Date();
+    const userPreference = currentUser?.preferred_category || "";
+    const savedPrefs = JSON.parse(localStorage.getItem("userPrefs") || "[]");
 
     const scored = events.map((event: any) => {
       let score = 0;
 
       if (event.category === selectedCategory) score += 5;
+
+      if (event.category === userPreference) score += 3;
+
+      if (savedPrefs.includes(event.category)) score += 2;
 
       const eventDate = new Date(event.date);
       const diffDays = Math.abs(
@@ -54,6 +63,12 @@ export default function RecommenderPage() {
 
       if (event.time.includes("-")) score += 1;
 
+      const locationText = getText(event.location, "en");
+      if (locationText.toLowerCase().includes("hall")) score += 1;
+
+      const startHour = Number(event.time.split(":")[0]);
+      if (startHour >= 9 && startHour <= 17) score += 1;
+
       return { ...event, score };
     });
 
@@ -64,8 +79,13 @@ export default function RecommenderPage() {
     setRecommendations(sorted.slice(0, 4));
   }
 
-  function handleRegister(title: string) {
+  function handleRegister(title: string, category: string) {
     setPopup(title);
+
+    const prev = JSON.parse(localStorage.getItem("userPrefs") || "[]");
+    const updated = [...prev, category].slice(-10);
+
+    localStorage.setItem("userPrefs", JSON.stringify(updated));
   }
 
   return (
@@ -125,6 +145,10 @@ export default function RecommenderPage() {
 
           return (
             <div className="event-card-fixed" key={event.id}>
+              {event.score >= 8 && (
+                <span className="top-pick">⭐ Top Pick</span>
+              )}
+
               <div className="event-icon-fixed">
                 {ICONS[event.category] || "📅"}
               </div>
@@ -144,11 +168,13 @@ export default function RecommenderPage() {
               <p className="reason-text">
                 {t.recommendedBecause || "Recommended because it matches your interest in"}{" "}
                 <b>{t.categories[appliedCategory]}</b>
+                <br />
+                Score: {event.score}
               </p>
 
               <button
                 className="register-btn-fixed"
-                onClick={() => handleRegister(eventTitle)}
+                onClick={() => handleRegister(eventTitle, event.category)}
               >
                 {t.registerNow}
               </button>
@@ -281,6 +307,17 @@ export default function RecommenderPage() {
           box-shadow: var(--shadow);
           display: flex;
           flex-direction: column;
+        }
+
+        .top-pick {
+          align-self: flex-start;
+          background: #facc15;
+          color: #111827;
+          padding: 0.3rem 0.6rem;
+          border-radius: 999px;
+          font-size: 0.75rem;
+          font-weight: 800;
+          margin-bottom: 0.8rem;
         }
 
         .event-icon-fixed {
