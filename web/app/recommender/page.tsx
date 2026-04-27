@@ -69,32 +69,30 @@ export default function RecommenderPage() {
 
   return (
     <main className="events-page-fixed">
-      <h1 className="events-title">Campus Events Recommender</h1>
+      <h1 className="events-title">{t.recommenderTitle}</h1>
       <div className="events-line"></div>
 
-      <h2 className="events-subtitle">Choose your interest</h2>
-      <p className="events-description">
-        Get recommended events based on your selected category.
-      </p>
+      <h2 className="events-subtitle">{t.chooseInterest}</h2>
+      <p className="events-description">{t.recommenderDesc}</p>
 
-      {/* ✨ FULL WIDTH CONTROL BOX */}
+      {/* ✨ CONTROL BOX */}
       <div className="recommender-controls">
         <div className="control-header">
           <div className="control-icon">✨</div>
           <div className="control-text">
-            <h3>Find events for you</h3>
-            <p>Select a category and get matching campus events.</p>
+            <h3>{t.findEvents}</h3>
+            <p>{t.findEventsDesc}</p>
           </div>
         </div>
 
-        <label className="select-label">Interest category</label>
+        <label className="select-label">{t.interestCategory}</label>
 
         <select
           className="recommender-select"
           value={selectedCategory}
           onChange={(e) => setSelectedCategory(e.target.value)}
         >
-          <option value="">Select category</option>
+          <option value="">{t.selectCategory}</option>
           {categories.map((cat) => (
             <option key={cat} value={cat}>
               {cat}
@@ -102,8 +100,12 @@ export default function RecommenderPage() {
           ))}
         </select>
 
-        <button className="recommend-btn" onClick={getRecommendations}>
-          Get Recommendations
+        <button
+          className="recommend-btn"
+          onClick={getRecommendations}
+          disabled={!selectedCategory}
+        >
+          {t.getRecommendations}
         </button>
       </div>
 
@@ -131,8 +133,7 @@ export default function RecommenderPage() {
               </p>
 
               <p className="reason-text">
-                Recommended because it matches your interest in{" "}
-                <b>{appliedCategory}</b>
+                {t.recommendedBecause} <b>{appliedCategory}</b>
               </p>
 
               <button
@@ -145,6 +146,12 @@ export default function RecommenderPage() {
           );
         })}
       </div>
+
+      {!recommendations.length && appliedCategory && (
+        <p style={{ textAlign: "center", marginTop: "1rem" }}>
+          {t.noEvents}
+        </p>
+      )}
 
       {popup && (
         <div className="popup-overlay">
@@ -189,17 +196,14 @@ export default function RecommenderPage() {
           margin-bottom: 2rem;
         }
 
-        /* ✨ NOW PERFECTLY MATCHES GRID WIDTH */
         .recommender-controls {
           background: var(--surface);
           border: 1px solid var(--border);
           padding: 2rem;
           border-radius: 12px;
-
           max-width: 1450px;
           width: 100%;
           margin: 0 auto 2.5rem;
-
           box-shadow: var(--shadow);
         }
 
@@ -256,7 +260,7 @@ export default function RecommenderPage() {
         .events-grid-fixed {
           display: grid;
           grid-template-columns: 1fr 1fr;
-          gap: 2.4rem 2.4rem; /* cleaner alignment */
+          gap: 2.4rem 2.4rem;
           max-width: 1450px;
           margin: 0 auto;
         }
