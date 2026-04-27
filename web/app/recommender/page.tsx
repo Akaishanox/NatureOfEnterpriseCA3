@@ -35,6 +35,60 @@ export default function RecommenderPage() {
         Academic: "Academic",
       },
     },
+    ga: {
+      title: "Moltóir Imeachtaí Campais",
+      subtitle: "Roghnaigh do spéis",
+      desc: "Faigh imeachtaí molta bunaithe ar do chatagóir roghnaithe.",
+      findTitle: "Aimsigh imeachtaí duit",
+      findDesc: "Roghnaigh catagóir agus faigh imeachtaí campais oiriúnacha.",
+      interest: "Catagóir spéise",
+      select: "Roghnaigh catagóir",
+      button: "Faigh Moltaí",
+      reason: "Moltar é seo mar go bhfuil sé ag teacht le do spéis i",
+      categories: {
+        Technology: "Teicneolaíocht",
+        Sports: "Spóirt",
+        Careers: "Gairmeacha",
+        Social: "Sóisialta",
+        Academic: "Acadúil",
+      },
+    },
+    es: {
+      title: "Recomendador de Eventos del Campus",
+      subtitle: "Elige tu interés",
+      desc: "Recibe eventos recomendados según la categoría seleccionada.",
+      findTitle: "Encuentra eventos para ti",
+      findDesc: "Selecciona una categoría y recibe eventos del campus relacionados.",
+      interest: "Categoría de interés",
+      select: "Selecciona una categoría",
+      button: "Obtener recomendaciones",
+      reason: "Recomendado porque coincide con tu interés en",
+      categories: {
+        Technology: "Tecnología",
+        Sports: "Deportes",
+        Careers: "Carreras",
+        Social: "Social",
+        Academic: "Académico",
+      },
+    },
+    fr: {
+      title: "Recommandateur d’Événements du Campus",
+      subtitle: "Choisissez votre intérêt",
+      desc: "Recevez des événements recommandés selon la catégorie choisie.",
+      findTitle: "Trouvez des événements pour vous",
+      findDesc: "Sélectionnez une catégorie et obtenez des événements du campus.",
+      interest: "Catégorie d’intérêt",
+      select: "Sélectionnez une catégorie",
+      button: "Obtenir des recommandations",
+      reason: "Recommandé car cela correspond à votre intérêt pour",
+      categories: {
+        Technology: "Technologie",
+        Sports: "Sport",
+        Careers: "Carrières",
+        Social: "Social",
+        Academic: "Académique",
+      },
+    },
   };
 
   const x = pageText[lang] || pageText.en;
@@ -56,11 +110,10 @@ export default function RecommenderPage() {
   };
 
   const popupMessages: Record<string, { title: string; message: string; ok: string }> = {
-    en: {
-      title: "Registered",
-      message: "You have now been registered for",
-      ok: "OK",
-    },
+    en: { title: "Registered", message: "You have now been registered for", ok: "OK" },
+    ga: { title: "Cláraithe", message: "Tá tú cláraithe anois do", ok: "Ceart go leor" },
+    es: { title: "Registrado", message: "Ahora estás registrado para", ok: "OK" },
+    fr: { title: "Inscrit", message: "Vous êtes maintenant inscrit à", ok: "OK" },
   };
 
   const pop = popupMessages[lang] || popupMessages.en;
@@ -69,14 +122,12 @@ export default function RecommenderPage() {
     setLoading(true);
 
     setTimeout(() => {
-      setAppliedCategory(selectedCategory);
+      setAppliedCategory(selectedCategory); // FIXED POSITION
 
       const scored = events.map((event: any) => {
         let score = 0;
 
-        if (event.category === selectedCategory) {
-          score += 5;
-        }
+        if (event.category === selectedCategory) score += 5;
 
         const today = new Date();
         const eventDate = new Date(event.date);
@@ -87,9 +138,7 @@ export default function RecommenderPage() {
         if (diffDays < 7) score += 2;
         else if (diffDays < 14) score += 1;
 
-        if (event.time.includes("-")) {
-          score += 1;
-        }
+        if (event.time.includes("-")) score += 1;
 
         return { ...event, score };
       });
@@ -207,13 +256,13 @@ export default function RecommenderPage() {
         <div className="popup-overlay">
           <div className="popup-box">
             <h2>{pop.title}</h2>
-            <p>
-              {pop.message} {popup}.
-            </p>
+            <p>{pop.message} {popup}.</p>
             <button onClick={() => setPopup("")}>{pop.ok}</button>
           </div>
         </div>
       )}
+
+      {/* KEEP YOUR STYLE BLOCK EXACTLY AS YOU HAD IT */}
     </main>
   );
 }
