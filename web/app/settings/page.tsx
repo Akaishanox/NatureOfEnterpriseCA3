@@ -15,6 +15,8 @@ export default function SettingsPage() {
   const extraText: Record<string, any> = {
     en: {
       appearance: "Appearance",
+      accessibilityTitle: "Accessibility Options",
+      accessibilityDesc: "Adjust how the app looks and feels",
       fontDesc: "Adjust text size for better readability",
       themes: "Themes",
       themeDesc: "Choose your preferred color scheme",
@@ -30,6 +32,8 @@ export default function SettingsPage() {
     },
     ga: {
       appearance: "Cuma",
+      accessibilityTitle: "Roghanna Inrochtaineachta",
+      accessibilityDesc: "Coigeartaigh cuma na haipe",
       fontDesc: "Coigeartaigh méid an téacs le léamh níos fearr",
       themes: "Téamaí",
       themeDesc: "Roghnaigh do scéim dathanna",
@@ -45,6 +49,8 @@ export default function SettingsPage() {
     },
     es: {
       appearance: "Apariencia",
+      accessibilityTitle: "Opciones de Accesibilidad",
+      accessibilityDesc: "Ajusta cómo se ve la app",
       fontDesc: "Ajusta el tamaño del texto para leer mejor",
       themes: "Temas",
       themeDesc: "Elige tu esquema de color preferido",
@@ -60,6 +66,8 @@ export default function SettingsPage() {
     },
     fr: {
       appearance: "Apparence",
+      accessibilityTitle: "Options d'accessibilité",
+      accessibilityDesc: "Ajustez l'apparence de l'application",
       fontDesc: "Ajustez la taille du texte pour une meilleure lisibilité",
       themes: "Thèmes",
       themeDesc: "Choisissez votre thème préféré",
@@ -99,10 +107,7 @@ export default function SettingsPage() {
       const realLang = localStorage.getItem("language") || "en";
 
       document.documentElement.style.fontSize = realFont + "px";
-      document.documentElement.classList.toggle(
-        "dark-mode",
-        realTheme === "dark"
-      );
+      document.documentElement.classList.toggle("dark-mode", realTheme === "dark");
       document.documentElement.setAttribute("lang", realLang);
 
       localStorage.removeItem("previewLanguage");
@@ -134,7 +139,11 @@ export default function SettingsPage() {
   return (
     <div className="settings-page">
       <section className="settings-section">
-        <h1 className="main-heading">🎨 {x.appearance}</h1>
+        <h1 className="main-heading">{x.accessibilityTitle}</h1>
+        <div className="heading-line"></div>
+        <p className="section-desc">{x.accessibilityDesc}</p>
+
+        <h2 className="sub-heading">🎨 {x.appearance}</h2>
 
         <div className="settings-card">
           <h2>↕ {liveT.fontSize}</h2>
@@ -221,21 +230,26 @@ export default function SettingsPage() {
           min-height: 100vh;
         }
 
-        .settings-section {
-          margin-bottom: 1.6rem;
+        .main-heading {
+          font-size: 2rem;
+          font-weight: 800;
+          color: var(--primary);
+          margin-bottom: 0.5rem;
         }
 
-        .main-heading {
-          font-size: 1.65rem;
+        .heading-line {
+          width: 70px;
+          height: 6px;
+          background: var(--primary);
+          border-radius: 999px;
+          margin-bottom: 1rem;
+        }
+
+        .sub-heading {
+          font-size: 1.3rem;
           font-weight: 800;
           color: var(--text);
-          margin-bottom: 0.8rem;
-          border-bottom: none !important;
-        }
-
-        .main-heading::after {
-          display: none !important;
-          content: none !important;
+          margin-bottom: 1rem;
         }
 
         .section-desc {
@@ -269,66 +283,20 @@ export default function SettingsPage() {
         .font-row {
           display: grid;
           grid-template-columns: auto 1fr auto;
-          align-items: center;
           gap: 1.2rem;
-        }
-
-        .font-row span {
-          font-weight: 700;
-          color: var(--text-muted);
         }
 
         .big-a {
           font-size: 1.45rem;
-          color: var(--text) !important;
-        }
-
-        .font-row input {
-          width: 100%;
         }
 
         .radio-row {
           display: flex;
-          align-items: center;
           gap: 0.65rem;
           margin: 0.85rem 0;
-          color: var(--text);
-          font-size: 1rem;
-        }
-
-        .radio-row input {
-          margin: 0;
-        }
-
-        select {
-          width: 100%;
-          padding: 0.8rem;
-          border: 1px solid var(--border);
-          border-radius: 7px;
-          background: var(--surface);
-          color: var(--text);
-          font-size: 1rem;
-          text-align: center;
-          text-align-last: center;
-        }
-
-        .notification-row {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          color: var(--text);
-          font-size: 1rem;
-          gap: 2rem;
-        }
-
-        .notification-row input {
-          width: 20px;
-          height: 20px;
-          flex-shrink: 0;
         }
 
         .submit-settings {
-          display: block;
           width: 260px;
           margin: 1.8rem auto 0;
           background: var(--primary);
@@ -336,29 +304,11 @@ export default function SettingsPage() {
           border: none;
           border-radius: 9px;
           padding: 1rem;
-          font-size: 1rem;
-          cursor: pointer;
-        }
-
-        .submit-settings:hover {
-          background: var(--primary-dark);
         }
 
         .saved-message {
           text-align: center;
-          color: var(--text);
-          font-weight: 700;
           margin-top: 1rem;
-        }
-
-        @media (max-width: 700px) {
-          .settings-page {
-            padding: 5rem 1rem 2rem;
-          }
-
-          .submit-settings {
-            width: 100%;
-          }
         }
       `}</style>
     </div>
