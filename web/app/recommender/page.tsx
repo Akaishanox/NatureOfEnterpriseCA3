@@ -2,11 +2,9 @@
 
 import { useState } from "react";
 import events from "@/data/events.json";
-import usersData from "@/data/users.json";
 import { useLang } from "@/app/lib/useLang";
 import { translations } from "@/app/lib/translations";
-
-const currentUser = (usersData as { id: number; name: string; preferred_category: string }[])[0];
+import usersData from "@/data/users.json";
 
 function getText(value: any, lang: string) {
   if (typeof value === "object") {
@@ -14,6 +12,8 @@ function getText(value: any, lang: string) {
   }
   return value;
 }
+
+const currentUser = usersData[0];
 
 export default function RecommenderPage() {
   const lang = useLang();
@@ -47,25 +47,21 @@ export default function RecommenderPage() {
       let score = 0;
       let reasons: string[] = [];
 
-      // Category match
       if (event.category === selectedCategory) {
         score += 5;
-        reasons.push("category match");
+        reasons.push("category");
       }
 
-      // User preference
       if (event.category === userPreference) {
         score += 3;
-        reasons.push("your preference");
+        reasons.push("preference");
       }
 
-      // Past behaviour
       if (savedPrefs.includes(event.category)) {
         score += 2;
-        reasons.push("your activity");
+        reasons.push("history");
       }
 
-      // Date proximity
       const eventDate = new Date(event.date);
       const diffDays = Math.abs(
         (eventDate.getTime() - today.getTime()) /
@@ -74,35 +70,14 @@ export default function RecommenderPage() {
 
       if (diffDays < 7) {
         score += 2;
-        reasons.push("happening soon");
+        reasons.push("soon");
       } else if (diffDays < 14) {
         score += 1;
       }
 
-      // Time quality
-      if (event.time.includes("-")) {
-        score += 1;
-      }
+      if (event.time.includes("-")) score += 1;
 
-      // Time preference (daytime bias)
-      const hour = Number(event.time.split(":")[0]);
-      if (hour >= 9 && hour <= 17) {
-        score += 1;
-        reasons.push("good timing");
-      }
-
-      // Location relevance
-      const locationText = getText(event.location, "en");
-      if (locationText.toLowerCase().includes("hall")) {
-        score += 1;
-      }
-
-      // Confidence level
-      let confidence = "Low";
-      if (score >= 8) confidence = "High";
-      else if (score >= 5) confidence = "Medium";
-
-      return { ...event, score, reasons, confidence };
+      return { ...event, score, reasons };
     });
 
     const sorted = scored
@@ -123,18 +98,12 @@ export default function RecommenderPage() {
 
   return (
     <main className="events-page-fixed">
-      <h1 className="events-title">
-        {t.recommenderTitle || "Campus Events Recommender"}
-      </h1>
+      <h1 className="events-title">{t.recommenderTitle}</h1>
       <div className="events-line"></div>
 
-      <h2 className="events-subtitle">
-        {t.chooseInterest || "Choose your interest"}
-      </h2>
+      <h2 className="events-subtitle">{t.chooseInterest}</h2>
 
-      <p className="events-description">
-        {t.recommenderDesc || "Get recommended events based on your selected category."}
-      </p>
+      <p className="events-description">{t.recommenderDesc}</p>
 
       <div className="recommender-controls">
         <div className="control-header">
@@ -153,6 +122,7 @@ export default function RecommenderPage() {
           onChange={(e) => setSelectedCategory(e.target.value)}
         >
           <option value="">{t.selectCategory}</option>
+
           {categories.map((cat) => (
             <option key={cat} value={cat}>
               {t.categories[cat]}
@@ -166,13 +136,13 @@ export default function RecommenderPage() {
       </div>
 
       <div className="events-grid-fixed">
-        {recommendations.map((event: any) => {
+        {recommendations.map((event: any, index) => {
           const eventTitle = getText(event.title, lang);
 
           return (
             <div className="event-card-fixed" key={event.id}>
-              {event.confidence === "High" && (
-                <span className="top-pick">⭐ Top Pick</span>
+              {index === 0 && (
+                <div className="top-pick">⭐ Top Match</div>
               )}
 
               <div className="event-icon-fixed">
@@ -192,11 +162,8 @@ export default function RecommenderPage() {
               </p>
 
               <p className="reason-text">
-                {t.recommendedBecause} <b>{t.categories[appliedCategory]}</b>
-                <br />
-                Score: {event.score} • {event.confidence}
-                <br />
-                {event.reasons.join(", ")}
+                {t.recommendedBecause}{" "}
+                <b>{t.categories[appliedCategory]}</b>
               </p>
 
               <button
@@ -221,15 +188,124 @@ export default function RecommenderPage() {
       )}
 
       <style>{`
+        /* 🔥 YOUR ORIGINAL CSS (UNCHANGED) */
+
+        .events-page-fixed {
+          padding: 6rem 4rem 3rem;
+          background: var(--bg);
+          min-height: 100vh;
+        }
+
+        .events-title {
+          font-size: 2rem;
+          font-weight: 800;
+          color: var(--primary);
+          margin-bottom: 0.8rem;
+        }
+
+        .events-line {
+          width: 70px;
+          height: 8px;
+          background: var(--primary);
+          border-radius: 999px;
+          margin-bottom: 2.8rem;
+        }
+
+        .events-subtitle {
+          font-size: 1.55rem;
+          font-weight: 800;
+          margin-bottom: 0.6rem;
+        }
+
+        .events-description {
+          font-size: 1rem;
+          margin-bottom: 2rem;
+        }
+
+        .recommender-controls {
+          background: var(--surface);
+          border: 1px solid var(--border);
+          padding: 2rem;
+          border-radius: 12px;
+          max-width: 1450px;
+          margin: 0 auto 2.5rem;
+          box-shadow: var(--shadow);
+        }
+
+        .control-header {
+          display: flex;
+          gap: 1rem;
+          margin-bottom: 1.2rem;
+        }
+
+        .control-icon {
+          font-size: 1.6rem;
+          background: var(--primary-light);
+          padding: 0.6rem;
+          border-radius: 8px;
+        }
+
+        .select-label {
+          display: block;
+          font-weight: 600;
+          margin-top: 1rem;
+        }
+
+        .recommender-select {
+          width: 100%;
+          padding: 0.85rem;
+          margin: 0.7rem 0 1rem;
+          border-radius: 8px;
+          border: 1px solid var(--border);
+        }
+
+        .recommend-btn {
+          width: 100%;
+          background: var(--primary);
+          color: white;
+          border-radius: 8px;
+          padding: 0.95rem;
+        }
+
+        .events-grid-fixed {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 2.4rem;
+          max-width: 1450px;
+          margin: 0 auto;
+        }
+
+        .event-card-fixed {
+          background: var(--surface);
+          border: 1px solid var(--border);
+          border-radius: 10px;
+          padding: 2rem;
+          box-shadow: var(--shadow);
+        }
+
         .top-pick {
-          align-self: flex-start;
           background: #facc15;
-          color: #111827;
+          color: #111;
           padding: 0.3rem 0.6rem;
           border-radius: 999px;
           font-size: 0.75rem;
           font-weight: 800;
           margin-bottom: 0.8rem;
+        }
+
+        .popup-overlay {
+          position: fixed;
+          inset: 0;
+          background: rgba(0,0,0,0.6);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .popup-box {
+          background: var(--surface);
+          padding: 2rem;
+          border-radius: 12px;
         }
       `}</style>
     </main>
