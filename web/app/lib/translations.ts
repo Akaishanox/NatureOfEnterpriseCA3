@@ -7,17 +7,6 @@ export const translations = {
     upcomingEvents: "Upcoming Events",
     browseEvents: "Browse and register for campus events",
 
-    recommenderTitle: "Campus Events Recommender",
-    chooseInterest: "Choose your interest",
-    recommenderDesc: "Get recommended events based on your selected category.",
-    findEvents: "Find events for you",
-    findEventsDesc: "Select a category and get matching campus events.",
-    interestCategory: "Interest category",
-    selectCategory: "Select category",
-    getRecommendations: "Get Recommendations",
-    recommendedBecause: "Recommended because it matches your interest in",
-    noEvents: "No events found for this category",
-
     helpdesk: "Helpdesk",
     helpdeskDesc: "Submit your questions and concerns. Our team will respond within 24 hours.",
     currentTickets: "Current Tickets",
@@ -54,6 +43,27 @@ export const translations = {
     time: "Time",
     location: "Location",
 
+    recommenderTitle: "Campus Events Recommender",
+    chooseInterest: "Choose your interest",
+    recommenderDesc: "Get recommended events based on your selected category",
+    findEvents: "Find events for you",
+    findEventsDesc: "Select a category and get matching campus events",
+    interestCategory: "Interest category",
+    selectCategory: "Select category",
+    getRecommendations: "Get Recommendations",
+    recommendedBecause: "Recommended because it matches your interest in",
+    registered: "Registered",
+    registerMessage: "You have now been registered for",
+    ok: "OK",
+
+    categories: {
+      Technology: "Technology",
+      Sports: "Sports",
+      Careers: "Careers",
+      Social: "Social",
+      Academic: "Academic",
+    },
+
     status: {
       Open: "Open",
       "In Progress": "In Progress",
@@ -74,17 +84,6 @@ export const translations = {
     events: "Imeachtaí Campais",
     upcomingEvents: "Imeachtaí le Teacht",
     browseEvents: "Brabhsáil agus cláraigh le haghaidh imeachtaí",
-
-    recommenderTitle: "Moltóir Imeachtaí Campais",
-    chooseInterest: "Roghnaigh do spéis",
-    recommenderDesc: "Faigh imeachtaí molta bunaithe ar do chatagóir roghnaithe.",
-    findEvents: "Aimsigh imeachtaí duit",
-    findEventsDesc: "Roghnaigh catagóir agus faigh imeachtaí campais oiriúnacha.",
-    interestCategory: "Catagóir spéise",
-    selectCategory: "Roghnaigh catagóir",
-    getRecommendations: "Faigh Moltaí",
-    recommendedBecause: "Moltar é seo mar go bhfuil sé ag teacht le do spéis i",
-    noEvents: "Níor aimsíodh imeachtaí don chatagóir seo",
 
     helpdesk: "Deasc Chabhrach",
     helpdeskDesc: "Cuir isteach do cheisteanna agus imní. Freagróimid laistigh de 24 uair an chloig.",
@@ -122,6 +121,27 @@ export const translations = {
     time: "Am",
     location: "Suíomh",
 
+    recommenderTitle: "Moladh Imeachtaí Campais",
+    chooseInterest: "Roghnaigh do spéis",
+    recommenderDesc: "Faigh imeachtaí molta bunaithe ar do chatagóir roghnaithe",
+    findEvents: "Aimsigh imeachtaí duit",
+    findEventsDesc: "Roghnaigh catagóir agus faigh imeachtaí campais oiriúnacha",
+    interestCategory: "Catagóir spéise",
+    selectCategory: "Roghnaigh catagóir",
+    getRecommendations: "Faigh Moltaí",
+    recommendedBecause: "Molta toisc go bhfuil suim agat i",
+    registered: "Cláraithe",
+    registerMessage: "Tá tú cláraithe anois do",
+    ok: "Ceart go leor",
+
+    categories: {
+      Technology: "Teicneolaíocht",
+      Sports: "Spórt",
+      Careers: "Gairmeacha",
+      Social: "Sóisialta",
+      Academic: "Acadúil",
+    },
+
     status: {
       Open: "Oscailte",
       "In Progress": "Ar Siúl",
@@ -142,17 +162,6 @@ export const translations = {
     events: "Eventos del Campus",
     upcomingEvents: "Próximos Eventos",
     browseEvents: "Explora y regístrate para eventos",
-
-    recommenderTitle: "Recomendador de Eventos del Campus",
-    chooseInterest: "Elige tu interés",
-    recommenderDesc: "Recibe eventos recomendados según la categoría seleccionada.",
-    findEvents: "Encuentra eventos para ti",
-    findEventsDesc: "Selecciona una categoría y recibe eventos del campus relacionados.",
-    interestCategory: "Categoría de interés",
-    selectCategory: "Selecciona una categoría",
-    getRecommendations: "Obtener recomendaciones",
-    recommendedBecause: "Recomendado porque coincide con tu interés en",
-    noEvents: "No se encontraron eventos para esta categoría",
 
     helpdesk: "Soporte",
     helpdeskDesc: "Envía tus preguntas y dudas. Respondemos en 24 horas.",
@@ -190,6 +199,27 @@ export const translations = {
     time: "Hora",
     location: "Ubicación",
 
+    recommenderTitle: "Recomendador de Eventos",
+    chooseInterest: "Elige tu interés",
+    recommenderDesc: "Obtén eventos recomendados según tu categoría",
+    findEvents: "Encuentra eventos para ti",
+    findEventsDesc: "Selecciona una categoría y recibe eventos",
+    interestCategory: "Categoría de interés",
+    selectCategory: "Seleccionar categoría",
+    getRecommendations: "Obtener recomendaciones",
+    recommendedBecause: "Recomendado porque coincide con tu interés en",
+    registered: "Registrado",
+    registerMessage: "Ahora estás registrado para",
+    ok: "OK",
+
+    categories: {
+      Technology: "Tecnología",
+      Sports: "Deportes",
+      Careers: "Carreras",
+      Social: "Social",
+      Academic: "Académico",
+    },
+
     status: {
       Open: "Abierto",
       "In Progress": "En Progreso",
@@ -210,17 +240,6 @@ export const translations = {
     events: "Événements du Campus",
     upcomingEvents: "Événements à Venir",
     browseEvents: "Parcourir et s'inscrire aux événements",
-
-    recommenderTitle: "Recommandateur d’Événements du Campus",
-    chooseInterest: "Choisissez votre intérêt",
-    recommenderDesc: "Recevez des événements recommandés selon la catégorie choisie.",
-    findEvents: "Trouvez des événements pour vous",
-    findEventsDesc: "Sélectionnez une catégorie et obtenez des événements du campus.",
-    interestCategory: "Catégorie d’intérêt",
-    selectCategory: "Sélectionnez une catégorie",
-    getRecommendations: "Obtenir des recommandations",
-    recommendedBecause: "Recommandé car cela correspond à votre intérêt pour",
-    noEvents: "Aucun événement trouvé pour cette catégorie",
 
     helpdesk: "Assistance",
     helpdeskDesc: "Soumettez vos questions. Réponse sous 24 heures.",
@@ -257,6 +276,27 @@ export const translations = {
     date: "Date",
     time: "Heure",
     location: "Lieu",
+
+    recommenderTitle: "Recommandations d'Événements",
+    chooseInterest: "Choisissez votre intérêt",
+    recommenderDesc: "Obtenez des événements recommandés",
+    findEvents: "Trouvez des événements pour vous",
+    findEventsDesc: "Sélectionnez une catégorie",
+    interestCategory: "Catégorie d'intérêt",
+    selectCategory: "Sélectionner une catégorie",
+    getRecommendations: "Obtenir des recommandations",
+    recommendedBecause: "Recommandé car cela correspond à votre intérêt pour",
+    registered: "Inscrit",
+    registerMessage: "Vous êtes maintenant inscrit à",
+    ok: "OK",
+
+    categories: {
+      Technology: "Technologie",
+      Sports: "Sport",
+      Careers: "Carrières",
+      Social: "Social",
+      Academic: "Académique",
+    },
 
     status: {
       Open: "Ouvert",
