@@ -50,7 +50,7 @@ const PRIORITY_COL: Record<Priority, string> = {
 
 export default function HelpdeskPage() {
   const lang = useLang();
-  const t = translations[lang];
+  const t = translations[lang] || translations.en;
 
   const [form, setForm] = useState<FormState>(EMPTY);
   const [errors, setErrors] = useState<Partial<FormState>>({});
@@ -151,7 +151,6 @@ export default function HelpdeskPage() {
   return (
     <main className="helpdesk-page">
       <div className="helpdesk-container">
-
         <section className="tickets-section" aria-label="Existing tickets">
           <ul className="tickets-list">
             {tickets.map((ticket) => (
@@ -189,7 +188,7 @@ export default function HelpdeskPage() {
 
           <div className="helpdesk-line"></div>
 
-          {submitted && <div className="submitted-box">Submitted</div>}
+          {submitted && <div className="submitted-box">{t.submitted}</div>}
 
           <div className="form-group">
             <label className="form-label">{t.formName}</label>
@@ -269,6 +268,176 @@ export default function HelpdeskPage() {
           </button>
         </section>
       </div>
+
+      <style>{`
+        .helpdesk-page {
+          padding: 6rem 4rem 3rem;
+          background: var(--bg);
+          min-height: 100vh;
+        }
+
+        .helpdesk-container {
+          max-width: 700px;
+          margin: 0 auto;
+        }
+
+        .tickets-section {
+          margin-bottom: 2rem;
+        }
+
+        .tickets-list {
+          list-style: none;
+          display: flex;
+          flex-direction: column;
+          gap: 0.6rem;
+          padding: 0;
+          margin: 0;
+        }
+
+        .ticket-card {
+          background: var(--surface);
+          border: 1px solid var(--border);
+          border-radius: 10px;
+          padding: 0.85rem 1.1rem;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          box-shadow: var(--shadow);
+        }
+
+        .ticket-title {
+          font-weight: 700;
+          color: var(--text);
+        }
+
+        .ticket-student {
+          font-size: 0.8rem;
+          color: var(--text-muted);
+          margin-top: 0.2rem;
+        }
+
+        .ticket-badges {
+          display: flex;
+          gap: 0.4rem;
+        }
+
+        .badge {
+          padding: 0.25rem 0.55rem;
+          border-radius: 999px;
+          font-size: 0.72rem;
+          font-weight: 700;
+          white-space: nowrap;
+        }
+
+        .badge-blue {
+          background: #dbeafe;
+          color: #1d4ed8;
+        }
+
+        .badge-amber {
+          background: #fef3c7;
+          color: #92400e;
+        }
+
+        .badge-green {
+          background: #d1fae5;
+          color: #065f46;
+        }
+
+        .badge-red {
+          background: #fee2e2;
+          color: #991b1b;
+        }
+
+        .badge-grey {
+          background: #e5e7eb;
+          color: #374151;
+        }
+
+        .helpdesk-form-card {
+          background: var(--surface);
+          border: 1px solid var(--border);
+          border-radius: 10px;
+          padding: 2rem;
+          box-shadow: var(--shadow);
+        }
+
+        .helpdesk-title {
+          font-size: 2rem;
+          font-weight: 800;
+          color: var(--text);
+          margin-bottom: 1rem;
+        }
+
+        .helpdesk-description {
+          font-size: 1rem;
+          color: var(--text-muted);
+          margin-bottom: 1.5rem;
+        }
+
+        .helpdesk-line {
+          height: 1px;
+          background: var(--border);
+          margin-bottom: 1.5rem;
+        }
+
+        .submitted-box {
+          background: #d1fae5;
+          color: #065f46;
+          padding: 0.75rem;
+          border-radius: 6px;
+          margin-bottom: 1rem;
+          font-weight: 600;
+        }
+
+        .input-error {
+          border-color: #dc2626 !important;
+        }
+
+        .error-text {
+          color: #dc2626;
+          font-size: 0.8rem;
+          margin-top: 0.35rem;
+          font-weight: 600;
+        }
+
+        .detail-note {
+          font-size: 0.85rem;
+          color: var(--text-muted);
+          margin-bottom: 1rem;
+        }
+
+        .submit-btn {
+          width: 100%;
+          background: var(--primary);
+          color: white;
+          border: none;
+          border-radius: 8px;
+          padding: 0.9rem 1rem;
+          font-size: 1rem;
+          cursor: pointer;
+        }
+
+        .submit-btn:hover {
+          background: var(--primary-dark);
+        }
+
+        @media (max-width: 900px) {
+          .helpdesk-page {
+            padding: 5rem 1.5rem 2rem;
+          }
+
+          .helpdesk-container {
+            max-width: 100%;
+          }
+
+          .ticket-card {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.6rem;
+          }
+        }
+      `}</style>
     </main>
   );
 }
