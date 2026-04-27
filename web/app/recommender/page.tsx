@@ -133,7 +133,7 @@ export default function RecommenderPage() {
 
           {categories.map((cat) => (
             <option key={cat} value={cat}>
-              {t.categories[cat]}
+              {t.categories[cat as keyof typeof t.categories]}
             </option>
           ))}
         </select>
