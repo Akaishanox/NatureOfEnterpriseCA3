@@ -132,11 +132,17 @@ export default function RecommenderPage() {
       </div>
 
       <div className="events-grid-fixed">
-        {recommendations.map((event: any) => {
+        {recommendations.map((event: any, index) => {
           const eventTitle = getText(event.title, lang);
 
           return (
             <div className="event-card-fixed" key={event.id}>
+
+              {/* ✅ ADDED TOP MATCH (ONLY VISUAL) */}
+              {index === 0 && (
+                <div className="top-match-badge">⭐ Top Match</div>
+              )}
+
               <div className="event-icon-fixed">
                 {ICONS[event.category] || "📅"}
               </div>
@@ -285,6 +291,7 @@ export default function RecommenderPage() {
         }
 
         .event-card-fixed {
+          position: relative;
           background: var(--surface);
           border: 1px solid var(--border);
           border-radius: 10px;
@@ -293,6 +300,18 @@ export default function RecommenderPage() {
           box-shadow: var(--shadow);
           display: flex;
           flex-direction: column;
+        }
+
+        .top-match-badge {
+          position: absolute;
+          top: 12px;
+          left: 12px;
+          background: linear-gradient(135deg, #ffd700, #ffcc00);
+          color: #000;
+          font-size: 0.75rem;
+          font-weight: 700;
+          padding: 4px 10px;
+          border-radius: 999px;
         }
 
         .event-icon-fixed {
