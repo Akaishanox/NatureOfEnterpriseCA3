@@ -2,8 +2,9 @@
 
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
+import { translations } from "./translations";
 
-export function useLang() {
+export function useLang(): keyof typeof translations {
   const pathname = usePathname();
   const [lang, setLang] = useState("en");
 
@@ -28,5 +29,5 @@ export function useLang() {
     };
   }, [pathname]);
 
-  return lang;
+  return lang as keyof typeof translations;
 }
