@@ -21,7 +21,6 @@ export default function RecommenderPage() {
   const [popup, setPopup] = useState("");
   const [appliedCategory, setAppliedCategory] = useState("");
 
-  // ✅ categories now come from translations
   const categories = Object.keys(t.categories);
 
   const ICONS: Record<string, string> = {
@@ -83,7 +82,6 @@ export default function RecommenderPage() {
         {t.recommenderDesc || "Get recommended events based on your selected category."}
       </p>
 
-      {/* ✨ CONTROL BOX */}
       <div className="recommender-controls">
         <div className="control-header">
           <div className="control-icon">✨</div>
@@ -120,7 +118,6 @@ export default function RecommenderPage() {
         </button>
       </div>
 
-      {/* EVENTS */}
       <div className="events-grid-fixed">
         {recommendations.map((event: any) => {
           const eventTitle = getText(event.title, lang);
@@ -143,7 +140,6 @@ export default function RecommenderPage() {
                 {getText(event.description, lang)}
               </p>
 
-              {/* ✅ FIXED translation + dark mode */}
               <p className="reason-text">
                 {t.recommendedBecause || "Recommended because it matches your interest in"}{" "}
                 <b>{t.categories[appliedCategory]}</b>
@@ -160,7 +156,6 @@ export default function RecommenderPage() {
         })}
       </div>
 
-      {/* POPUP */}
       {popup && (
         <div className="popup-overlay">
           <div className="popup-box">
@@ -311,7 +306,6 @@ export default function RecommenderPage() {
           flex: 1;
         }
 
-        /* ✅ FIXED DARK MODE */
         .reason-text {
           font-size: 0.85rem;
           background: var(--primary-light);
@@ -330,20 +324,50 @@ export default function RecommenderPage() {
           padding: 0.8rem;
         }
 
+        /* ✅ ONLY FIXED PART */
         .popup-overlay {
           position: fixed;
           inset: 0;
-          background: rgba(0,0,0,0.35);
+          background: rgba(0, 0, 0, 0.6);
+          backdrop-filter: blur(6px);
           display: flex;
           align-items: center;
           justify-content: center;
+          z-index: 1000;
         }
 
         .popup-box {
           background: var(--surface);
-          padding: 2rem;
-          border-radius: 14px;
+          border: 1px solid var(--border);
+          padding: 2rem 2.5rem;
+          border-radius: 16px;
           text-align: center;
+          box-shadow: var(--shadow);
+          max-width: 400px;
+          width: 90%;
+        }
+
+        .popup-box h2 {
+          font-size: 1.8rem;
+          font-weight: 800;
+          color: var(--primary);
+          margin-bottom: 0.5rem;
+        }
+
+        .popup-box p {
+          font-size: 1rem;
+          color: var(--text);
+          margin-bottom: 1.5rem;
+        }
+
+        .popup-box button {
+          background: var(--primary);
+          color: white;
+          border: none;
+          border-radius: 8px;
+          padding: 0.6rem 1.2rem;
+          font-weight: 600;
+          cursor: pointer;
         }
       `}</style>
     </main>
