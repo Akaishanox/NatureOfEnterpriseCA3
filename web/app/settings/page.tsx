@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useLayoutEffect } from "react";
 import { translations } from "@/app/lib/translations";
 import { useLang } from "@/app/lib/useLang";
 
@@ -78,15 +78,21 @@ export default function SettingsPage() {
   const x = extraText[language] || extraText.en;
   const liveT = translations[language] || translations.en;
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const savedFont = localStorage.getItem("fontSize") || "16";
     const savedTheme = localStorage.getItem("theme") || "light";
     const savedLang = localStorage.getItem("language") || "en";
 
+    document.documentElement.style.fontSize = savedFont + "px";
+    document.documentElement.classList.toggle("dark-mode", savedTheme === "dark");
+    document.documentElement.setAttribute("lang", savedLang);
+
     setFontSize(Number(savedFont));
     setTheme(savedTheme);
     setLanguage(savedLang);
+  }, []);
 
+  useEffect(() => {
     return () => {
       const realFont = localStorage.getItem("fontSize") || "16";
       const realTheme = localStorage.getItem("theme") || "light";
@@ -127,8 +133,6 @@ export default function SettingsPage() {
 
   return (
     <div className="settings-page">
-      <p className="top-label">{liveT.accessibility}</p>
-
       <section className="settings-section">
         <h1 className="main-heading">🎨 {x.appearance}</h1>
 
@@ -213,12 +217,8 @@ export default function SettingsPage() {
           max-width: 760px;
           margin: 0 auto;
           padding: 5.5rem 1.5rem 3rem;
-        }
-
-        .top-label {
-          font-size: 0.95rem;
-          color: var(--text);
-          margin-bottom: 3rem;
+          background: var(--bg);
+          min-height: 100vh;
         }
 
         .settings-section {
@@ -230,6 +230,12 @@ export default function SettingsPage() {
           font-weight: 800;
           color: var(--text);
           margin-bottom: 0.8rem;
+          border-bottom: none !important;
+        }
+
+        .main-heading::after {
+          display: none !important;
+          content: none !important;
         }
 
         .section-desc {
