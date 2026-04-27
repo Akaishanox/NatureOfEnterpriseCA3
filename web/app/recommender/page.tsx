@@ -209,7 +209,6 @@ export default function RecommenderPage() {
   function handleRegister(title: string) {
     setPopup(title);
   }
-
   return (
     <main className="recommender-page">
       <div className="recommender-container">
