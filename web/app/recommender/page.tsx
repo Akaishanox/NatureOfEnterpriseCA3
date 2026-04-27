@@ -179,7 +179,7 @@ export default function RecommenderPage() {
               <p className="reason-text">
                 {t.recommendedBecause ||
                   "Recommended because it matches your interest in"}{" "}
-                <b>{t.categories[appliedCategory]}</b>
+                <b>{(t.categories as Record<string, string>)[appliedCategory]}</b>
               </p>
 
               <button
