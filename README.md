@@ -33,6 +33,8 @@ Open http://localhost:3000
 The application is deployed using Netlify and connected to a Github repository.
 Any changes pushed to the main branch automatically trigger a new deployment.
 
+URL Link: https://silver-croissant-0d3675.netlify.app/
+
 ## Build for Netlify
 - Build command: `npm run build`
 - Publish directory: `.next`
