@@ -69,7 +69,6 @@ export default function RecommenderPage() {
 
   return (
     <main className="events-page-fixed">
-      {/* SAME HEADER STYLE */}
       <h1 className="events-title">Campus Events Recommender</h1>
       <div className="events-line"></div>
 
@@ -78,9 +77,17 @@ export default function RecommenderPage() {
         Get recommended events based on your selected category.
       </p>
 
-      {/* CONTROL BOX */}
+      {/* ✨ FIXED CONTROL BOX */}
       <div className="recommender-controls">
-        <label>Interest category</label>
+        <div className="control-header">
+          <div className="control-icon">✨</div>
+          <div className="control-text">
+            <h3>Find events for you</h3>
+            <p>Select a category and get matching campus events.</p>
+          </div>
+        </div>
+
+        <label className="select-label">Interest category</label>
 
         <select
           className="recommender-select"
@@ -100,7 +107,6 @@ export default function RecommenderPage() {
         </button>
       </div>
 
-      {/* SAME GRID AS EVENTS */}
       <div className="events-grid-fixed">
         {recommendations.map((event: any) => {
           const eventTitle = getText(event.title, lang);
@@ -124,7 +130,8 @@ export default function RecommenderPage() {
               </p>
 
               <p className="reason-text">
-                Recommended because it matches your interest in <b>{appliedCategory}</b>
+                Recommended because it matches your interest in{" "}
+                <b>{appliedCategory}</b>
               </p>
 
               <button
@@ -149,7 +156,6 @@ export default function RecommenderPage() {
       )}
 
       <style>{`
-        /* SAME PAGE STYLE */
         .events-page-fixed {
           padding: 6rem 4rem 3rem;
           background: var(--bg);
@@ -174,31 +180,61 @@ export default function RecommenderPage() {
         .events-subtitle {
           font-size: 1.55rem;
           font-weight: 800;
-          color: var(--text);
           margin-bottom: 0.6rem;
         }
 
         .events-description {
           font-size: 1rem;
-          color: var(--text-muted);
           margin-bottom: 2rem;
         }
 
-        /* CONTROL BOX */
+        /* ✨ CONTROL BOX FIXED */
         .recommender-controls {
           background: var(--surface);
           border: 1px solid var(--border);
-          padding: 1.5rem;
-          border-radius: 10px;
-          max-width: 500px;
-          margin-bottom: 2.5rem;
+          padding: 2rem;
+          border-radius: 12px;
+          max-width: 800px;
+          margin: 0 auto 2.5rem;
+          box-shadow: var(--shadow);
+        }
+
+        .control-header {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          margin-bottom: 1.2rem;
+        }
+
+        .control-icon {
+          font-size: 1.6rem;
+          background: #eef5ff;
+          padding: 0.6rem;
+          border-radius: 8px;
+        }
+
+        .control-text h3 {
+          font-size: 1.2rem;
+          font-weight: 700;
+          margin-bottom: 0.2rem;
+        }
+
+        .control-text p {
+          font-size: 0.9rem;
+          color: var(--text-muted);
+        }
+
+        .select-label {
+          display: block;
+          font-weight: 600;
+          margin-top: 1rem;
         }
 
         .recommender-select {
           width: 100%;
-          padding: 0.8rem;
-          margin: 0.8rem 0;
-          border-radius: 6px;
+          padding: 0.85rem;
+          margin: 0.7rem 0 1rem;
+          border-radius: 8px;
           border: 1px solid var(--border);
         }
 
@@ -207,12 +243,12 @@ export default function RecommenderPage() {
           background: var(--primary);
           color: white;
           border: none;
-          border-radius: 6px;
-          padding: 0.8rem;
+          border-radius: 8px;
+          padding: 0.95rem;
+          font-weight: 600;
           cursor: pointer;
         }
 
-        /* SAME GRID */
         .events-grid-fixed {
           display: grid;
           grid-template-columns: 1fr 1fr;
@@ -221,7 +257,6 @@ export default function RecommenderPage() {
           margin: 0 auto;
         }
 
-        /* SAME CARD STYLE */
         .event-card-fixed {
           background: var(--surface);
           border: 1px solid var(--border);
@@ -274,7 +309,6 @@ export default function RecommenderPage() {
           padding: 0.8rem;
         }
 
-        /* POPUP */
         .popup-overlay {
           position: fixed;
           inset: 0;
