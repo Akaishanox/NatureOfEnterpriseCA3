@@ -24,8 +24,8 @@ const ICONS: Record<string, string> = {
 };
 
 export default function CanteenPage() {
-  const lang = useLang();
-  const t = translations[lang];
+  const lang = useLang() as keyof typeof translations;
+  const t = translations[lang] || translations.en;
 
   const [cart, setCart] = useState<number[]>([]);
 
@@ -57,14 +57,14 @@ export default function CanteenPage() {
                   {ICONS[item.name.en] || "🍽️"}
                 </div>
 
-                <h3>{item.name[lang]}</h3>
+                <h3>{item.name[lang] || item.name.en}</h3>
 
                 <div className="canteen-info">
-                  <p>{item.diet[lang]}</p>
+                  <p>{item.diet[lang] || item.diet.en}</p>
                 </div>
 
                 <p className="canteen-description-text">
-                  {item.description[lang]}
+                  {item.description[lang] || item.description.en}
                 </p>
 
                 <div className="canteen-card-bottom">
