@@ -17,6 +17,10 @@ export const translations = {
     chooseMenu: "Choose from our menu",
     addToOrder: "Add to Order",
 
+    cartItem: "item",
+    cartItems: "items",
+    clear: "Clear",
+
     settings: "Settings",
     accessibility: "Accessibility Options",
     fontSize: "Font Size",
@@ -105,6 +109,10 @@ export const translations = {
     menu: "Biachlár an Lae",
     chooseMenu: "Roghnaigh ónár mbiachlár",
     addToOrder: "Cuir leis an Ordú",
+
+    cartItem: "mír",
+    cartItems: "míreanna",
+    clear: "Glan",
 
     settings: "Socruithe",
     accessibility: "Roghanna Inrochtaineachta",
@@ -195,6 +203,10 @@ export const translations = {
     chooseMenu: "Elige del menú",
     addToOrder: "Añadir al Pedido",
 
+    cartItem: "artículo",
+    cartItems: "artículos",
+    clear: "Borrar",
+
     settings: "Configuración",
     accessibility: "Opciones de Accesibilidad",
     fontSize: "Tamaño de Fuente",
@@ -283,6 +295,10 @@ export const translations = {
     menu: "Menu du Jour",
     chooseMenu: "Choisissez du menu",
     addToOrder: "Ajouter à la commande",
+
+    cartItem: "article",
+    cartItems: "articles",
+    clear: "Effacer",
 
     settings: "Paramètres",
     accessibility: "Options d'accessibilité",
