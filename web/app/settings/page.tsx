@@ -196,7 +196,13 @@ export default function SettingsPage() {
           <h2>🌐 {liveT.language}</h2>
           <p>{x.languageDesc}</p>
 
-          <select value={language} onChange={(e) => setLanguage(e.target.value as "en" | "ga" | "es" | "fr")}>
+          <select
+            value={language}
+            onChange={(e) => {
+              const newLang = e.target.value as "en" | "ga" | "es" | "fr";
+              setLanguage(newLang);
+            }}
+          >
             <option value="en">English</option>
             <option value="ga">Irish</option>
             <option value="es">Spanish</option>
