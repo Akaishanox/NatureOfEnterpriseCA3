@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useLayoutEffect } from "react";
+import { useState, useEffect } from "react";
 import { translations } from "@/app/lib/translations";
 import { useLang } from "@/app/lib/useLang";
 
@@ -15,8 +15,6 @@ export default function SettingsPage() {
   const extraText: Record<string, any> = {
     en: {
       appearance: "Appearance",
-      accessibilityTitle: "Accessibility Options",
-      accessibilityDesc: "Adjust how the app looks and feels",
       fontDesc: "Adjust text size for better readability",
       themes: "Themes",
       themeDesc: "Choose your preferred color scheme",
@@ -32,8 +30,6 @@ export default function SettingsPage() {
     },
     ga: {
       appearance: "Cuma",
-      accessibilityTitle: "Roghanna Inrochtaineachta",
-      accessibilityDesc: "Coigeartaigh cuma na haipe",
       fontDesc: "Coigeartaigh méid an téacs le léamh níos fearr",
       themes: "Téamaí",
       themeDesc: "Roghnaigh do scéim dathanna",
@@ -49,8 +45,6 @@ export default function SettingsPage() {
     },
     es: {
       appearance: "Apariencia",
-      accessibilityTitle: "Opciones de Accesibilidad",
-      accessibilityDesc: "Ajusta cómo se ve la app",
       fontDesc: "Ajusta el tamaño del texto para leer mejor",
       themes: "Temas",
       themeDesc: "Elige tu esquema de color preferido",
@@ -66,8 +60,6 @@ export default function SettingsPage() {
     },
     fr: {
       appearance: "Apparence",
-      accessibilityTitle: "Options d'accessibilité",
-      accessibilityDesc: "Ajustez l'apparence de l'application",
       fontDesc: "Ajustez la taille du texte pour une meilleure lisibilité",
       themes: "Thèmes",
       themeDesc: "Choisissez votre thème préféré",
@@ -86,14 +78,10 @@ export default function SettingsPage() {
   const x = extraText[language] || extraText.en;
   const liveT = translations[language] || translations.en;
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const savedFont = localStorage.getItem("fontSize") || "16";
     const savedTheme = localStorage.getItem("theme") || "light";
     const savedLang = localStorage.getItem("language") || "en";
-
-    document.documentElement.style.fontSize = savedFont + "px";
-    document.documentElement.classList.toggle("dark-mode", savedTheme === "dark");
-    document.documentElement.setAttribute("lang", savedLang);
 
     setFontSize(Number(savedFont));
     setTheme(savedTheme);
@@ -101,36 +89,21 @@ export default function SettingsPage() {
   }, []);
 
   useEffect(() => {
-    return () => {
-      const realFont = localStorage.getItem("fontSize") || "16";
-      const realTheme = localStorage.getItem("theme") || "light";
-      const realLang = localStorage.getItem("language") || "en";
-
-      document.documentElement.style.fontSize = realFont + "px";
-      document.documentElement.classList.toggle("dark-mode", realTheme === "dark");
-      document.documentElement.setAttribute("lang", realLang);
-
-      localStorage.removeItem("previewLanguage");
-      window.dispatchEvent(new Event("languageChanged"));
-    };
-  }, []);
-
-  useEffect(() => {
-    document.documentElement.style.fontSize = fontSize + "px";
     document.documentElement.classList.toggle("dark-mode", theme === "dark");
     document.documentElement.setAttribute("lang", language);
 
     localStorage.setItem("previewLanguage", language);
     window.dispatchEvent(new Event("languageChanged"));
-  }, [fontSize, theme, language]);
+  }, [theme, language]);
+
+  useEffect(() => {
+    document.documentElement.style.setProperty("--app-font", fontSize + "px");
+  }, [fontSize]);
 
   const handleSave = () => {
     localStorage.setItem("fontSize", fontSize.toString());
     localStorage.setItem("theme", theme);
     localStorage.setItem("language", language);
-
-    localStorage.removeItem("previewLanguage");
-    window.dispatchEvent(new Event("languageChanged"));
 
     setSaved(true);
     setTimeout(() => setSaved(false), 2500);
@@ -138,15 +111,16 @@ export default function SettingsPage() {
 
   return (
     <div className="settings-page">
-      <section className="settings-section">
-        <h1 className="main-heading">{x.accessibilityTitle}</h1>
-        <div className="heading-line"></div>
-        <p className="section-desc">{x.accessibilityDesc}</p>
 
-        <h2 className="sub-heading">🎨 {x.appearance}</h2>
+      <h1 className="top-title">{liveT.accessibility}</h1>
+      <div className="top-line"></div>
+      <p className="top-desc">Adjust how the app looks and feels</p>
+
+      <section className="settings-section">
+        <h2 className="section-heading">🎨 {x.appearance}</h2>
 
         <div className="settings-card">
-          <h2>↕ {liveT.fontSize}</h2>
+          <h3>↕ {liveT.fontSize}</h3>
           <p>{x.fontDesc}</p>
 
           <div className="font-row">
@@ -163,7 +137,7 @@ export default function SettingsPage() {
         </div>
 
         <div className="settings-card">
-          <h2>◐ {x.themes}</h2>
+          <h3>◐ {x.themes}</h3>
           <p>{x.themeDesc}</p>
 
           <label className="radio-row">
@@ -189,11 +163,11 @@ export default function SettingsPage() {
       </section>
 
       <section className="settings-section">
-        <h1 className="main-heading">☷ {x.preferences}</h1>
+        <h2 className="section-heading">☷ {x.preferences}</h2>
         <p className="section-desc">{x.preferencesDesc}</p>
 
         <div className="settings-card">
-          <h2>🌐 {liveT.language}</h2>
+          <h3>🌐 {liveT.language}</h3>
           <p>{x.languageDesc}</p>
 
           <select value={language} onChange={(e) => setLanguage(e.target.value)}>
@@ -205,7 +179,7 @@ export default function SettingsPage() {
         </div>
 
         <div className="settings-card">
-          <h2>♧ {x.notifications}</h2>
+          <h3>♧ {x.notifications}</h3>
           <p>{x.notificationsDesc}</p>
 
           <div className="notification-row">
@@ -222,40 +196,40 @@ export default function SettingsPage() {
       {saved && <p className="saved-message">{x.saved}</p>}
 
       <style>{`
+        :root {
+          --app-font: 16px;
+        }
+
         .settings-page {
           max-width: 760px;
           margin: 0 auto;
-          padding: 5.5rem 1.5rem 3rem;
-          background: var(--bg);
-          min-height: 100vh;
+          padding: 7rem 1.5rem 3rem;
+          font-size: var(--app-font);
         }
 
-        .main-heading {
-          font-size: 2rem;
+        .top-title {
+          font-size: 1.8rem;
           font-weight: 800;
           color: var(--primary);
-          margin-bottom: 0.5rem;
         }
 
-        .heading-line {
-          width: 70px;
+        .top-line {
+          width: 60px;
           height: 6px;
           background: var(--primary);
           border-radius: 999px;
-          margin-bottom: 1rem;
+          margin: 0.6rem 0 1rem;
         }
 
-        .sub-heading {
+        .top-desc {
+          color: var(--text-muted);
+          margin-bottom: 2rem;
+        }
+
+        .section-heading {
           font-size: 1.3rem;
           font-weight: 800;
-          color: var(--text);
           margin-bottom: 1rem;
-        }
-
-        .section-desc {
-          color: var(--text-muted);
-          margin-bottom: 1.5rem;
-          font-size: 0.95rem;
         }
 
         .settings-card {
@@ -264,51 +238,31 @@ export default function SettingsPage() {
           border-radius: 10px;
           padding: 1.8rem;
           margin-bottom: 1.4rem;
-          box-shadow: var(--shadow);
-        }
-
-        .settings-card h2 {
-          font-size: 1.2rem;
-          font-weight: 800;
-          color: var(--primary);
-          margin-bottom: 0.55rem;
-        }
-
-        .settings-card p {
-          color: var(--text-muted);
-          font-size: 0.92rem;
-          margin-bottom: 1.4rem;
         }
 
         .font-row {
           display: grid;
           grid-template-columns: auto 1fr auto;
-          gap: 1.2rem;
+          gap: 1rem;
+          align-items: center;
         }
 
-        .big-a {
-          font-size: 1.45rem;
-        }
-
-        .radio-row {
+        .notification-row {
           display: flex;
-          gap: 0.65rem;
-          margin: 0.85rem 0;
+          justify-content: space-between;
+          align-items: center;
+        }
+
+        .notification-row input {
+          margin-left: auto;
+          width: 20px;
+          height: 20px;
         }
 
         .submit-settings {
           width: 260px;
-          margin: 1.8rem auto 0;
-          background: var(--primary);
-          color: white;
-          border: none;
-          border-radius: 9px;
-          padding: 1rem;
-        }
-
-        .saved-message {
-          text-align: center;
-          margin-top: 1rem;
+          margin: 2rem auto 0;
+          display: block;
         }
       `}</style>
     </div>
