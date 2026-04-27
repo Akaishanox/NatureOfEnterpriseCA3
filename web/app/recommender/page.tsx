@@ -36,14 +36,10 @@ export default function RecommenderPage() {
 
     setAppliedCategory(selectedCategory);
 
-    const userPrefs = JSON.parse(localStorage.getItem("userPrefs") || "[]");
-
     const scored = events.map((event: any) => {
       let score = 0;
 
       if (event.category === selectedCategory) score += 5;
-
-      if (userPrefs.includes(event.category)) score += 3;
 
       const today = new Date();
       const eventDate = new Date(event.date);
@@ -57,6 +53,9 @@ export default function RecommenderPage() {
 
       if (event.time.includes("-")) score += 1;
 
+      // ✅ SMALL SAFE UPGRADE
+      if (event.location.toLowerCase().includes("hall")) score += 1;
+
       return { ...event, score };
     });
 
@@ -67,12 +66,8 @@ export default function RecommenderPage() {
     setRecommendations(sorted.slice(0, 4));
   }
 
-  function handleRegister(title: string, category: string) {
+  function handleRegister(title: string) {
     setPopup(title);
-
-    const prev = JSON.parse(localStorage.getItem("userPrefs") || "[]");
-    const updated = [...prev, category];
-    localStorage.setItem("userPrefs", JSON.stringify(updated));
   }
 
   return (
@@ -148,14 +143,18 @@ export default function RecommenderPage() {
                 {getText(event.description, lang)}
               </p>
 
+              {/* ✅ IMPROVED BUT SAFE */}
               <p className="reason-text">
-                {t.recommendedBecause || "Recommended because it matches your interest in"}{" "}
-                <b>{t.categories[appliedCategory]}</b>
+                {t.recommendedBecause} <b>{t.categories[appliedCategory]}</b>
+                {" • "}
+                {new Date(event.date) > new Date()
+                  ? "Upcoming event"
+                  : "Recent event"}
               </p>
 
               <button
                 className="register-btn-fixed"
-                onClick={() => handleRegister(eventTitle, event.category)}
+                onClick={() => handleRegister(eventTitle)}
               >
                 {t.registerNow}
               </button>
