@@ -35,60 +35,6 @@ export default function RecommenderPage() {
         Academic: "Academic",
       },
     },
-    ga: {
-      title: "Moltóir Imeachtaí Campais",
-      subtitle: "Roghnaigh do spéis",
-      desc: "Faigh imeachtaí molta bunaithe ar do chatagóir roghnaithe.",
-      findTitle: "Aimsigh imeachtaí duit",
-      findDesc: "Roghnaigh catagóir agus faigh imeachtaí campais oiriúnacha.",
-      interest: "Catagóir spéise",
-      select: "Roghnaigh catagóir",
-      button: "Faigh Moltaí",
-      reason: "Moltar é seo mar go bhfuil sé ag teacht le do spéis i",
-      categories: {
-        Technology: "Teicneolaíocht",
-        Sports: "Spóirt",
-        Careers: "Gairmeacha",
-        Social: "Sóisialta",
-        Academic: "Acadúil",
-      },
-    },
-    es: {
-      title: "Recomendador de Eventos del Campus",
-      subtitle: "Elige tu interés",
-      desc: "Recibe eventos recomendados según la categoría seleccionada.",
-      findTitle: "Encuentra eventos para ti",
-      findDesc: "Selecciona una categoría y recibe eventos del campus relacionados.",
-      interest: "Categoría de interés",
-      select: "Selecciona una categoría",
-      button: "Obtener recomendaciones",
-      reason: "Recomendado porque coincide con tu interés en",
-      categories: {
-        Technology: "Tecnología",
-        Sports: "Deportes",
-        Careers: "Carreras",
-        Social: "Social",
-        Academic: "Académico",
-      },
-    },
-    fr: {
-      title: "Recommandateur d’Événements du Campus",
-      subtitle: "Choisissez votre intérêt",
-      desc: "Recevez des événements recommandés selon la catégorie choisie.",
-      findTitle: "Trouvez des événements pour vous",
-      findDesc: "Sélectionnez une catégorie et obtenez des événements du campus.",
-      interest: "Catégorie d’intérêt",
-      select: "Sélectionnez une catégorie",
-      button: "Obtenir des recommandations",
-      reason: "Recommandé car cela correspond à votre intérêt pour",
-      categories: {
-        Technology: "Technologie",
-        Sports: "Sport",
-        Careers: "Carrières",
-        Social: "Social",
-        Academic: "Académique",
-      },
-    },
   };
 
   const x = pageText[lang] || pageText.en;
@@ -109,28 +55,10 @@ export default function RecommenderPage() {
     Academic: "📘",
   };
 
-  const popupMessages: Record<
-    string,
-    { title: string; message: string; ok: string }
-  > = {
+  const popupMessages: Record<string, { title: string; message: string; ok: string }> = {
     en: {
       title: "Registered",
       message: "You have now been registered for",
-      ok: "OK",
-    },
-    ga: {
-      title: "Cláraithe",
-      message: "Tá tú cláraithe anois do",
-      ok: "Ceart go leor",
-    },
-    es: {
-      title: "Registrado",
-      message: "Ahora estás registrado para",
-      ok: "OK",
-    },
-    fr: {
-      title: "Inscrit",
-      message: "Vous êtes maintenant inscrit à",
       ok: "OK",
     },
   };
@@ -139,76 +67,46 @@ export default function RecommenderPage() {
 
   function getRecommendations() {
     setLoading(true);
-    
+
     setTimeout(() => {
-      
+      setAppliedCategory(selectedCategory);
+
       const scored = events.map((event: any) => {
         let score = 0;
-        
+
         if (event.category === selectedCategory) {
           score += 5;
         }
-        
+
         const today = new Date();
         const eventDate = new Date(event.date);
         const diffDays = Math.abs(
           (eventDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)
         );
-        
+
         if (diffDays < 7) score += 2;
         else if (diffDays < 14) score += 1;
-        
+
         if (event.time.includes("-")) {
           score += 1;
         }
-        
+
         return { ...event, score };
       });
-      
+
       const sorted = scored
         .filter((e) => e.score > 0)
         .sort((a, b) => b.score - a.score);
-      
+
       setRecommendations(sorted.slice(0, 4));
       setLoading(false);
     }, 500);
   }
-    setAppliedCategory(selectedCategory);
-    
-    const scored = events.map((event: any) => {
-    let score = 0;
-
-    // main feature (category match)
-    if (event.category === selectedCategory) {
-      score += 5;
-    }
-
-    // extra feature 1: closer dates get higher score
-    const today = new Date();
-    const eventDate = new Date(event.date);
-    const diffDays = Math.abs((eventDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
-
-    if (diffDays < 7) score += 2;
-    else if (diffDays < 14) score += 1;
-
-    // extra feature 2: longer events = slightly more value
-    if (event.time.includes("-")) {
-      score += 1;
-    }
-
-    return { ...event, score };
-  });
-
-  const sorted = scored
-    .filter((e) => e.score > 0)
-    .sort((a, b) => b.score - a.score);
-
-  setRecommendations(sorted.slice(0, 4));
-}
 
   function handleRegister(title: string) {
     setPopup(title);
   }
+
   return (
     <main className="recommender-page">
       <div className="recommender-container">
@@ -250,13 +148,19 @@ export default function RecommenderPage() {
             {x.button}
           </button>
         </div>
-        
+
         {loading && (
-      <p style={{ textAlign: "center", marginTop: "1rem" }}>
-        Loading recommendations...
-      </p>
-    )}
-        
+          <p style={{ textAlign: "center", marginTop: "1rem" }}>
+            Loading recommendations...
+          </p>
+        )}
+
+        {!loading && recommendations.length === 0 && appliedCategory && (
+          <p style={{ textAlign: "center", marginTop: "2rem", color: "var(--text-muted)" }}>
+            No events found for this category.
+          </p>
+        )}
+
         <div className="recommender-grid">
           {recommendations.map((event: any) => {
             const eventTitle = getText(event.title, lang);
@@ -266,11 +170,6 @@ export default function RecommenderPage() {
                 <div className="recommender-icon">
                   {ICONS[event.category] || "📅"}
                 </div>
-                {recommendations.length === 0 && appliedCategory && (
-                <p style={{ textAlign: "center", marginTop: "2rem", color: "var(--text-muted)" }}>
-                  No events found for this category.
-                </p>
-              )}
 
                 <h3>{eventTitle}</h3>
 
@@ -287,6 +186,7 @@ export default function RecommenderPage() {
                 <p className="reason-text">
                   {x.reason} <b>{x.categories[appliedCategory]}</b>
                 </p>
+
                 <p style={{ fontSize: "0.8rem", color: "var(--text-muted)" }}>
                   Score: {event.score}
                 </p>
@@ -314,253 +214,6 @@ export default function RecommenderPage() {
           </div>
         </div>
       )}
-
-      <style>{`
-        .recommender-page {
-          padding: 6rem 4rem 3rem;
-          background: var(--bg);
-          min-height: 100vh;
-        }
-
-        .recommender-container {
-          max-width: 1450px;
-          margin: 0 auto;
-        }
-
-        .recommender-title {
-          font-size: 2rem;
-          font-weight: 800;
-          color: var(--primary);
-          margin-bottom: 0.8rem;
-        }
-
-        .recommender-line {
-          width: 70px;
-          height: 8px;
-          background: var(--primary);
-          border-radius: 999px;
-          margin-bottom: 2.8rem;
-        }
-
-        .recommender-subtitle {
-          font-size: 1.55rem;
-          font-weight: 800;
-          color: var(--text);
-          margin-bottom: 0.6rem;
-        }
-
-        .recommender-description {
-          font-size: 1rem;
-          color: var(--text-muted);
-          margin-bottom: 2rem;
-        }
-
-        .recommender-controls {
-          width: 100%;
-          max-width: 1000px;
-          margin: 3.5rem auto 3rem;
-          background: var(--surface);
-          border: 1px solid var(--border);
-          border-radius: 10px;
-          padding: 2rem;
-          box-shadow: var(--shadow);
-        }
-
-        .control-header {
-          display: flex;
-          align-items: center;
-          gap: 1rem;
-          margin-bottom: 1.4rem;
-          padding-bottom: 1.2rem;
-          border-bottom: 1px solid var(--border);
-        }
-
-        .control-icon {
-          width: 48px;
-          height: 48px;
-          border-radius: 12px;
-          background: var(--primary);
-          color: white;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 1.5rem;
-          flex-shrink: 0;
-        }
-
-        .control-header h3 {
-          color: var(--text);
-          font-size: 1.15rem;
-          font-weight: 800;
-          margin-bottom: 0.25rem;
-        }
-
-        .control-header p {
-          color: var(--text-muted);
-          font-size: 0.9rem;
-        }
-
-        .select-label {
-          display: block;
-          color: var(--text);
-          font-weight: 700;
-          font-size: 0.9rem;
-          margin-bottom: 0.6rem;
-        }
-
-        .recommender-select {
-        font-family: var(--font);
-          width: 100%;
-          padding: 0.85rem;
-          border: 1px solid var(--border);
-          border-radius: 7px;
-          background: var(--surface);
-          color: var(--text);
-          font-size: 1rem;
-          margin-bottom: 1rem;
-          outline: none;
-        }
-
-        .recommender-select:focus {
-          border-color: var(--primary);
-        }
-
-        .recommend-btn,
-        .register-btn-fixed {
-        font-family: var(--font);
-        font-weight: 600;
-          width: 100%;
-          background: var(--primary);
-          color: white;
-          border: none;
-          border-radius: 6px;
-          padding: 0.8rem 1rem;
-          font-size: 1rem;
-          cursor: pointer;
-        }
-
-        .recommend-btn:hover,
-        .register-btn-fixed:hover {
-          background: var(--primary-dark);
-        }
-        .recommend-btn:disabled {
-        opacity: 0.5;
-        cursor: not-allowed;
-        }
-
-        .recommender-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 2.4rem 8rem;
-        max-width: 1450px;
-        margin: 0 auto;
-        }
-
-        .recommender-card {
-          background: var(--surface);
-          border: 1px solid var(--border);
-          border-radius: 10px;
-          padding: 2rem 1.7rem 1.7rem;
-          min-height: 300px;
-          box-shadow: var(--shadow);
-          display: flex;
-          flex-direction: column;
-        }
-
-        .recommender-icon {
-          font-size: 2.5rem;
-          text-align: center;
-          margin-bottom: 1rem;
-        }
-
-        .recommender-card h3 {
-          text-align: center;
-          font-size: 1.45rem;
-          font-weight: 800;
-          color: var(--text);
-          margin-bottom: 1.6rem;
-        }
-
-        .recommender-info {
-          margin-bottom: 1rem;
-        }
-
-        .recommender-info p {
-          font-size: 0.95rem;
-          color: var(--text);
-          margin-bottom: 0.7rem;
-        }
-
-        .recommender-card-text {
-          font-size: 0.95rem;
-          color: var(--text);
-          line-height: 1.5;
-          margin-bottom: 1.4rem;
-          flex: 1;
-        }
-
-        .reason-text {
-          font-size: 0.9rem;
-          color: var(--text-muted);
-          margin-bottom: 1rem;
-        }
-
-        .popup-overlay {
-          position: fixed;
-          inset: 0;
-          background: rgba(0, 0, 0, 0.35);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          z-index: 9999;
-        }
-
-        .popup-box {
-          background: var(--surface);
-          color: var(--text);
-          width: 360px;
-          max-width: 90%;
-          padding: 2rem;
-          border-radius: 14px;
-          box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
-          text-align: center;
-          border: 1px solid var(--border);
-        }
-
-        .popup-box h2 {
-          margin-bottom: 0.8rem;
-          color: var(--primary);
-        }
-
-        .popup-box p {
-          margin-bottom: 1.4rem;
-          color: var(--text);
-        }
-
-        .popup-box button {
-          background: var(--primary);
-          color: white;
-          border: none;
-          border-radius: 6px;
-          padding: 0.7rem 1.5rem;
-          cursor: pointer;
-        }
-
-        @media (max-width: 900px) {
-          .recommender-page {
-            padding: 5rem 1.5rem 2rem;
-          }
-
-          .recommender-grid {
-            grid-template-columns: 1fr;
-            gap: 1.5rem;
-          }
-
-          .recommender-controls {
-            max-width: 100%;
-          }
-        }
-      `}</style>
     </main>
   );
 }
