@@ -89,9 +89,9 @@ export default function CanteenPage() {
 
       {cart.length > 0 && (
         <div className="cart-bar">
-          🛒 {cart.length} item{cart.length !== 1 ? "s" : ""} · €
+          🛒 {cart.length} {cart.length === 1 ? t.cartItem : t.cartItems} · €
           {total.toFixed(2)}
-          <button onClick={() => setCart([])}>Clear</button>
+          <button onClick={() => setCart([])}>{t.clear}</button>
         </div>
       )}
 
