@@ -208,10 +208,12 @@ export default function EventsPage() {
           background: var(--primary-dark);
         }
 
+        /* ✅ ONLY CHANGE IS HERE */
         .popup-overlay {
           position: fixed;
           inset: 0;
-          background: rgba(0, 0, 0, 0.35);
+          background: rgba(0, 0, 0, 0.6);
+          backdrop-filter: blur(6px);
           display: flex;
           align-items: center;
           justify-content: center;
