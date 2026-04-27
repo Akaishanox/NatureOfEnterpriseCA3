@@ -36,10 +36,14 @@ export default function RecommenderPage() {
 
     setAppliedCategory(selectedCategory);
 
+    const userPrefs = JSON.parse(localStorage.getItem("userPrefs") || "[]");
+
     const scored = events.map((event: any) => {
       let score = 0;
 
       if (event.category === selectedCategory) score += 5;
+
+      if (userPrefs.includes(event.category)) score += 3;
 
       const today = new Date();
       const eventDate = new Date(event.date);
@@ -63,8 +67,12 @@ export default function RecommenderPage() {
     setRecommendations(sorted.slice(0, 4));
   }
 
-  function handleRegister(title: string) {
+  function handleRegister(title: string, category: string) {
     setPopup(title);
+
+    const prev = JSON.parse(localStorage.getItem("userPrefs") || "[]");
+    const updated = [...prev, category];
+    localStorage.setItem("userPrefs", JSON.stringify(updated));
   }
 
   return (
@@ -147,7 +155,7 @@ export default function RecommenderPage() {
 
               <button
                 className="register-btn-fixed"
-                onClick={() => handleRegister(eventTitle)}
+                onClick={() => handleRegister(eventTitle, event.category)}
               >
                 {t.registerNow}
               </button>
@@ -214,55 +222,6 @@ export default function RecommenderPage() {
           box-shadow: var(--shadow);
         }
 
-        .control-header {
-          display: flex;
-          align-items: center;
-          gap: 1rem;
-          margin-bottom: 1.2rem;
-        }
-
-        .control-icon {
-          font-size: 1.6rem;
-          background: var(--primary-light);
-          padding: 0.6rem;
-          border-radius: 8px;
-        }
-
-        .control-text h3 {
-          font-size: 1.2rem;
-          font-weight: 700;
-        }
-
-        .control-text p {
-          font-size: 0.9rem;
-          color: var(--text-muted);
-        }
-
-        .select-label {
-          display: block;
-          font-weight: 600;
-          margin-top: 1rem;
-        }
-
-        .recommender-select {
-          width: 100%;
-          padding: 0.85rem;
-          margin: 0.7rem 0 1rem;
-          border-radius: 8px;
-          border: 1px solid var(--border);
-        }
-
-        .recommend-btn {
-          width: 100%;
-          background: var(--primary);
-          color: white;
-          border: none;
-          border-radius: 8px;
-          padding: 0.95rem;
-          font-weight: 600;
-          cursor: pointer;
-        }
-
         .events-grid-fixed {
           display: grid;
           grid-template-columns: 1fr 1fr;
@@ -282,49 +241,6 @@ export default function RecommenderPage() {
           flex-direction: column;
         }
 
-        .event-icon-fixed {
-          font-size: 2.5rem;
-          text-align: center;
-          margin-bottom: 1rem;
-        }
-
-        .event-card-fixed h3 {
-          text-align: center;
-          font-size: 1.45rem;
-          font-weight: 800;
-          margin-bottom: 1.6rem;
-        }
-
-        .event-info p {
-          font-size: 0.95rem;
-          margin-bottom: 0.7rem;
-        }
-
-        .event-description-text {
-          font-size: 0.95rem;
-          margin-bottom: 1.2rem;
-          flex: 1;
-        }
-
-        .reason-text {
-          font-size: 0.85rem;
-          background: var(--primary-light);
-          color: var(--primary);
-          padding: 6px;
-          border-radius: 6px;
-          margin-bottom: 1rem;
-        }
-
-        .register-btn-fixed {
-          width: 100%;
-          background: var(--primary);
-          color: white;
-          border: none;
-          border-radius: 6px;
-          padding: 0.8rem;
-        }
-
-        /* ✅ ONLY FIXED PART */
         .popup-overlay {
           position: fixed;
           inset: 0;
@@ -345,29 +261,6 @@ export default function RecommenderPage() {
           box-shadow: var(--shadow);
           max-width: 400px;
           width: 90%;
-        }
-
-        .popup-box h2 {
-          font-size: 1.8rem;
-          font-weight: 800;
-          color: var(--primary);
-          margin-bottom: 0.5rem;
-        }
-
-        .popup-box p {
-          font-size: 1rem;
-          color: var(--text);
-          margin-bottom: 1.5rem;
-        }
-
-        .popup-box button {
-          background: var(--primary);
-          color: white;
-          border: none;
-          border-radius: 8px;
-          padding: 0.6rem 1.2rem;
-          font-weight: 600;
-          cursor: pointer;
         }
       `}</style>
     </main>
