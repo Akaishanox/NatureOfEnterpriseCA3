@@ -16,29 +16,6 @@ export default function RecommenderPage() {
   const lang = useLang();
   const t = translations[lang] || translations.en;
 
-  const pageText: Record<string, any> = {
-    en: {
-      title: "Campus Events Recommender",
-      subtitle: "Choose your interest",
-      desc: "Get recommended events based on your selected category.",
-      findTitle: "Find events for you",
-      findDesc: "Select a category and get matching campus events.",
-      interest: "Interest category",
-      select: "Select category",
-      button: "Get Recommendations",
-      reason: "Recommended because it matches your interest in",
-      categories: {
-        Technology: "Technology",
-        Sports: "Sports",
-        Careers: "Careers",
-        Social: "Social",
-        Academic: "Academic",
-      },
-    },
-  };
-
-  const x = pageText[lang] || pageText.en;
-
   const [selectedCategory, setSelectedCategory] = useState("");
   const [recommendations, setRecommendations] = useState<any[]>([]);
   const [popup, setPopup] = useState("");
@@ -68,7 +45,7 @@ export default function RecommenderPage() {
       const eventDate = new Date(event.date);
       const diffDays = Math.abs(
         (eventDate.getTime() - today.getTime()) /
-          (1000 * 60 * 60 * 24)
+        (1000 * 60 * 60 * 24)
       );
 
       if (diffDays < 7) score += 2;
@@ -91,242 +68,226 @@ export default function RecommenderPage() {
   }
 
   return (
-    <main className="recommender-page">
-      <div className="recommender-container">
-        <h1 className="recommender-title">{x.title}</h1>
-        <div className="recommender-line"></div>
+    <main className="events-page-fixed">
+      {/* SAME HEADER STYLE */}
+      <h1 className="events-title">Campus Events Recommender</h1>
+      <div className="events-line"></div>
 
-        <h2 className="recommender-subtitle">{x.subtitle}</h2>
-        <p className="recommender-description">{x.desc}</p>
+      <h2 className="events-subtitle">Choose your interest</h2>
+      <p className="events-description">
+        Get recommended events based on your selected category.
+      </p>
 
-        <div className="recommender-controls">
-          <div className="control-header">
-            <span className="sparkle">✨</span>
-            <div>
-              <h3>{x.findTitle}</h3>
-              <p>{x.findDesc}</p>
-            </div>
-          </div>
+      {/* CONTROL BOX */}
+      <div className="recommender-controls">
+        <label>Interest category</label>
 
-          <label className="select-label">{x.interest}</label>
+        <select
+          className="recommender-select"
+          value={selectedCategory}
+          onChange={(e) => setSelectedCategory(e.target.value)}
+        >
+          <option value="">Select category</option>
+          {categories.map((cat) => (
+            <option key={cat} value={cat}>
+              {cat}
+            </option>
+          ))}
+        </select>
 
-          <select
-            className="recommender-select"
-            value={selectedCategory}
-            onChange={(e) => setSelectedCategory(e.target.value)}
-          >
-            <option value="">{x.select}</option>
-            {categories.map((cat) => (
-              <option key={cat} value={cat}>
-                {x.categories[cat]}
-              </option>
-            ))}
-          </select>
+        <button className="recommend-btn" onClick={getRecommendations}>
+          Get Recommendations
+        </button>
+      </div>
 
-          <button
-            className="recommend-btn"
-            onClick={getRecommendations}
-            disabled={!selectedCategory}
-          >
-            {x.button}
-          </button>
-        </div>
+      {/* SAME GRID AS EVENTS */}
+      <div className="events-grid-fixed">
+        {recommendations.map((event: any) => {
+          const eventTitle = getText(event.title, lang);
 
-        <div className="recommender-grid">
-          {recommendations.map((event: any) => {
-            const eventTitle = getText(event.title, lang);
-
-            return (
-              <div className="recommender-card" key={event.id}>
-                <div className="card-icon">
-                  {ICONS[event.category] || "📅"}
-                </div>
-
-                <h3 className="card-title">{eventTitle}</h3>
-
-                <div className="card-info">
-                  <p>🗓️ {event.date}</p>
-                  <p>🕘 {event.time}</p>
-                  <p>📍 {getText(event.location, lang)}</p>
-                </div>
-
-                <p className="card-desc">
-                  {getText(event.description, lang)}
-                </p>
-
-                <p className="reason-text">
-                  {x.reason} <b>{x.categories[appliedCategory]}</b>
-                </p>
-
-                <button
-                  className="register-btn"
-                  onClick={() => handleRegister(eventTitle)}
-                >
-                  Register Now
-                </button>
+          return (
+            <div className="event-card-fixed" key={event.id}>
+              <div className="event-icon-fixed">
+                {ICONS[event.category] || "📅"}
               </div>
-            );
-          })}
-        </div>
+
+              <h3>{eventTitle}</h3>
+
+              <div className="event-info">
+                <p>🗓️ {t.date}: {event.date}</p>
+                <p>🕘 {t.time}: {event.time}</p>
+                <p>📍 {t.location}: {getText(event.location, lang)}</p>
+              </div>
+
+              <p className="event-description-text">
+                {getText(event.description, lang)}
+              </p>
+
+              <p className="reason-text">
+                Recommended because it matches your interest in <b>{appliedCategory}</b>
+              </p>
+
+              <button
+                className="register-btn-fixed"
+                onClick={() => handleRegister(eventTitle)}
+              >
+                {t.registerNow}
+              </button>
+            </div>
+          );
+        })}
       </div>
 
       {popup && (
         <div className="popup-overlay">
           <div className="popup-box">
             <h2>Registered</h2>
-            <p>
-              You have now been registered for <b>{popup}</b>.
-            </p>
-            <button
-              className="popup-close-btn"
-              onClick={() => setPopup("")}
-            >
-              OK
-            </button>
+            <p>You have now been registered for {popup}.</p>
+            <button onClick={() => setPopup("")}>OK</button>
           </div>
         </div>
       )}
 
-      <style jsx>{`
-        .recommender-page {
-          padding: 6rem 3rem;
-          background: #f5f7fb;
+      <style>{`
+        /* SAME PAGE STYLE */
+        .events-page-fixed {
+          padding: 6rem 4rem 3rem;
+          background: var(--bg);
           min-height: 100vh;
         }
 
-        .recommender-container {
-          max-width: 1200px;
-          margin: 0 auto;
-        }
-
-        .recommender-title {
-          font-size: 2.5rem;
+        .events-title {
+          font-size: 2rem;
           font-weight: 800;
-          color: #1d4ed8;
+          color: var(--primary);
+          margin-bottom: 0.8rem;
         }
 
-        .recommender-line {
-          width: 60px;
-          height: 4px;
-          background: #3b82f6;
-          margin: 10px 0 25px;
-          border-radius: 2px;
+        .events-line {
+          width: 70px;
+          height: 8px;
+          background: var(--primary);
+          border-radius: 999px;
+          margin-bottom: 2.8rem;
         }
 
-        .recommender-subtitle {
-          font-size: 1.4rem;
-          font-weight: 700;
+        .events-subtitle {
+          font-size: 1.55rem;
+          font-weight: 800;
+          color: var(--text);
+          margin-bottom: 0.6rem;
         }
 
-        .recommender-description {
-          color: #555;
+        .events-description {
+          font-size: 1rem;
+          color: var(--text-muted);
           margin-bottom: 2rem;
         }
 
+        /* CONTROL BOX */
         .recommender-controls {
-          background: white;
-          padding: 2rem;
-          border-radius: 14px;
-          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-          margin-bottom: 3rem;
-        }
-
-        .control-header {
-          display: flex;
-          gap: 12px;
-          align-items: center;
-          margin-bottom: 1rem;
-        }
-
-        .sparkle {
-          font-size: 1.5rem;
+          background: var(--surface);
+          border: 1px solid var(--border);
+          padding: 1.5rem;
+          border-radius: 10px;
+          max-width: 500px;
+          margin-bottom: 2.5rem;
         }
 
         .recommender-select {
           width: 100%;
-          padding: 0.9rem;
-          margin: 1rem 0;
-          border-radius: 8px;
-          border: 1px solid #ddd;
+          padding: 0.8rem;
+          margin: 0.8rem 0;
+          border-radius: 6px;
+          border: 1px solid var(--border);
         }
 
         .recommend-btn {
           width: 100%;
-          padding: 1rem;
-          background: linear-gradient(90deg, #3b82f6, #2563eb);
+          background: var(--primary);
           color: white;
-          border-radius: 8px;
-          font-weight: 600;
           border: none;
+          border-radius: 6px;
+          padding: 0.8rem;
+          cursor: pointer;
         }
 
-        .recommender-grid {
+        /* SAME GRID */
+        .events-grid-fixed {
           display: grid;
-          grid-template-columns: repeat(2, 1fr);
-          gap: 2rem;
+          grid-template-columns: 1fr 1fr;
+          gap: 2.4rem 8rem;
+          max-width: 1450px;
+          margin: 0 auto;
         }
 
-        .recommender-card {
-          background: white;
-          padding: 1.8rem;
-          border-radius: 14px;
-          box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+        /* SAME CARD STYLE */
+        .event-card-fixed {
+          background: var(--surface);
+          border: 1px solid var(--border);
+          border-radius: 10px;
+          padding: 2rem 1.7rem 1.7rem;
+          min-height: 300px;
+          box-shadow: var(--shadow);
+          display: flex;
+          flex-direction: column;
+        }
+
+        .event-icon-fixed {
+          font-size: 2.5rem;
           text-align: center;
+          margin-bottom: 1rem;
         }
 
-        .card-icon {
-          font-size: 2rem;
-          margin-bottom: 10px;
+        .event-card-fixed h3 {
+          text-align: center;
+          font-size: 1.45rem;
+          font-weight: 800;
+          margin-bottom: 1.6rem;
         }
 
-        .card-title {
-          font-size: 1.2rem;
-          font-weight: 700;
-          margin-bottom: 10px;
+        .event-info p {
+          font-size: 0.95rem;
+          margin-bottom: 0.7rem;
         }
 
-        .card-info {
-          font-size: 0.9rem;
-          color: #444;
-          margin-bottom: 10px;
-        }
-
-        .card-desc {
-          font-size: 0.9rem;
-          color: #666;
-          margin-bottom: 10px;
+        .event-description-text {
+          font-size: 0.95rem;
+          margin-bottom: 1.2rem;
+          flex: 1;
         }
 
         .reason-text {
+          font-size: 0.85rem;
           background: #eef5ff;
-          padding: 8px;
+          padding: 6px;
           border-radius: 6px;
-          font-size: 0.8rem;
-          margin-bottom: 12px;
+          margin-bottom: 1rem;
         }
 
-        .register-btn {
+        .register-btn-fixed {
           width: 100%;
-          padding: 0.7rem;
-          background: linear-gradient(90deg, #3b82f6, #2563eb);
+          background: var(--primary);
           color: white;
-          border-radius: 6px;
           border: none;
+          border-radius: 6px;
+          padding: 0.8rem;
         }
 
+        /* POPUP */
         .popup-overlay {
           position: fixed;
           inset: 0;
-          background: rgba(0, 0, 0, 0.5);
+          background: rgba(0,0,0,0.35);
           display: flex;
-          justify-content: center;
           align-items: center;
+          justify-content: center;
         }
 
         .popup-box {
-          background: white;
+          background: var(--surface);
           padding: 2rem;
-          border-radius: 12px;
+          border-radius: 14px;
           text-align: center;
         }
       `}</style>
